@@ -1,6 +1,7 @@
 package mars.client;
 
 import mars.shared.FieldVerifier;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -13,6 +14,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -39,18 +41,20 @@ public class MarsProject implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		final Button sendButton = new Button("Send");
+		final Button submitButton = new Button("Submit");
 		final TextBox nameField = new TextBox();
-		nameField.setText("GWT User");
+		final PasswordTextBox passwordField = new PasswordTextBox();
+		nameField.setText("Mars User");
 		final Label errorLabel = new Label();
 
 		// We can add style names to widgets
-		sendButton.addStyleName("sendButton");
+		submitButton.addStyleName("submitButton");
 
-		// Add the nameField and sendButton to the RootPanel
+		// Add the nameField and submitButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
 		RootPanel.get("nameFieldContainer").add(nameField);
-		RootPanel.get("sendButtonContainer").add(sendButton);
+		RootPanel.get("submitButtonContainer").add(submitButton);
+		RootPanel.get("passwordFieldContainer").add(passwordField);
 		RootPanel.get("errorLabelContainer").add(errorLabel);
 
 		// Focus the cursor on the name field when the app loads
@@ -80,8 +84,8 @@ public class MarsProject implements EntryPoint {
 		closeButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				dialogBox.hide();
-				sendButton.setEnabled(true);
-				sendButton.setFocus(true);
+				submitButton.setEnabled(true);
+				submitButton.setFocus(true);
 			}
 		});
 
@@ -116,7 +120,7 @@ public class MarsProject implements EntryPoint {
 				}
 
 				// Then, we send the input to the server.
-				sendButton.setEnabled(false);
+				submitButton.setEnabled(false);
 				textToServerLabel.setText(textToServer);
 				serverResponseLabel.setText("");
 				greetingService.greetServer(textToServer,
@@ -146,7 +150,7 @@ public class MarsProject implements EntryPoint {
 
 		// Add a handler to send the name to the server
 		MyHandler handler = new MyHandler();
-		sendButton.addClickHandler(handler);
+		submitButton.addClickHandler(handler);
 		nameField.addKeyUpHandler(handler);
 	}
 }
