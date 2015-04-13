@@ -79,11 +79,7 @@ public class MarsProject implements EntryPoint {
 				errorLabel.setText("");
 				String nameToServer = nameField.getText();
 				String passwordToServer = passwordField.getText();
-				/*
-				if (!FieldVerifier.isValidName(nameToServer)) {
-					errorLabel.setText("Please enter at least four characters");
-					return;
-				} */
+
 
 				// Then, we send the input to the server.
 				submitButton.setEnabled(false);
