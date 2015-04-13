@@ -73,7 +73,7 @@ public class MarsProject implements EntryPoint {
 				dialogVPanel.addStyleName("dialogVPanel");
 				dialogVPanel.add(new HTML("<b>Sending name to the server:</b>"));
 				dialogVPanel.add(nameToServerLabel);
-				dialogVPanel.add(new HTML("<b>Sending password to the server:</b>"));
+				dialogVPanel.add(new HTML("<br><b>Sending password to the server:</b>"));
 				dialogVPanel.add(passwordToServerLabel);
 				dialogVPanel.add(new HTML("<br><b>Server replies:</b>"));
 				dialogVPanel.add(serverResponseLabel);
