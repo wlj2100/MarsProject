@@ -20,6 +20,12 @@ public class Module {
     	this.xcoord=xcoord;
     	this.ycoord=xcoord;
     }
+    
+    public String returnType() {
+    	//TODO
+    	return null;
+    }
+    
     @Override
     /*
      * (non-Javadoc)
