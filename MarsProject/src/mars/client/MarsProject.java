@@ -146,8 +146,7 @@ public class MarsProject implements EntryPoint {
 			}
 		}
 		// Add a handler to send the name to the server
-		// kyle hi
-		// hey liangji
+
 		MyHandler handler = new MyHandler();
 		submitButton.addClickHandler(handler);
 		nameField.addKeyUpHandler(handler);
