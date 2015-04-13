@@ -1,5 +1,9 @@
 package mars.client;
 
+/**
+ * @author Liangji
+ *
+ */
 public class Module {
 	// module properties
     int code;
@@ -15,5 +19,16 @@ public class Module {
     	this.turns=turns;
     	this.xcoord=xcoord;
     	this.ycoord=xcoord;
+    }
+    @Override
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#toString()
+     * "code:1,status:\"undamaged\",turns:0,X:5,Y:5"
+     * "{code:1,status:\"undamaged\",turns:0,X:5,Y:5},"
+     */
+    public String toString(){
+		return status;
+    	// todo
     }
 }
