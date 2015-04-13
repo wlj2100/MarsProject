@@ -12,6 +12,10 @@ public class Module {
     int xcoord;
     int ycoord;
     // constructor
+    public Module() {
+    	super();
+    	return;
+    }
     public Module(int code, String status, int turns, int xcoord, int ycoord) {
     	super();
     	this.code=code;
@@ -20,7 +24,25 @@ public class Module {
     	this.xcoord=xcoord;
     	this.ycoord=xcoord;
     }
-    
+    public Module(String moduleString) {
+    	//TODO
+    }
+    //mutator
+    public void setCode(int code) {
+    	this.code=code;
+    }
+    public void setStatus(String status) {
+    	this.status=status;
+    }
+    public void setTurns(int turns) {
+    	this.turns=turns;
+    }
+    public void setXcoord(int xcoord) {
+    	this.xcoord=xcoord;
+    }
+    public void setYcoord(int ycoord) {
+    	this.ycoord=ycoord;
+    }
     public String returnType() {
     	//TODO
     	return null;
