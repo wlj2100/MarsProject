@@ -10,13 +10,17 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class GreetingServiceImpl extends RemoteServiceServlet implements
 		GreetingService {
 
-	public String greetServer(String input1, String input2) throws IllegalArgumentException {
+	public String greetServer(String name, String password) throws IllegalArgumentException {
 
 		// Escape data from the client to avoid cross-site script vulnerabilities.
-		input1 = escapeHtml(input1);
-		input2 = escapeHtml(input2);
-
-		return "Hello, user: " + input1 + "!<br><br>your password is: " + input2;
+		name = escapeHtml(name);
+		password = escapeHtml(password);
+		// the user name is MarsUser
+		if (name=="Mars User"&& password=="123") {
+            return "Hello, user: " + name + "<br><br>your password is: " + password;
+		} else {
+			return "bad username or password!";
+		}
 	}
 
 	/**

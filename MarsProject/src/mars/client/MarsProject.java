@@ -42,7 +42,7 @@ public class MarsProject implements EntryPoint {
 		final Button submitButton = new Button("Submit");
 		final TextBox nameField = new TextBox();
 		final PasswordTextBox passwordField = new PasswordTextBox();
-		nameField.setText("Mars User");
+		nameField.setText("MarsUser");
 		final Label errorLabel = new Label();
 
 		// We can add style names to widgets
