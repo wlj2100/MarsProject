@@ -5,16 +5,17 @@ package mars.client;
  *
  */
 public class Module {
+	
 	// module properties
     int code;
     String status;
     int turns;
     int xcoord;
     int ycoord;
+    
     // constructor
     public Module() {
     	super();
-    	return;
     }
     public Module(int code, String status, int turns, int xcoord, int ycoord) {
     	super();
@@ -25,8 +26,9 @@ public class Module {
     	this.ycoord=xcoord;
     }
     public Module(String moduleString) {
-    	//TODO
+    	//
     }
+    
     //mutator
     public void setCode(int code) {
     	this.code=code;
@@ -43,20 +45,14 @@ public class Module {
     public void setYcoord(int ycoord) {
     	this.ycoord=ycoord;
     }
-    public String returnType() {
-    	//TODO
-    	return null;
-    }
     
+    //toString method
     @Override
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#toString()
-     * "code:1,status:\"undamaged\",turns:0,X:5,Y:5"
-     * "{code:1,status:\"undamaged\",turns:0,X:5,Y:5},"
-     */
     public String toString(){
-		return status;
-    	// todo
+    	StringBuilder aStringBuilder = new StringBuilder();
+    	aStringBuilder.append("code:").append(Integer.toString(this.code)).append(",status\"")
+    	.append(this.status).append("\",turns:").append(Integer.toString(this.turns)).append(",X:")
+    	.append(Integer.toString(this.xcoord)).append(",Y:").append(Integer.toString(this.ycoord));
+		return aStringBuilder.toString();
     }
 }

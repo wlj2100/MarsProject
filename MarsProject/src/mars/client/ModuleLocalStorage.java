@@ -12,8 +12,8 @@ public class ModuleLocalStorage {
 	public ModuleLocalStorage() {
 		moduleStore=Storage.getLocalStorageIfSupported();
 	}
-	public void addModule(Module module) {
-		moduleStore.setItem(module.returnType()+Integer.toString(moduleStore.getLength()+1), module.toString());
+	public void addModule(String type, Module module) {
+		moduleStore.setItem(type+Integer.toString(moduleStore.getLength()+1), module.toString());
 	}
 	//todo
 }
