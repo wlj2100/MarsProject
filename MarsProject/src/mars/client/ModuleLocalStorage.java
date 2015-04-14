@@ -19,5 +19,9 @@ public class ModuleLocalStorage {
 	public void addModule(String type, Module module) {
 		moduleStore.setItem(type+Integer.toString(moduleStore.getLength()+1), module.toString());
 	}
-	//todo
+	
+	public String getKey(int i) {
+		return moduleStore.key(i);
+	}
+	
 }
