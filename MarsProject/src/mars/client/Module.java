@@ -68,9 +68,9 @@ public class Module {
     @Override
     public String toString(){
     	StringBuilder aStringBuilder = new StringBuilder();
-    	aStringBuilder.append("code:").append(Integer.toString(this.code)).append(",status\"")
-    	.append(this.status).append("\",turns:").append(Integer.toString(this.turns)).append(",X:")
-    	.append(Integer.toString(this.xcoord)).append(",Y:").append(Integer.toString(this.ycoord));
+    	aStringBuilder.append("code:").append(Integer.toString(this.code)).append(", status\"")
+    	.append(this.status).append("\", turns:").append(Integer.toString(this.turns)).append(", X:")
+    	.append(Integer.toString(this.xcoord)).append(", Y:").append(Integer.toString(this.ycoord));
 		return aStringBuilder.toString();
     }
 }
