@@ -1,5 +1,10 @@
 package mars.client;
 
+import com.google.gwt.json.client.JSONNumber;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONParser;
+import com.google.gwt.json.client.JSONString;
+
 /**
  * @author Liangji
  *
@@ -26,7 +31,20 @@ public class Module {
     	this.ycoord=xcoord;
     }
     public Module(String moduleString) {
-    	//
+    	super();
+    	JSONObject jO=(JSONObject)JSONParser.parseLenient(moduleString);
+    	JSONNumber jN;
+    	JSONString jS;
+    	jN = (JSONNumber)jO.get("code");
+    	this.code = (int)jN.doubleValue();
+    	jS = (JSONString)jO.get("status");
+    	this.status = jS.stringValue();
+    	jN = (JSONNumber)jO.get("turns");
+    	this.turns = (int)jN.doubleValue();
+    	jN = (JSONNumber)jO.get("X");
+    	this.xcoord = (int)jN.doubleValue();
+    	jN = (JSONNumber)jO.get("Y");
+    	this.ycoord = (int)jN.doubleValue();
     }
     
     //mutator
