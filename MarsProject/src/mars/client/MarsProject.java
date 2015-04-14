@@ -66,15 +66,9 @@ public class MarsProject implements EntryPoint {
 				final Button closeButton = new Button("Close");
 				// We can set the id of a widget by accessing its Element
 				closeButton.getElement().setId("closeButton");
-				final Label nameToServerLabel = new Label();
-				final Label passwordToServerLabel = new Label();
 				final HTML serverResponseLabel = new HTML();
 				VerticalPanel dialogVPanel = new VerticalPanel();
 				dialogVPanel.addStyleName("dialogVPanel");
-				dialogVPanel.add(new HTML("<b>Sending name to the server:</b>"));
-				dialogVPanel.add(nameToServerLabel);
-				dialogVPanel.add(new HTML("<br><b>Sending password to the server:</b>"));
-				dialogVPanel.add(passwordToServerLabel);
 				dialogVPanel.add(new HTML("<br><b>Server replies:</b>"));
 				dialogVPanel.add(serverResponseLabel);
 				dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
@@ -118,8 +112,6 @@ public class MarsProject implements EntryPoint {
 
 				// Then, we send the input to the server.
 				submitButton.setEnabled(false);
-				nameToServerLabel.setText(nameToServer);
-				passwordToServerLabel.setText(passwordToServer);
 				serverResponseLabel.setText("");
 				greetingService.greetServer(nameToServer, passwordToServer,
 						new AsyncCallback<String>() {

@@ -24,4 +24,11 @@ public class ModuleLocalStorage {
 		return moduleStore.key(i);
 	}
 	
+	public String getModule(String key) {
+		return moduleStore.getItem(key);
+	}
+	
+	public void deleteModule(String key) {
+		moduleStore.removeItem(key);
+	}
 }
