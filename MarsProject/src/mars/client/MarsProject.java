@@ -31,6 +31,9 @@ public class MarsProject implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
+		// simple login
+		// username: MarsUser
+		// password: 123
 		final Button submitButton = new Button("Submit");
 		final TextBox nameField = new TextBox();
 		final PasswordTextBox passwordField = new PasswordTextBox();
@@ -44,7 +47,7 @@ public class MarsProject implements EntryPoint {
 		VerticalPanel vp = new VerticalPanel();
 		vp.add(new Label("Username:"));
 		vp.add(nameField);
-		vp.add(new Label("password:"));
+		vp.add(new Label("Password:"));
 		vp.add(passwordField);
 		vp.add(submitButton);
 		// Use RootPanel.get() to get the entire body element
@@ -79,7 +82,6 @@ public class MarsProject implements EntryPoint {
 				// First, we validate the input.
 				String nameToServer = nameField.getText();
 				String passwordToServer = passwordField.getText();
-
 				// Then, we send the input to the server.
 				submitButton.setEnabled(false);
 				greetingService.greetServer(nameToServer, passwordToServer,
@@ -101,14 +103,15 @@ public class MarsProject implements EntryPoint {
 			}
 		}
 		// Add a handler to send the name to the server
-
 		MyHandler handler = new MyHandler();
 		submitButton.addClickHandler(handler);
 		nameField.addKeyUpHandler(handler);
 	}
 	
+	// here is the main app
 	public void showApp() {
 		Window.alert("go into main");
+		// TODO
 	}
 	
 }
