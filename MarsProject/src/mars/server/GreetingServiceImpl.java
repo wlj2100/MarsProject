@@ -16,10 +16,10 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		name = escapeHtml(name);
 		password = escapeHtml(password);
 		// the user name is MarsUser
-		if (name=="Mars User"&& password=="123") {
-            return "Hello, user: " + name + "<br><br>your password is: " + password;
+		if (name.equals("MarsUser")&& password.equals("123")) {
+            return "good";
 		} else {
-			return "bad username or password!";
+			return "bad";
 		}
 	}
 
