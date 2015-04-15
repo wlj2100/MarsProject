@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class MarsProject implements EntryPoint {
+
 	
 	/**
 	 * Create a remote service proxy to talk to the server-side Greeting service.
@@ -109,9 +110,15 @@ public class MarsProject implements EntryPoint {
 	}
 	
 	// here is the main app
-	public void showApp() {
-		Window.alert("go into main");
-		// TODO
+	private void showApp() {
+		final TenDayAlert tenday = new TenDayAlert();
+        final Button resetAlert = new Button("resetAlert");
+        resetAlert.addClickHandler(new ClickHandler() {
+        	public void onClick(ClickEvent event) {
+				tenday.reSchedule();
+			}
+        });
+        RootPanel.get().add(resetAlert);
 	}
 	
 }
