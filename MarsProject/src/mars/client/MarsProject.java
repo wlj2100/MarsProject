@@ -7,6 +7,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
@@ -30,20 +31,11 @@ public class MarsProject implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		if (login()) {
-			RootPanel.get().clear();
-		} else {
-			;
-		}
-	}
-	
-	public boolean login() {
 		final Button submitButton = new Button("Submit");
 		final TextBox nameField = new TextBox();
 		final PasswordTextBox passwordField = new PasswordTextBox();
 		nameField.setText("MarsUser");
 		passwordField.setText("123");
-		final Label flagLabel = new Label();
 
 		// We can add style names to widgets
 		submitButton.addStyleName("submitButton");
@@ -96,7 +88,14 @@ public class MarsProject implements EntryPoint {
 								submitButton.setEnabled(true);
 							}
 							public void onSuccess(String result) {
-								flagLabel.setText(result);
+								if (result.equals("good")) {
+									RootPanel.get().clear();
+									Window.alert("login successfully");
+									showApp();
+								} else {
+									submitButton.setEnabled(true);
+									Window.alert("invalid username or password");
+								}
 							}
 						});
 			}
@@ -106,13 +105,10 @@ public class MarsProject implements EntryPoint {
 		MyHandler handler = new MyHandler();
 		submitButton.addClickHandler(handler);
 		nameField.addKeyUpHandler(handler);
-		
-	    if (flagLabel.getText().equals("good")) {
-	    	vp.clear();
-	    	return true;
-	    } else {
-	    	submitButton.setEnabled(true);
-	    	return false;
-	    }
-    }
+	}
+	
+	public void showApp() {
+		Window.alert("go into main");
+	}
+	
 }
