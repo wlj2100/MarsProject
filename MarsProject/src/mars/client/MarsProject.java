@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class MarsProject implements EntryPoint {
 
-	
+	private ModuleLogging moduleLogging = new ModuleLogging();
 	/**
 	 * Create a remote service proxy to talk to the server-side Greeting service.
 	 */
@@ -126,6 +126,7 @@ public class MarsProject implements EntryPoint {
 			}
         });
         RootPanel.get().add(resetAlert);
+        RootPanel.get().add(moduleLogging.getTable());
 	}
 	
 	

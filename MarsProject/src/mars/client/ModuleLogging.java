@@ -8,7 +8,6 @@ import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 
@@ -17,7 +16,7 @@ import com.google.gwt.user.client.ui.TextBox;
  */
 public class ModuleLogging {
 		
-	public Module currentModule;
+	private Module currentModule;
 	
 	 public ArrayList<Module> getSavedModules()
 	 {
