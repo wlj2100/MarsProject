@@ -13,15 +13,11 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 
 /**
- * Entry point classes define <code>onModuleLoad()</code>.
+ * Kyle
  */
-public class ModuleLogging extends LayoutPanel {
+public class ModuleLogging {
 		
 	public Module currentModule;
-
-	public ModuleLogging() {
-		
-	}
 	
 	 public ArrayList<Module> getSavedModules()
 	 {
@@ -121,8 +117,7 @@ public class ModuleLogging extends LayoutPanel {
 					 }
 			 }
 		 );
-	    
-	    //RootPanel.get().add(t);
+	    	    //RootPanel.get().add(t);
 		//button listener for save button to make and save module
 		save.addClickHandler(new ClickHandler() {
 			public void onClick(final ClickEvent event) {
