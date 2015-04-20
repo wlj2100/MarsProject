@@ -25,11 +25,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class MarsProject implements EntryPoint {
 
 	private ModuleLogging moduleLogging = new ModuleLogging();
-	/**
-	 * Create a remote service proxy to talk to the server-side Greeting service.
-	 */
-	private final GreetingServiceAsync greetingService = GWT
-			.create(GreetingService.class);
 
 	/**
 	 * This is the entry point method.
@@ -88,22 +83,15 @@ public class MarsProject implements EntryPoint {
 				String passwordToServer = passwordField.getText();
 				// Then, we send the input to the server.
 				submitButton.setEnabled(false);
-				greetingService.greetServer(nameToServer, passwordToServer,
-						new AsyncCallback<String>() {
-							public void onFailure(Throwable caught) {
-								submitButton.setEnabled(true);
-							}
-							public void onSuccess(String result) {
-								if (result.equals("good")) {
-									RootPanel.get().clear();
-									Window.alert("login successfully");
-									showApp();
-								} else {
-									submitButton.setEnabled(true);
-									Window.alert("invalid username or password");
-								}
-							}
-						});
+				if (nameToServer.equals("MarsUser")&&passwordToServer.equals("123")) {
+					RootPanel.get().clear();
+					Window.alert("login successfully");
+					showApp();
+				} else {
+					submitButton.setEnabled(true);
+					Window.alert("invalid username or password");
+				}
+
 			}
 		}
 		// Add a handler to send the name to the server
