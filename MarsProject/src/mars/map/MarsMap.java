@@ -59,8 +59,7 @@ public class MarsMap {
 		return canvas;
 	}
 	public void addModuleToMap(Module moduleType){
-		int xPos = moduleType.getX();
-		int yPos = moduleType.getY();
+		Module adModule = moduleType;
 		final Image moduleImage;
 	   if(moduleType.getCode() < 20){
 		   moduleImage = new Image("images/Canteen.jpg");
@@ -84,9 +83,12 @@ public class MarsMap {
 	   }
 	   moduleImage.setVisible(true);
 		final ImageElement module = ImageElement.as(moduleImage.getElement());
+		final int x = adModule.getX();
 		moduleImage.addLoadHandler(new LoadHandler() {
-			public void onLoad(LoadEvent event) { // fired by RootPanel.get().add
-				context.drawImage(module,xPos,yPos);
+			public void onLoad(LoadEvent event) {
+				//final int x= xPos;
+				//final int y = yPos; // fired by RootPanel.get().add
+				context.drawImage(module,x,x);
 			}
 		}); 
 	   moduleImage.setVisible(false);     // two line hack to ensure image is loaded

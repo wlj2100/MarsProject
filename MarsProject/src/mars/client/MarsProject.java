@@ -1,5 +1,7 @@
 package mars.client;
 
+import mars.map.MarsMap;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
@@ -33,6 +35,7 @@ public class MarsProject implements EntryPoint {
 		// simple login
 		// username: MarsUser
 		// password: 123
+		
 		final Button submitButton = new Button("Submit");
 		final TextBox nameField = new TextBox();
 		final PasswordTextBox passwordField = new PasswordTextBox();
@@ -125,6 +128,8 @@ public class MarsProject implements EntryPoint {
         p.add(new HTML("that content"), "that");
         p.add(new HTML("the other content"), "the other");
         RootPanel.get().add(p);
+        final MarsMap map = new MarsMap();
+        RootPanel.get().add(map.getCanvas());
 	}
 	
 	
