@@ -7,6 +7,7 @@ import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
+import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -16,10 +17,12 @@ public class MarsMap {
 	static final int height = 900;
 	static final int width = 1600;
 	Canvas canvas;
+	private Storage localStorage;
 	
 	VerticalPanel panel = new VerticalPanel();
 	Context2d context;
-	public MarsMap(){
+	public MarsMap(Storage localStorage){
+		this.localStorage = localStorage;
 		canvas = Canvas.createIfSupported();
 		if (canvas == null) {
 			//RootPanel.get(divTagId).add(new Label(unsupportedBrowser));

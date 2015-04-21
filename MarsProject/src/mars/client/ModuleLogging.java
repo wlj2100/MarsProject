@@ -19,6 +19,7 @@ public class ModuleLogging {
 	private Module currentModule;
 	private Storage moduleStore;
 	private ArrayList<Module> list;
+	private Module storedModule;
 	
 	public ModuleLogging() {
 		moduleStore = Storage.getLocalStorageIfSupported(); 
@@ -40,8 +41,7 @@ public class ModuleLogging {
 				 String value = moduleStore.getItem(key); 
 				 Window.alert(value);
 				 String[] values = value.split(" ");
-				 Module storedModule = new Module(Integer.parseInt(values[0]), Integer.parseInt(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3]), Integer.parseInt(values[4]));
-				 Window.alert(storedModule.toString());
+				 storedModule = new Module(Integer.parseInt(values[0]), Integer.parseInt(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3]), Integer.parseInt(values[4]));
 			 	 list.add(storedModule);
 			 }
 		 } else{
@@ -75,8 +75,8 @@ public class ModuleLogging {
 
 	    final TextBox ycord = new TextBox();
 
-	    Button save = new Button("Save");
-	    FlexTable t = new FlexTable();
+	    final Button save = new Button("Save");
+	    final FlexTable t = new FlexTable();
 	    t.setText(0, 0, "Module Code");
 	    t.setText(0, 1, "Module Status");
 	    t.setText(0, 2, "Module Orientation");
@@ -110,12 +110,10 @@ public class ModuleLogging {
 	    t.setWidget(3, 2, removeAll);
 	    
 	    remove.addClickHandler(new ClickHandler() {
-			 public void onClick(final ClickEvent event) {
-					Storage moduleStore = Storage.getLocalStorageIfSupported(); 
+			 public void onClick(final ClickEvent event) { 
 					 if (moduleStore != null) {
 						 Window.alert("module removed: "+moduleStore.getItem(removeThisCode.getText()));
 						 moduleStore.removeItem(removeThisCode.getText());
-						 
 						 removeThisCode.setText("");
 					 }
 					 }
@@ -123,7 +121,6 @@ public class ModuleLogging {
 		 );
 		 removeAll.addClickHandler(new ClickHandler() {
 			 public void onClick(final ClickEvent event) {
-					Storage moduleStore = Storage.getLocalStorageIfSupported(); 
 					 if (moduleStore != null) {
 						 moduleStore.clear();
 						 list.clear();
