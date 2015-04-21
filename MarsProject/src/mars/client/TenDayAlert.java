@@ -1,7 +1,10 @@
 package mars.client;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Button;
 
 public class TenDayAlert {
 	private final int TIMER = 846000000;
@@ -17,11 +20,17 @@ public class TenDayAlert {
         t.schedule(this.TIMER);
 	}
 	
-	public void reSchedule() {
-		if(!t.isRunning()) {
-			t.schedule(this.TIMER);
-		} else {
-			Window.alert("10 Day Alert is runing right now!");
-		}
+	public Button getAlert() {
+		 final Button resetAlert = new Button("resetAlert");
+	        resetAlert.addClickHandler(new ClickHandler() {
+	        	public void onClick(ClickEvent event) {
+	        		if(!t.isRunning()) {
+	        			t.schedule(846000000);
+	        		} else {
+	        			Window.alert("10 Day Alert is runing right now!");
+	        		}
+				}
+	        });
+	     return resetAlert;
 	}
 }

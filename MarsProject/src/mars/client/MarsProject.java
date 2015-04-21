@@ -26,8 +26,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class MarsProject implements EntryPoint {
 
-	private ModuleLogging moduleLogging = new ModuleLogging();
-
+	private final ModuleLogging moduleLogging = new ModuleLogging();
+	private final MarsMap map = new MarsMap();
+	private final TenDayAlert tenday = new TenDayAlert();
 	/**
 	 * This is the entry point method.
 	 */
@@ -107,14 +108,8 @@ public class MarsProject implements EntryPoint {
 	
 	// here is the main app
 	private void showApp() {
-		final TenDayAlert tenday = new TenDayAlert();
-        final Button resetAlert = new Button("resetAlert");
-        resetAlert.addClickHandler(new ClickHandler() {
-        	public void onClick(ClickEvent event) {
-				tenday.reSchedule();
-			}
-        });
-        RootPanel.get().add(resetAlert);
+        RootPanel.get().add(map.getCanvas());
+        RootPanel.get().add(tenday.getAlert());
         RootPanel.get().add(moduleLogging.getTable());
         final Button testModuleLogin = new Button("test");
         testModuleLogin.addClickHandler(new ClickHandler(){
@@ -123,13 +118,12 @@ public class MarsProject implements EntryPoint {
         	}
         });
         RootPanel.get().add(testModuleLogin);
-        TabLayoutPanel p = new TabLayoutPanel(1.5, Unit.EM);
+        final TabLayoutPanel p = new TabLayoutPanel(1.5, Unit.EM);
         p.add(moduleLogging.getTable(),"loginmodule");
         p.add(new HTML("that content"), "that");
         p.add(new HTML("the other content"), "the other");
         RootPanel.get().add(p);
-        final MarsMap map = new MarsMap();
-        RootPanel.get().add(map.getCanvas());
+        
 	}
 	
 	
