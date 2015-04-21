@@ -145,6 +145,7 @@ public class ModuleLogging {
 					
 					if (moduleStore != null) {
 						moduleStore.setItem(Integer.toString(currentModule.getCode()), currentModule.toString());
+						Window.alert(currentModule.toString());
 					}
 					 		    
 					 //end the get module from local storage method/section of code
