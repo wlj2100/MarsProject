@@ -17,6 +17,15 @@ import com.google.gwt.user.client.ui.TextBox;
 public class ModuleLogging {
 		
 	private Module currentModule;
+	private Storage moduleStore;
+	
+	public ModuleLogging() {
+		moduleStore = Storage.getLocalStorageIfSupported(); 
+	}
+	
+	public Storage getModuleLocal() {
+		return moduleStore;
+	}
 	
 	 public ArrayList<Module> getSavedModules()
 	 {
@@ -31,6 +40,7 @@ public class ModuleLogging {
 				 String[] values = value.split(" ");
 				 Module storedModule = new Module(Integer.parseInt(values[0]), Integer.parseInt(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3]), Integer.parseInt(values[4]));
 			 	list.add(storedModule);
+			 	Window.alert(storedModule.toString());
 			 }
 		 }
 		 else{
@@ -132,7 +142,7 @@ public class ModuleLogging {
 				{
 					//start of the bounds checking method
 					currentModule = new Module(Integer.parseInt(code.getText()), status.getSelectedIndex(), orientation.getSelectedIndex(), Integer.parseInt(xcord.getText()), Integer.parseInt(ycord.getText()));
-					Storage moduleStore = Storage.getLocalStorageIfSupported(); 
+					
 					if (moduleStore != null) {
 						moduleStore.setItem(Integer.toString(currentModule.getCode()), currentModule.toString());
 					}
@@ -144,8 +154,6 @@ public class ModuleLogging {
 					xcord.setText("");
 					ycord.setText("");
 					Window.alert("Module Logged!");
-					
-
 				}
 			}
 		});

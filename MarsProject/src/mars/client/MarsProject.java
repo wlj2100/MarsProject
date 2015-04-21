@@ -113,6 +113,12 @@ public class MarsProject implements EntryPoint {
         });
         RootPanel.get().add(resetAlert);
         RootPanel.get().add(moduleLogging.getTable());
+        final Button testModuleLogin = new Button("test");
+        testModuleLogin.addClickHandler(new ClickHandler(){
+        	public void onClick(ClickEvent event) {
+        		moduleLogging.getSavedModules();
+        	}
+        });
         TabLayoutPanel p = new TabLayoutPanel(1.5, Unit.EM);
         p.add(moduleLogging.getTable(),"loginmodule");
         p.add(new HTML("that content"), "that");

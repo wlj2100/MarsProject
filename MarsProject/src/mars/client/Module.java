@@ -17,8 +17,32 @@ public class Module {
     int xcoord;
     int ycoord;
 	String theString;
-	public int getCode() {return this.code;}
+	
+    //accessor
+    public int getCode() {
+    	return this.code;
+    }
+    public String getStringStatus()
+	{
+		if(this.status == 0)
+			theString = "Undamaged";
+		if(this.status == 1)
+			theString = "Repairable";
+		if(this.status == 2)
+			theString = "Unrepairable";
+		else theString = "";
+		return theString;
+	}
     
+    public int getTurns() {
+    	return this.turns;
+    }
+    public int getX(){
+    	return this.xcoord;
+    }
+    public int getY(){
+    	return this.ycoord;
+    }
     // constructor
     public Module() {
     	super();
@@ -30,6 +54,7 @@ public class Module {
     	this.turns=turns;
     	this.xcoord=xcoord;
     	this.ycoord=xcoord;
+    	this.getStringStatus();
     }
 	
     public Module(String moduleString) {
@@ -52,17 +77,9 @@ public class Module {
     public void setCode(int code) {
     	this.code=code;
     }
-    public String getStringStatus()
-	{
-		if(this.status == 0)
-			theString = "Undamaged";
-		if(this.status == 1)
-			theString = "Repairable";
-		if(this.status == 2)
-			theString = "Unrepairable";
-		else theString = "";
-		return theString;
-	}
+    public void setStatus(int status) {
+    	this.status=status;
+    }
     public void setTurns(int turns) {
     	this.turns=turns;
     }
