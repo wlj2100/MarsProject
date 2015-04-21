@@ -28,11 +28,12 @@ public class Module {
 	{
 		if(this.status == 0)
 			theString = "Undamaged";
-		if(this.status == 1)
+		else if(this.status == 1)
 			theString = "Repairable";
-		if(this.status == 2)
+		else if(this.status == 2)
 			theString = "Unrepairable";
-		else theString = "Undefined";
+		else 
+			theString = "Undefined";
 		return theString;
 	}
     

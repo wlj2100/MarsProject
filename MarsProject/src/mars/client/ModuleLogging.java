@@ -142,7 +142,7 @@ public class ModuleLogging {
 				else
 				{
 					//start of the bounds checking method
-					
+					Window.alert(Integer.toString(status.getSelectedIndex()));
 					if (moduleStore != null) {
 						if (moduleStore.getItem(code.getText())==null) {
 							currentModule = new Module(Integer.parseInt(code.getText()), status.getSelectedIndex(), orientation.getSelectedIndex(), Integer.parseInt(xcord.getText()), Integer.parseInt(ycord.getText()));
