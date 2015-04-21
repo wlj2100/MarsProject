@@ -12,15 +12,17 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 
 /**
- * Kyle
+ * @author Kyle, Liangji
  */
 public class ModuleLogging {
 		
 	private Module currentModule;
 	private Storage moduleStore;
+	private ArrayList<Module> list;
 	
 	public ModuleLogging() {
 		moduleStore = Storage.getLocalStorageIfSupported(); 
+		list= new ArrayList<Module>();
 	}
 	
 	public Storage getModuleLocal() {
@@ -29,25 +31,25 @@ public class ModuleLogging {
 	
 	 public ArrayList<Module> getSavedModules()
 	 {
-		 ArrayList<Module> list= new ArrayList<Module>();
-		 Storage moduleStore = Storage.getLocalStorageIfSupported();
-		 moduleStore = Storage.getLocalStorageIfSupported(); 
 		 if (moduleStore != null) { 
+			 list.clear();
 		//NOTE: when we iterate through this, we can possibly add the modules to the "currentmodulelist" or whatever
 			 for (int i = 0; i < moduleStore.getLength(); i += 1) { 
 				 String key = moduleStore.key(i); 
+				 Window.alert(key);
 				 String value = moduleStore.getItem(key); 
+				 Window.alert(value);
 				 String[] values = value.split(" ");
 				 Module storedModule = new Module(Integer.parseInt(values[0]), Integer.parseInt(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3]), Integer.parseInt(values[4]));
-			 	list.add(storedModule);
-			 	Window.alert(storedModule.toString());
+				 Window.alert(storedModule.toString());
+			 	 list.add(storedModule);
 			 }
-		 }
-		 else{
+		 } else{
 			 Window.alert("MODULE STORAGE IS NULL");
 		 }
 		 return list;
 	 }
+	 
 	 
 	public FlexTable getTable() {
 
@@ -80,7 +82,7 @@ public class ModuleLogging {
 	    t.setText(0, 2, "Module Orientation");
 	    t.setText(0, 3, "Module X coordinate");
 	    t.setText(0, 4, "Module Y coordinate");
-	    t.setText(2, 2, "Save Module");
+	    t.setText(0, 5, "Save Module");
 
 	  //THE FIRST LIST BOX
 	    t.setWidget(1, 0, code);
@@ -90,7 +92,7 @@ public class ModuleLogging {
 	    t.setWidget(1, 2, orientation);
 	    t.setWidget(1, 3, xcord);
 	    t.setWidget(1, 4, ycord);
-	    t.setWidget(3, 2, save);
+	    t.setWidget(1, 5, save);
 
 
 	    //making the remove module by code and remove all modules buttons
@@ -99,19 +101,21 @@ public class ModuleLogging {
 	    final TextBox removeThisCode = new TextBox();
 	    //add the removal stuff to the table
 	    
-	    t.setText(4,0, "Remove by code");
-	    t.setText(4,1,"");
-	    t.setText(4,2,"Delete all Modules");
+	    t.setText(2,0, "Remove by code");
+	    t.setText(2,1,"");
+	    t.setText(2,2,"Delete all Modules");
 	    
-	    t.setWidget(5, 0, removeThisCode);
-	    t.setWidget(5, 1, remove);
-	    t.setWidget(5, 2, removeAll);
+	    t.setWidget(3, 0, removeThisCode);
+	    t.setWidget(3, 1, remove);
+	    t.setWidget(3, 2, removeAll);
 	    
 	    remove.addClickHandler(new ClickHandler() {
 			 public void onClick(final ClickEvent event) {
 					Storage moduleStore = Storage.getLocalStorageIfSupported(); 
 					 if (moduleStore != null) {
+						 Window.alert("module removed: "+moduleStore.getItem(removeThisCode.getText()));
 						 moduleStore.removeItem(removeThisCode.getText());
+						 
 						 removeThisCode.setText("");
 					 }
 					 }
@@ -121,12 +125,12 @@ public class ModuleLogging {
 			 public void onClick(final ClickEvent event) {
 					Storage moduleStore = Storage.getLocalStorageIfSupported(); 
 					 if (moduleStore != null) {
-					 moduleStore.clear();
+						 moduleStore.clear();
+						 list.clear();
 					 }
-					 }
+				 }
 			 }
 		 );
-	    	    //RootPanel.get().add(t);
 		//button listener for save button to make and save module
 		save.addClickHandler(new ClickHandler() {
 			public void onClick(final ClickEvent event) {
@@ -141,11 +145,20 @@ public class ModuleLogging {
 				else
 				{
 					//start of the bounds checking method
-					currentModule = new Module(Integer.parseInt(code.getText()), status.getSelectedIndex(), orientation.getSelectedIndex(), Integer.parseInt(xcord.getText()), Integer.parseInt(ycord.getText()));
 					
 					if (moduleStore != null) {
-						moduleStore.setItem(Integer.toString(currentModule.getCode()), currentModule.toString());
-						Window.alert(currentModule.toString());
+						if (moduleStore.getItem(code.getText())==null) {
+							currentModule = new Module(Integer.parseInt(code.getText()), status.getSelectedIndex(), orientation.getSelectedIndex(), Integer.parseInt(xcord.getText()), Integer.parseInt(ycord.getText()));
+							Window.alert(currentModule.toString());
+							moduleStore.setItem(Integer.toString(currentModule.getCode()), currentModule.toString());
+							//list.add(list.size()+1, currentModule);
+							Window.alert("Module Logged!");
+						} else {
+							Window.alert("duplicated module, cannot login");
+						}
+						
+					} else {
+						Window.alert("local storage does not exist!");
 					}
 					 		    
 					 //end the get module from local storage method/section of code
@@ -154,7 +167,7 @@ public class ModuleLogging {
 					orientation.setSelectedIndex(0);
 					xcord.setText("");
 					ycord.setText("");
-					Window.alert("Module Logged!");
+					
 				}
 			}
 		});

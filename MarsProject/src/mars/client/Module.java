@@ -3,6 +3,8 @@ package mars.client;
 import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
+import com.google.gwt.json.client.JSONString;
+import com.google.gwt.user.client.Window;
 
 /**
  * @author Liangji
@@ -30,9 +32,22 @@ public class Module {
 			theString = "Repairable";
 		if(this.status == 2)
 			theString = "Unrepairable";
-		else theString = "";
+		else theString = "Undefined";
 		return theString;
 	}
+    
+    public int getStatus() {
+    	if (theString == "Undamaged") {
+    		this.status=0;
+    	} else if (theString == "Repairable") {
+    		this.status=1;
+    	} else if (theString == "Unrepairable") {
+    		this.status = 2;
+    	} else {
+    		this.status = 3;
+    	}
+    	return this.status;
+    }
     
     public int getTurns() {
     	return this.turns;
@@ -59,18 +74,31 @@ public class Module {
 	
     public Module(String moduleString) {
     	super();
+    	/*
     	JSONObject jO=(JSONObject)JSONParser.parseLenient(moduleString);
     	JSONNumber jN;
+    	//JSONString jS;
     	jN = (JSONNumber)jO.get("code");
     	this.code = (int)jN.doubleValue();
     	jN = (JSONNumber)jO.get("status");
     	this.status = (int)jN.doubleValue();
+    	//jS = (JSONString)jO.get("status");
+    	//this.theString = (String)jS.toString();
     	jN = (JSONNumber)jO.get("turns");
     	this.turns = (int)jN.doubleValue();
     	jN = (JSONNumber)jO.get("X");
     	this.xcoord = (int)jN.doubleValue();
     	jN = (JSONNumber)jO.get("Y");
     	this.ycoord = (int)jN.doubleValue();
+    	*/
+    	Window.alert(moduleString);
+    	String[] values = moduleString.split(" ");
+		this.code = Integer.parseInt(values[0]);
+		this.status = Integer.parseInt(values[1]);
+		this.turns = Integer.parseInt(values[2]);
+		this.xcoord = Integer.parseInt(values[3]);
+		this.ycoord = Integer.parseInt(values[4]);
+		this.theString = this.getStringStatus();
     }
     
     //mutator
