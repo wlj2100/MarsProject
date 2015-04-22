@@ -1,6 +1,7 @@
 package mars.map;
 
 import mars.client.Module;
+import mars.client.ModuleLogging;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
@@ -17,18 +18,19 @@ public class MarsMap {
 	static final int height = 900;
 	static final int width = 1600;
 	Canvas canvas;
-	private Storage localStorage;
+	private ModuleLogging log;
 	
 	VerticalPanel panel = new VerticalPanel();
 	Context2d context;
-	public MarsMap(Storage localStorage){
-		this.localStorage = localStorage;
+	public MarsMap(ModuleLogging log){
+		this.log = log;
 		canvas = Canvas.createIfSupported();
 		if (canvas == null) {
 			//RootPanel.get(divTagId).add(new Label(unsupportedBrowser));
 			return;
 		}
 		createCanvas();
+		log.getSavedModules();
 	}
 	private void createCanvas(){
 
