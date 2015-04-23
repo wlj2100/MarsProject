@@ -1,13 +1,14 @@
 package mars.map;
 
-import java.util.ArrayList;
-
 import mars.client.Module;
+import mars.client.ModuleLogging;
+
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
+import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -17,18 +18,19 @@ public class MarsMap {
 	static final int height = 900;
 	static final int width = 1600;
 	Canvas canvas;
-	private ArrayList<Module> list;
+	private ModuleLogging log;
 	
 	VerticalPanel panel = new VerticalPanel();
 	Context2d context;
-	public MarsMap(ArrayList<Module> list){
-		this.list = list;
+	public MarsMap(ModuleLogging log){
+		this.log = log;
 		canvas = Canvas.createIfSupported();
 		if (canvas == null) {
 			//RootPanel.get(divTagId).add(new Label(unsupportedBrowser));
 			return;
 		}
 		createCanvas();
+		log.getSavedModules();
 	}
 	private void createCanvas(){
 

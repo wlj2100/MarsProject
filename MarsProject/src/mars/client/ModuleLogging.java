@@ -112,15 +112,13 @@ public class ModuleLogging {
 	    remove.addClickHandler(new ClickHandler() {
 			 public void onClick(final ClickEvent event) { 
 					 if (moduleStore != null) {
-						 Module removedModule = new Module(moduleStore.getItem(removeThisCode.getText()));
 						 Window.alert("module removed: "+moduleStore.getItem(removeThisCode.getText()));
-						 list.remove(removedModule);
 						 moduleStore.removeItem(removeThisCode.getText());
-						 
 						 removeThisCode.setText("");
 					 }
-			}
-		});
+					 }
+			 }
+		 );
 		 removeAll.addClickHandler(new ClickHandler() {
 			 public void onClick(final ClickEvent event) {
 					 if (moduleStore != null) {
@@ -128,7 +126,8 @@ public class ModuleLogging {
 						 list.clear();
 					 }
 				 }
-			 });
+			 }
+		 );
 		//button listener for save button to make and save module
 		save.addClickHandler(new ClickHandler() {
 			public void onClick(final ClickEvent event) {
@@ -149,7 +148,7 @@ public class ModuleLogging {
 							currentModule = new Module(Integer.parseInt(code.getText()), status.getSelectedIndex(), orientation.getSelectedIndex(), Integer.parseInt(xcord.getText()), Integer.parseInt(ycord.getText()));
 							Window.alert(currentModule.toString());
 							moduleStore.setItem(Integer.toString(currentModule.getCode()), currentModule.toString());
-							list.add(currentModule);
+							//list.add(list.size()+1, currentModule);
 							Window.alert("Module Logged!");
 						} else {
 							Window.alert("duplicated module, cannot login");
