@@ -1,5 +1,7 @@
 package mars.map;
 
+import java.util.ArrayList;
+
 import mars.client.Module;
 
 import com.google.gwt.canvas.client.Canvas;
@@ -8,6 +10,7 @@ import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.storage.client.Storage;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -18,6 +21,7 @@ public class MarsMap {
 	static final int width = 1600;
 	Canvas canvas;
 	private Storage localStorage;
+	private ArrayList<Module> list;
 	
 	VerticalPanel panel = new VerticalPanel();
 	Context2d context;
@@ -30,6 +34,24 @@ public class MarsMap {
 		}
 		createCanvas();
 	}
+	public ArrayList<Module> getSavedModules()
+	 {
+		 if (localStorage != null) { 
+			 list.clear();
+		//NOTE: when we iterate through this, we can possibly add the modules to the "currentmodulelist" or whatever
+			 for (int i = 0; i < localStorage.getLength(); i += 1) { 
+				 String key = localStorage.key(i); 
+				 Window.alert(key);
+				 String value = localStorage.getItem(key); 
+				 Window.alert(value);
+				 String[] values = value.split(" ");
+				 list.add(new Module(Integer.parseInt(values[0]), Integer.parseInt(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3]), Integer.parseInt(values[4])));
+			 }
+		 } else{
+			 Window.alert("MODULE STORAGE IS NULL");
+		 }
+		 return list;
+	 }
 	private void createCanvas(){
 
 		canvas.setWidth(width + "px");
