@@ -1,5 +1,6 @@
 package mars.client;
 
+import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
@@ -75,15 +76,24 @@ public class Module {
     }
 	public Module(String moduleString) {
     	super();
-    	System.out.println(moduleString);
-    	if (JSONParser.parseLenient(moduleString) == null) {
+    	String target = moduleString;
+    	System.out.println(target);
+    	Object obj = null;
+    	try {
+    		obj = JSONParser.parseStrict(target);
+    	} catch (NullPointerException e) {
+    		System.out.println(e);
+    	}
+    	System.out.println("a");
+    	System.out.println(obj);
+    	JSONObject jO = (JSONObject)obj;
+    	System.out.println("get jo");
+    	if (jO == null) {
     		System.out.println("bad json");
     	} else {
     		System.out.println("good json");
-    		System.out.println(JSONParser.parseLenient(moduleString).toString());
+    		System.out.println(jO.toString());
     	}
-    	JSONObject jO=(JSONObject) JSONParser.parseLenient(moduleString);
-    	
     	JSONNumber jN;
     	JSONString jS;
     	jN = (JSONNumber)jO.get("code");
@@ -132,9 +142,9 @@ public class Module {
     @Override
     public String toString(){
     	StringBuilder aStringBuilder = new StringBuilder();
-    	aStringBuilder.append("{code:").append(Integer.toString(this.code)).append(", status:\"")
-    	.append(this.theString).append("\", turns:").append(Integer.toString(this.turns)).append(", X:")
-    	.append(Integer.toString(this.xcoord)).append(", Y:").append(Integer.toString(this.ycoord)).append("}");
+    	aStringBuilder.append("{\"code\":").append(Integer.toString(this.code)).append(",\"status\":\"")
+    	.append(this.theString).append("\",\"turns\":").append(Integer.toString(this.turns)).append(",\"X\":")
+    	.append(Integer.toString(this.xcoord)).append(",\"Y\":").append(Integer.toString(this.ycoord)).append("}");
 		return aStringBuilder.toString();
     }
 }

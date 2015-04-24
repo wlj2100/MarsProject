@@ -18,8 +18,10 @@ public class ModuleTest {
         }
         @Test
         public void testStringCon() {
-                System.out.println(module1.toString());
-                module2 = new Module(module1.toString());              
+                
+                String moduleString = module1.toString();
+                System.out.println(moduleString);
+                module2 = new Module(moduleString);              
                 assertEquals(1,module2.getCode());
                 assertEquals(1,module2.getStatus());
                 assertEquals(1,module2.getTurns());
