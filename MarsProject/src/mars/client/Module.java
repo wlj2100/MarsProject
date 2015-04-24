@@ -1,5 +1,9 @@
 package mars.client;
 
+import com.google.gwt.json.client.JSONNumber;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONParser;
+import com.google.gwt.json.client.JSONString;
 import com.google.gwt.user.client.Window;
 
 /**
@@ -17,6 +21,7 @@ public class Module {
 	String theString;
 	
     //accessor
+
     public int getCode() {
     	return this.code;
     }
@@ -68,34 +73,42 @@ public class Module {
     	this.ycoord=xcoord;
     	this.getStringStatus();
     }
-	
-    public Module(String moduleString) {
+	public Module(String moduleString) {
     	super();
-    	/*
-    	JSONObject jO=(JSONObject)JSONParser.parseLenient(moduleString);
+    	System.out.println(moduleString);
+    	if (JSONParser.parseLenient(moduleString) == null) {
+    		System.out.println("bad json");
+    	} else {
+    		System.out.println("good json");
+    		System.out.println(JSONParser.parseLenient(moduleString).toString());
+    	}
+    	JSONObject jO=(JSONObject) JSONParser.parseLenient(moduleString);
+    	
     	JSONNumber jN;
-    	//JSONString jS;
+    	JSONString jS;
     	jN = (JSONNumber)jO.get("code");
     	this.code = (int)jN.doubleValue();
-    	jN = (JSONNumber)jO.get("status");
-    	this.status = (int)jN.doubleValue();
-    	//jS = (JSONString)jO.get("status");
-    	//this.theString = (String)jS.toString();
+    	System.out.println(Integer.toString(this.code));
+    	jS = (JSONString)jO.get("status");
+    	this.theString = jS.stringValue();
     	jN = (JSONNumber)jO.get("turns");
     	this.turns = (int)jN.doubleValue();
     	jN = (JSONNumber)jO.get("X");
     	this.xcoord = (int)jN.doubleValue();
     	jN = (JSONNumber)jO.get("Y");
     	this.ycoord = (int)jN.doubleValue();
-    	*/
+    	
+    	
+    	/*
     	Window.alert(moduleString);
     	String[] values = moduleString.split(" ");
 		this.code = Integer.parseInt(values[0]);
-		this.status = Integer.parseInt(values[1]);
+		this.theString = values[1];
 		this.turns = Integer.parseInt(values[2]);
 		this.xcoord = Integer.parseInt(values[3]);
 		this.ycoord = Integer.parseInt(values[4]);
 		this.theString = this.getStringStatus();
+		*/
     }
     
     //mutator
@@ -119,9 +132,9 @@ public class Module {
     @Override
     public String toString(){
     	StringBuilder aStringBuilder = new StringBuilder();
-    	aStringBuilder.append("code:").append(Integer.toString(this.code)).append(", status\"")
+    	aStringBuilder.append("{code:").append(Integer.toString(this.code)).append(", status:\"")
     	.append(this.theString).append("\", turns:").append(Integer.toString(this.turns)).append(", X:")
-    	.append(Integer.toString(this.xcoord)).append(", Y:").append(Integer.toString(this.ycoord));
+    	.append(Integer.toString(this.xcoord)).append(", Y:").append(Integer.toString(this.ycoord)).append("}");
 		return aStringBuilder.toString();
     }
 }
