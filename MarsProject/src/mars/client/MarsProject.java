@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -106,21 +107,20 @@ public class MarsProject implements EntryPoint {
 	
 	// here is the main app
 	private void showApp() {
-        RootPanel.get().add(map.getCanvas());
-        RootPanel.get().add(tenday.getAlert());
-        RootPanel.get().add(moduleLogging.getTable());
+		RootLayoutPanel.get().add(map.getCanvas());
+		RootLayoutPanel.get().add(tenday.getAlert());
         final Button testModuleLogin = new Button("test");
         testModuleLogin.addClickHandler(new ClickHandler(){
         	public void onClick(ClickEvent event) {
         		moduleLogging.getSavedModules();
         	}
         });
-        RootPanel.get().add(testModuleLogin);
+        RootLayoutPanel.get().add(testModuleLogin);
         final TabLayoutPanel p = new TabLayoutPanel(1.5, Unit.EM);
         p.add(moduleLogging.getTable(),"loginmodule");
         p.add(new HTML("that content"), "that");
         p.add(new HTML("the other content"), "the other");
-        RootPanel.get().add(p);
+        RootLayoutPanel.get().add(p);
         
 	}
 	
