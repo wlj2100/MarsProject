@@ -27,6 +27,7 @@
   <source path='client'/>
   <source path='shared'/>
   <source path='map'/>
+  <source path='testCase'/>
 
   <!-- allow Super Dev Mode -->
   <add-linker name="xsiframe"/>
