@@ -1,11 +1,17 @@
 package mars.client;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONString;
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 
 /**
  * @author Liangji
@@ -75,19 +81,14 @@ public class Module {
     	this.getStringStatus();
     }
 	public Module(String moduleString) {
-    	super();
-    	String target = moduleString;
-    	System.out.println(target);
     	Object obj = null;
     	try {
-    		obj = JSONParser.parseStrict(target);
-    	} catch (NullPointerException e) {
+    		obj = JSONParser.parseLenient(moduleString);
+    	} catch (IllegalArgumentException e) {
     		System.out.println(e);
     	}
-    	System.out.println("a");
     	System.out.println(obj);
     	JSONObject jO = (JSONObject)obj;
-    	System.out.println("get jo");
     	if (jO == null) {
     		System.out.println("bad json");
     	} else {
