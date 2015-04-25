@@ -1,17 +1,9 @@
 package mars.client;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONString;
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 
 /**
  * @author Liangji
