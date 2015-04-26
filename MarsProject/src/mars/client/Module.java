@@ -1,5 +1,8 @@
 package mars.client;
 
+import javax.lang.model.type.UnknownTypeException;
+
+import com.google.gwt.json.client.JSONException;
 import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
@@ -80,6 +83,10 @@ public class Module {
     		System.out.println("jsonString is empty");
     	} catch (NullPointerException e2) {
     		System.out.println("jsonString is null");
+    	} catch (JSONException e3) {
+    		System.out.println(e3);
+    	} catch (UnknownTypeException e4) {
+    		System.out.println(e4);
     	}
     	System.out.println(obj);
     	JSONObject jO = (JSONObject)obj;
