@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.Button;
 
 public class TenDayAlert {
 	private final int TIMER = 846000000;
+	
 	private Timer t;
 	public TenDayAlert(){
 			t = new Timer() {
@@ -25,7 +26,7 @@ public class TenDayAlert {
 	        resetAlert.addClickHandler(new ClickHandler() {
 	        	public void onClick(ClickEvent event) {
 	        		if(!t.isRunning()) {
-	        			t.schedule(846000000);
+	        			t.schedule(TIMER);
 	        		} else {
 	        			Window.alert("10 Day Alert is runing right now!");
 	        		}

@@ -76,8 +76,10 @@ public class Module {
     	Object obj = null;
     	try {
     		obj = JSONParser.parseLenient(moduleString);
-    	} catch (IllegalArgumentException e) {
-    		System.out.println(e);
+    	} catch (IllegalArgumentException e1) {
+    		System.out.println("jsonString is empty");
+    	} catch (NullPointerException e2) {
+    		System.out.println("jsonString is null");
     	}
     	System.out.println(obj);
     	JSONObject jO = (JSONObject)obj;
