@@ -7,18 +7,22 @@ import mars.client.Module;
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.dom.client.ImageElement;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class MarsMap {
 	static final String unsupportedBrowser = "Your browser does not support the HTML5 Canvas";
-	static final int height = 900;
-	static final int width = 1600;
+	static final int height = 600;
+	static final int width = 800;
 	Canvas canvas;
 	private Storage localStorage;
 	private ArrayList<Module> list;
@@ -120,6 +124,38 @@ public class MarsMap {
 		RootPanel.get().add(moduleImage);
 	}
      
-	
+	public DockPanel getMarsPanel(){
+		DockPanel marsPanel  = new DockPanel();
+		marsPanel.add(getCanvas(), DockPanel.NORTH);
+		 final Button displayConfig1 = new Button("Minimun Config 1");
+	        displayConfig1.addClickHandler(new ClickHandler(){
+	        	public void onClick(ClickEvent event) {
+	        		//TODO
+	        	}
+	        });
+	        final Button displayConfig2 = new Button("Minimun Config 2");
+	        displayConfig2.addClickHandler(new ClickHandler(){
+	        	public void onClick(ClickEvent event) {
+	        		//TODO
+	        	}
+	        });
+	        final Button displayConfig3 = new Button("Display Config 3");
+	        displayConfig3.addClickHandler(new ClickHandler(){
+	        	public void onClick(ClickEvent event) {
+	        		//TODO
+	        	}
+	        });
+	        final Button displayConfig4 = new Button("Display Config 4");
+	        displayConfig4.addClickHandler(new ClickHandler(){
+	        	public void onClick(ClickEvent event) {
+	        		//TODO
+	        	}
+	        });
+		marsPanel.add(displayConfig4, DockPanel.WEST);
+		marsPanel.add(displayConfig3, DockPanel.WEST);
+		marsPanel.add(displayConfig1, DockPanel.EAST);
+		marsPanel.add(displayConfig2, DockPanel.EAST);
+		return marsPanel;
+	}
 	
 }

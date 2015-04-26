@@ -11,11 +11,13 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -107,21 +109,29 @@ public class MarsProject implements EntryPoint {
 	
 	// here is the main app
 	private void showApp() {
-		RootLayoutPanel.get().add(map.getCanvas());
-		RootLayoutPanel.get().add(tenday.getAlert());
+		
+		DockPanel splitPanel = new DockPanel();
+		splitPanel.add(moduleLogging.getTable(),DockPanel.NORTH);
+		splitPanel.add(tenday.getAlert(), DockPanel.NORTH);
+
         final Button testModuleLogin = new Button("test");
         testModuleLogin.addClickHandler(new ClickHandler(){
         	public void onClick(ClickEvent event) {
         		moduleLogging.getSavedModules();
         	}
         });
-        RootLayoutPanel.get().add(testModuleLogin);
-        final TabLayoutPanel p = new TabLayoutPanel(1.5, Unit.EM);
-        p.add(moduleLogging.getTable(),"loginmodule");
-        p.add(new HTML("that content"), "that");
-        p.add(new HTML("the other content"), "the other");
-        RootLayoutPanel.get().add(p);
         
+		splitPanel.add(testModuleLogin,DockPanel.NORTH);
+		VerticalPanel vp2 = new VerticalPanel();
+		vp2.add(map.getMarsPanel());
+		
+       
+       
+        final TabLayoutPanel p = new TabLayoutPanel(1.5, Unit.EM);
+        p.add(splitPanel,"loginmodule");
+        p.add(vp2, "Display");       
+      
+        RootLayoutPanel.get().add(p);
 	}
 	
 	

@@ -1,6 +1,6 @@
 package mars.client;
 
-import javax.lang.model.type.UnknownTypeException;
+//import javax.lang.model.type.UnknownTypeException;
 
 import com.google.gwt.json.client.JSONException;
 import com.google.gwt.json.client.JSONNumber;
@@ -85,7 +85,7 @@ public class Module {
     		System.out.println("jsonString is null");
     	} catch (JSONException e3) {
     		System.out.println(e3);
-    	} catch (UnknownTypeException e4) {
+    	} catch (Exception e4) {
     		System.out.println(e4);
     	}
     	System.out.println(obj);
