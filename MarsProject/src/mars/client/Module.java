@@ -139,6 +139,9 @@ public class Module {
     public void setYcoord(int ycoord) {
     	this.ycoord=ycoord;
     }
+    public void setTheString(String string) {
+    	this.theString = string;
+    }
     
     //toString method
     @Override
