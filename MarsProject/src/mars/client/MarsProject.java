@@ -30,8 +30,10 @@ public class MarsProject implements EntryPoint {
 			moduleLogging);
 	private final TenDayAlert tenday = new TenDayAlert();
 	private final Weather weatherpanel = new Weather();
+	private final Weather weatherpanel2 = new Weather();
 	private final Configuration config = new Configuration();
-
+    private final Button logout = new Button("Logout"); //TODO for logging mod tab
+    private final Button logout2 = new Button("Logout"); //TODO for map tab
 	/**
 	 * This is the entry point method.
 	 */
@@ -119,7 +121,7 @@ public class MarsProject implements EntryPoint {
 		splitPanel.add(weatherpanel.getWeather(), DockPanel.EAST);
 		VerticalPanel vp2 = new VerticalPanel();
 		vp2.add(map.getMarsPanel());
-
+		vp2.add(weatherpanel2.getWeather());
 		final TabLayoutPanel p = new TabLayoutPanel(1.5, Unit.EM);
 		p.add(splitPanel, "loginmodule");
 		p.add(vp2, "Display");
