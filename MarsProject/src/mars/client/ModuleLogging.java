@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
@@ -24,16 +25,20 @@ public class ModuleLogging {
 	private Module currentModule;
 	private Storage moduleStore;
 	private final ArrayList<Module> list = new ArrayList<Module>();
+	private final CellTable<Module> table = new CellTable<Module>();
+	private final FlexTable t = new FlexTable();
+	private final VerticalPanel vp = new VerticalPanel();
 
 	public ModuleLogging() {
 		moduleStore = Storage.getLocalStorageIfSupported();
+		this.SavedModulesList();
 	}
 
 	public Storage getModuleLocal() {
 		return moduleStore;
 	}
 
-	public ArrayList<Module> getSavedModules() {
+	private void SavedModulesList() {
 		if (moduleStore != null) {
 			list.clear();
 			for (int i = 0; i < moduleStore.getLength(); i += 1) {
@@ -47,11 +52,14 @@ public class ModuleLogging {
 		} else {
 			Window.alert("MODULE STORAGE IS NULL");
 		}
+	}
+	
+	public ArrayList<Module> getSavedModules() {
 		return list;
 	}
 
-	public FlexTable getTable() {
-
+	public VerticalPanel getModuleLoginPanel() {
+		moduleListtable();
 		// Make a new list box, adding a few items to it.
 
 		final TextBox code = new TextBox();
@@ -73,9 +81,9 @@ public class ModuleLogging {
 		final TextBox xcord = new TextBox();
 
 		final TextBox ycord = new TextBox();
-        
+
 		final Button save = new Button("Save");
-		final FlexTable t = new FlexTable();
+
 		t.setText(0, 0, "Module Code");
 		t.setText(0, 1, "Module Status");
 		t.setText(0, 2, "Module Orientation");
@@ -117,7 +125,7 @@ public class ModuleLogging {
 					list.remove(removedModule);
 					moduleStore.removeItem(removeThisCode.getText());
 					removeThisCode.setText("");
-					
+					moduleListtable();
 				}
 			}
 		});
@@ -126,6 +134,7 @@ public class ModuleLogging {
 				if (moduleStore != null) {
 					moduleStore.clear();
 					list.clear();
+					moduleListtable();
 				}
 			}
 		});
@@ -155,6 +164,7 @@ public class ModuleLogging {
 									Integer.toString(currentModule.getCode()),
 									currentModule.toString());
 							list.add(currentModule);
+							moduleListtable();
 							Window.alert("Module Logged!");
 						} else {
 							Window.alert("duplicated module, cannot login");
@@ -175,15 +185,18 @@ public class ModuleLogging {
 				}
 			}
 		});
-		return t;
+		vp.add(t);
+		vp.add(table);
+		return vp;
 	}
 
 	// this method shows all the logged modules
-	public CellTable<Module> getCelltable() {
-		// Create a CellTable.
-		 this.getSavedModules();
+	public void moduleListtable() {
+		// clean the table
+		while (table.getColumnCount() > 0) {
+		    table.removeColumn(0);
+		}
 		
-		CellTable<Module> table = new CellTable<Module>();
 		table.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 
 		// Add a text column to show the code.
@@ -252,8 +265,5 @@ public class ModuleLogging {
 
 		// Push the data into the widget.
 		table.setRowData(0, list);
-
-		// return the table
-		return table;
 	}
 }
