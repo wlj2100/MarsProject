@@ -31,6 +31,10 @@ public class Module {
 	}
 
 	public String getStringStatus() {
+		return theString;
+	}
+	
+	private void convertIntStatus() {
 		if (this.status == 0)
 			theString = "Undamaged";
 		else if (this.status == 1)
@@ -39,10 +43,13 @@ public class Module {
 			theString = "Unrepairable";
 		else
 			theString = "Undefined";
-		return theString;
 	}
 
 	public int getStatus() {
+		return this.status;
+	}
+	
+	private void convertStringStatus() {
 		if (theString == "Undamaged") {
 			this.status = 0;
 		} else if (theString == "Repairable") {
@@ -52,7 +59,6 @@ public class Module {
 		} else {
 			this.status = 3;
 		}
-		return this.status;
 	}
 
 	public int getTurns() {
@@ -79,14 +85,14 @@ public class Module {
 		this.turns = turns;
 		this.xcoord = xcoord;
 		this.ycoord = xcoord;
-		this.getStringStatus();
+		this.convertIntStatus();
 	}
 
 	public Module(String aString) {
 		convert(aString);
 	}
 
-	//
+	// string constructor helper with json string
 	private void convert(String moduleString) {
 		JSONObject jO = (JSONObject) JSONParser.parseLenient(moduleString);
 		JSONNumber jN;
@@ -113,6 +119,7 @@ public class Module {
 		d = jN.doubleValue();
 		//Window.alert(Double.toString(d));
 		this.ycoord = (int)d;
+		this.convertStringStatus();
 	}
 
 	// mutator
@@ -122,6 +129,7 @@ public class Module {
 
 	public void setStatus(int status) {
 		this.status = status;
+		this.convertIntStatus();
 	}
 
 	public void setTurns(int turns) {
@@ -138,6 +146,7 @@ public class Module {
 
 	public void setTheString(String string) {
 		this.theString = string;
+		this.convertStringStatus();
 	}
 
 	// toString method

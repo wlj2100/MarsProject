@@ -12,26 +12,29 @@ import com.google.gwt.storage.client.Storage;
  * @author Liangji 
  */
 public class Configuration {
-	private ArrayList<Module> minConfig1 = new ArrayList<Module>();
-	private ArrayList<Module> minConfig2 = new ArrayList<Module>();
-	private ArrayList<Module> maxConfig1 = new ArrayList<Module>();
-	private ArrayList<Module> maxConfig2 = new ArrayList<Module>();
+	private final ArrayList<Module> minConfig1 = new ArrayList<Module>();
+	private final ArrayList<Module> minConfig2 = new ArrayList<Module>();
+	private final ArrayList<Module> maxConfig1 = new ArrayList<Module>();
+	private final ArrayList<Module> maxConfig2 = new ArrayList<Module>();
 	private int addCounter;
 	private Storage localConfig = Storage.getLocalStorageIfSupported();
 
 	public Configuration() {
-
+		//localConfig.setItem("minConfig1", listToConfig(minConfig1));
+		//localConfig.setItem("minConfig2", listToConfig(minConfig2));
+		//localConfig.setItem("maxConfig1", listToConfig(maxConfig1));
+		//localConfig.setItem("maxConfig2", listToConfig(maxConfig2));
 		addCounter = 0;
 		// TODO
 	}
 
 	public void addConfig(ArrayList<Module> list) {
 		localConfig.setItem("c" + Integer.toString(addCounter),
-				listToConfig());
+				listToConfig(list));
 		addCounter++;
 	}
 
-	public ArrayList<Module> getConfig(String key) {
+	public ArrayList<Module> ConfigToList(String key) {
 		ArrayList<Module> list = new ArrayList<Module>();
 		Object obj = JSONParser.parseLenient(localConfig.getItem(key));
 		JSONArray jA = (JSONArray) obj;
@@ -55,9 +58,15 @@ public class Configuration {
 		return list;
 	}
 
-	public String listToConfig() {
+	public String listToConfig(ArrayList<Module> list) {
 		StringBuilder aStringBuilder = new StringBuilder();
-		// TODO
+		aStringBuilder.append("[");
+		for (int i = 0; i < list.size(); i++) {
+			aStringBuilder.append((list.get(i)).toString()).append(",");
+		}
+		//delete extra ","
+		aStringBuilder.deleteCharAt(aStringBuilder.length());
+		aStringBuilder.append("]");
 		return aStringBuilder.toString();
 	}
 }

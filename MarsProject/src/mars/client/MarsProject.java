@@ -30,6 +30,7 @@ public class MarsProject implements EntryPoint {
 	private final ModuleLogging moduleLogging = new ModuleLogging();
 	private final MarsMap map = new MarsMap(moduleLogging.getModuleLocal());
 	private final TenDayAlert tenday = new TenDayAlert();
+	private final Configuration config = new Configuration();
 	/**
 	 * This is the entry point method.
 	 */
@@ -112,6 +113,7 @@ public class MarsProject implements EntryPoint {
 		
 		DockPanel splitPanel = new DockPanel();
 		splitPanel.add(moduleLogging.getTable(),DockPanel.NORTH);
+		splitPanel.add(moduleLogging.getCelltable(), DockPanel.NORTH);
 		splitPanel.add(tenday.getAlert(), DockPanel.NORTH);
 
         final Button testModuleLogin = new Button("test");
