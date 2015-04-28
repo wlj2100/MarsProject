@@ -20,10 +20,10 @@ public class Configuration {
 	private Storage localConfig = Storage.getLocalStorageIfSupported();
 
 	public Configuration() {
-		//localConfig.setItem("minConfig1", listToConfig(minConfig1));
-		//localConfig.setItem("minConfig2", listToConfig(minConfig2));
-		//localConfig.setItem("maxConfig1", listToConfig(maxConfig1));
-		//localConfig.setItem("maxConfig2", listToConfig(maxConfig2));
+		localConfig.setItem("minConfig1", listToConfig(minConfig1));
+		localConfig.setItem("minConfig2", listToConfig(minConfig2));
+		localConfig.setItem("maxConfig1", listToConfig(maxConfig1));
+		localConfig.setItem("maxConfig2", listToConfig(maxConfig2));
 		addCounter = 0;
 		// TODO
 	}

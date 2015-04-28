@@ -38,10 +38,10 @@ public class ModuleLogging {
 			list.clear();
 			for (int i = 0; i < moduleStore.getLength(); i += 1) {
 				String key = moduleStore.key(i);
-				if (!key.startsWith("c")) {
+				if (!key.startsWith("c") && !key.startsWith("m")) {
 					String value = moduleStore.getItem(key);
 					list.add(new Module(value));
-					Window.alert(list.get(list.size() - 1).toString());
+					// Window.alert(list.get(list.size() - 1).toString());
 				}
 			}
 		} else {
