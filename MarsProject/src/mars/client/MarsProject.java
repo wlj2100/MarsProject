@@ -12,12 +12,10 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockPanel;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -28,10 +26,12 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class MarsProject implements EntryPoint {
 
 	private final ModuleLogging moduleLogging = new ModuleLogging();
-	private final MarsMap map = new MarsMap(moduleLogging.getModuleLocal(), moduleLogging);
+	private final MarsMap map = new MarsMap(moduleLogging.getModuleLocal(),
+			moduleLogging);
 	private final TenDayAlert tenday = new TenDayAlert();
 	private final Weather weatherpanel = new Weather();
 	private final Configuration config = new Configuration();
+
 	/**
 	 * This is the entry point method.
 	 */
@@ -39,7 +39,7 @@ public class MarsProject implements EntryPoint {
 		// simple login
 		// username: MarsUser
 		// password: 123
-		
+
 		final Button submitButton = new Button("Submit");
 		final TextBox nameField = new TextBox();
 		final PasswordTextBox passwordField = new PasswordTextBox();
@@ -82,7 +82,8 @@ public class MarsProject implements EntryPoint {
 			}
 
 			/**
-			 * Send the name from the nameField to the server and wait for a response.
+			 * Send the name from the nameField to the server and wait for a
+			 * response.
 			 */
 			private void sendDataToServer() {
 				// First, we validate the input.
@@ -90,7 +91,8 @@ public class MarsProject implements EntryPoint {
 				String passwordToServer = passwordField.getText();
 				// Then, we send the input to the server.
 				submitButton.setEnabled(false);
-				if (nameToServer.equals("MarsUser")&&passwordToServer.equals("123")) {
+				if (nameToServer.equals("MarsUser")
+						&& passwordToServer.equals("123")) {
 					RootPanel.get().clear();
 					Window.alert("login successfully");
 					showApp();
@@ -105,28 +107,24 @@ public class MarsProject implements EntryPoint {
 		MyHandler handler = new MyHandler();
 		submitButton.addClickHandler(handler);
 		nameField.addKeyUpHandler(handler);
-		
-		
+
 	}
-	
+
 	// here is the main app
 	private void showApp() {
-		
+
 		DockPanel splitPanel = new DockPanel();
-		splitPanel.add(moduleLogging.getModuleLoginPanel(),DockPanel.NORTH);
+		splitPanel.add(moduleLogging.getModuleLoginPanel(), DockPanel.NORTH);
 		splitPanel.add(tenday.getAlert(), DockPanel.NORTH);
 		splitPanel.add(weatherpanel.getWeather(), DockPanel.EAST);
 		VerticalPanel vp2 = new VerticalPanel();
 		vp2.add(map.getMarsPanel());
-		
-       
-       
-        final TabLayoutPanel p = new TabLayoutPanel(1.5, Unit.EM);
-        p.add(splitPanel,"loginmodule");
-        p.add(vp2, "Display");       
-      
-        RootLayoutPanel.get().add(p);
+
+		final TabLayoutPanel p = new TabLayoutPanel(1.5, Unit.EM);
+		p.add(splitPanel, "loginmodule");
+		p.add(vp2, "Display");
+
+		RootLayoutPanel.get().add(p);
 	}
-	
-	
+
 }

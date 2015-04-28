@@ -53,7 +53,7 @@ public class ModuleLogging {
 			Window.alert("MODULE STORAGE IS NULL");
 		}
 	}
-	
+
 	public ArrayList<Module> getSavedModules() {
 		return list;
 	}
@@ -119,11 +119,10 @@ public class ModuleLogging {
 			public void onClick(final ClickEvent event) {
 				if (moduleStore != null) {
 					String removeString = removeThisCode.getText();
-					
+
 					Module removedModule = new Module(moduleStore
 							.getItem(removeString));
-					Window.alert("module removed: "
-							+ removedModule.toString());
+					Window.alert("module removed: " + removedModule.toString());
 					for (int i = 0; i < list.size(); i++) {
 						if ((list.get(i)).getCode() == removedModule.getCode()) {
 							list.remove(i);
@@ -201,9 +200,9 @@ public class ModuleLogging {
 	public void moduleListtable() {
 		// clean the table
 		while (table.getColumnCount() > 0) {
-		    table.removeColumn(0);
+			table.removeColumn(0);
 		}
-		
+
 		table.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 
 		// Add a text column to show the code.

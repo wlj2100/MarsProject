@@ -9,7 +9,7 @@ import com.google.gwt.json.client.JSONString;
 import com.google.gwt.storage.client.Storage;
 
 /**
- * @author Liangji 
+ * @author Liangji
  */
 public class Configuration {
 	private final ArrayList<Module> minConfig1 = new ArrayList<Module>();
@@ -64,7 +64,7 @@ public class Configuration {
 		for (int i = 0; i < list.size(); i++) {
 			aStringBuilder.append((list.get(i)).toString()).append(",");
 		}
-		//delete extra ","
+		// delete extra ","
 		aStringBuilder.deleteCharAt(aStringBuilder.length());
 		aStringBuilder.append("]");
 		return aStringBuilder.toString();

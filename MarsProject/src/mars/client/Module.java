@@ -2,13 +2,11 @@ package mars.client;
 
 //import javax.lang.model.type.UnknownTypeException;
 
-
 import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.user.client.Window;
-
 
 /**
  * @author Liangji
@@ -33,7 +31,7 @@ public class Module {
 	public String getStringStatus() {
 		return theString;
 	}
-	
+
 	private void convertIntStatus() {
 		if (this.status == 0)
 			theString = "Undamaged";
@@ -48,7 +46,7 @@ public class Module {
 	public int getStatus() {
 		return this.status;
 	}
-	
+
 	private void convertStringStatus() {
 		if (theString == "Undamaged") {
 			this.status = 0;
@@ -101,24 +99,24 @@ public class Module {
 		String s;
 		jN = (JSONNumber) jO.get("code");
 		d = jN.doubleValue();
-		//Window.alert(Double.toString(d));
-		this.code = (int)d;
+		// Window.alert(Double.toString(d));
+		this.code = (int) d;
 		jS = (JSONString) jO.get("status");
 		s = jS.stringValue();
-		//Window.alert(s);
+		// Window.alert(s);
 		this.theString = s;
 		jN = (JSONNumber) jO.get("turns");
 		d = jN.doubleValue();
-		//Window.alert(Double.toString(d));
-		this.turns = (int)d;
+		// Window.alert(Double.toString(d));
+		this.turns = (int) d;
 		jN = (JSONNumber) jO.get("X");
 		d = jN.doubleValue();
-		//Window.alert(Double.toString(d));
-		this.xcoord = (int)d;
+		// Window.alert(Double.toString(d));
+		this.xcoord = (int) d;
 		jN = (JSONNumber) jO.get("Y");
 		d = jN.doubleValue();
-		//Window.alert(Double.toString(d));
-		this.ycoord = (int)d;
+		// Window.alert(Double.toString(d));
+		this.ycoord = (int) d;
 		this.convertStringStatus();
 	}
 
@@ -153,12 +151,12 @@ public class Module {
 	@Override
 	public String toString() {
 		StringBuilder aStringBuilder = new StringBuilder();
-		aStringBuilder.append("{\"code\":")
-				.append(Integer.toString(this.code)).append(",\"status\":\"")
-				.append(this.theString).append("\",\"turns\":")
-				.append(Integer.toString(this.turns)).append(",\"X\":")
-				.append(Integer.toString(this.xcoord)).append(",\"Y\":")
-				.append(Integer.toString(this.ycoord)).append("}");
+		aStringBuilder.append("{\"code\":").append(Integer.toString(this.code))
+				.append(",\"status\":\"").append(this.theString)
+				.append("\",\"turns\":").append(Integer.toString(this.turns))
+				.append(",\"X\":").append(Integer.toString(this.xcoord))
+				.append(",\"Y\":").append(Integer.toString(this.ycoord))
+				.append("}");
 		return aStringBuilder.toString();
 	}
 }
