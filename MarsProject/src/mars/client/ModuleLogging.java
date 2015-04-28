@@ -138,7 +138,10 @@ public class ModuleLogging {
 		removeAll.addClickHandler(new ClickHandler() {
 			public void onClick(final ClickEvent event) {
 				if (moduleStore != null) {
-					moduleStore.clear();
+					for(int i = 0; i < list.size(); i++) {
+						Module removedModule = list.get(i);
+						moduleStore.removeItem(Integer.toString(removedModule.getCode()));
+					}
 					list.clear();
 					moduleListtable();
 				}
