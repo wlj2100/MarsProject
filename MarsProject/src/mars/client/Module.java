@@ -2,154 +2,154 @@ package mars.client;
 
 //import javax.lang.model.type.UnknownTypeException;
 
-import com.google.gwt.json.client.JSONException;
+
 import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONString;
+import com.google.gwt.user.client.Window;
+
 
 /**
  * @author Liangji
  *
  */
 public class Module {
-	
-	// module properties
-    int code;
-    int status;
-    int turns;
-    int xcoord;
-    int ycoord;
-	String theString;
-	
-    //accessor
 
-    public int getCode() {
-    	return this.code;
-    }
-    public String getStringStatus()
-	{
-		if(this.status == 0)
+	// module properties
+	int code;
+	int status;
+	int turns;
+	int xcoord;
+	int ycoord;
+	String theString;
+
+	// accessor
+
+	public int getCode() {
+		return this.code;
+	}
+
+	public String getStringStatus() {
+		if (this.status == 0)
 			theString = "Undamaged";
-		else if(this.status == 1)
+		else if (this.status == 1)
 			theString = "Repairable";
-		else if(this.status == 2)
+		else if (this.status == 2)
 			theString = "Unrepairable";
-		else 
+		else
 			theString = "Undefined";
 		return theString;
 	}
-    
-    public int getStatus() {
-    	if (theString == "Undamaged") {
-    		this.status=0;
-    	} else if (theString == "Repairable") {
-    		this.status=1;
-    	} else if (theString == "Unrepairable") {
-    		this.status = 2;
-    	} else {
-    		this.status = 3;
-    	}
-    	return this.status;
-    }
-    
-    public int getTurns() {
-    	return this.turns;
-    }
-    public int getX(){
-    	return this.xcoord;
-    }
-    public int getY(){
-    	return this.ycoord;
-    }
-    // constructor
-    public Module() {
-    	super();
-    }
-    public Module(int code, int status, int turns, int xcoord, int ycoord) {
-    	super();
-    	this.code=code;
-    	this.status=status;
-    	this.turns=turns;
-    	this.xcoord=xcoord;
-    	this.ycoord=xcoord;
-    	this.getStringStatus();
-    }
-	public Module(String moduleString) {
-    	Object obj = null;
-    	try {
-    		obj = JSONParser.parseLenient(moduleString);
-    	} catch (IllegalArgumentException e1) {
-    		System.out.println("jsonString is empty");
-    	} catch (NullPointerException e2) {
-    		System.out.println("jsonString is null");
-    	} catch (JSONException e3) {
-    		System.out.println(e3);
-    	} catch (Exception e4) {
-    		System.out.println(e4);
-    	}
-    	System.out.println(obj);
-    	JSONObject jO = (JSONObject)obj;
-    	if (jO == null) {
-    		System.out.println("bad json");
-    	} else {
-    		System.out.println("good json");
-    		System.out.println(jO.toString());
-    	}
-    	JSONNumber jN;
-    	JSONString jS;
-    	jN = (JSONNumber)jO.get("code");
-    	this.code = (int)jN.doubleValue();
-    	System.out.println(Integer.toString(this.code));
-    	jS = (JSONString)jO.get("status");
-    	this.theString = jS.stringValue();
-    	jN = (JSONNumber)jO.get("turns");
-    	this.turns = (int)jN.doubleValue();
-    	jN = (JSONNumber)jO.get("X");
-    	this.xcoord = (int)jN.doubleValue();
-    	jN = (JSONNumber)jO.get("Y");
-    	this.ycoord = (int)jN.doubleValue();
-    	
-    	
-    	/*
-    	Window.alert(moduleString);
-    	String[] values = moduleString.split(" ");
-		this.code = Integer.parseInt(values[0]);
-		this.theString = values[1];
-		this.turns = Integer.parseInt(values[2]);
-		this.xcoord = Integer.parseInt(values[3]);
-		this.ycoord = Integer.parseInt(values[4]);
-		this.theString = this.getStringStatus();
-		*/
-    }
-    
-    //mutator
-    public void setCode(int code) {
-    	this.code=code;
-    }
-    public void setStatus(int status) {
-    	this.status=status;
-    }
-    public void setTurns(int turns) {
-    	this.turns=turns;
-    }
-    public void setXcoord(int xcoord) {
-    	this.xcoord=xcoord;
-    }
-    public void setYcoord(int ycoord) {
-    	this.ycoord=ycoord;
-    }
-    public void setTheString(String string) {
-    	this.theString = string;
-    }
-    
-    //toString method
-    @Override
-    public String toString(){
-    	StringBuilder aStringBuilder = new StringBuilder();
-    	aStringBuilder.append("{\"code\":").append(Integer.toString(this.code)).append(",\"status\":\"")
-    	.append(this.theString).append("\",\"turns\":").append(Integer.toString(this.turns)).append(",\"X\":")
-    	.append(Integer.toString(this.xcoord)).append(",\"Y\":").append(Integer.toString(this.ycoord)).append("}");
+
+	public int getStatus() {
+		if (theString == "Undamaged") {
+			this.status = 0;
+		} else if (theString == "Repairable") {
+			this.status = 1;
+		} else if (theString == "Unrepairable") {
+			this.status = 2;
+		} else {
+			this.status = 3;
+		}
+		return this.status;
+	}
+
+	public int getTurns() {
+		return this.turns;
+	}
+
+	public int getX() {
+		return this.xcoord;
+	}
+
+	public int getY() {
+		return this.ycoord;
+	}
+
+	// constructor
+	public Module() {
+		super();
+	}
+
+	public Module(int code, int status, int turns, int xcoord, int ycoord) {
+		super();
+		this.code = code;
+		this.status = status;
+		this.turns = turns;
+		this.xcoord = xcoord;
+		this.ycoord = xcoord;
+		this.getStringStatus();
+	}
+
+	public Module(String aString) {
+		convert(aString);
+	}
+
+	//
+	private void convert(String moduleString) {
+		JSONObject jO = (JSONObject) JSONParser.parseLenient(moduleString);
+		JSONNumber jN;
+		JSONString jS;
+		double d;
+		String s;
+		jN = (JSONNumber) jO.get("code");
+		d = jN.doubleValue();
+		//Window.alert(Double.toString(d));
+		this.code = (int)d;
+		jS = (JSONString) jO.get("status");
+		s = jS.stringValue();
+		//Window.alert(s);
+		this.theString = s;
+		jN = (JSONNumber) jO.get("turns");
+		d = jN.doubleValue();
+		//Window.alert(Double.toString(d));
+		this.turns = (int)d;
+		jN = (JSONNumber) jO.get("X");
+		d = jN.doubleValue();
+		//Window.alert(Double.toString(d));
+		this.xcoord = (int)d;
+		jN = (JSONNumber) jO.get("Y");
+		d = jN.doubleValue();
+		//Window.alert(Double.toString(d));
+		this.ycoord = (int)d;
+	}
+
+	// mutator
+	public void setCode(int code) {
+		this.code = code;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public void setTurns(int turns) {
+		this.turns = turns;
+	}
+
+	public void setXcoord(int xcoord) {
+		this.xcoord = xcoord;
+	}
+
+	public void setYcoord(int ycoord) {
+		this.ycoord = ycoord;
+	}
+
+	public void setTheString(String string) {
+		this.theString = string;
+	}
+
+	// toString method
+	@Override
+	public String toString() {
+		StringBuilder aStringBuilder = new StringBuilder();
+		aStringBuilder.append("{\"code\":")
+				.append(Integer.toString(this.code)).append(",\"status\":\"")
+				.append(this.theString).append("\",\"turns\":")
+				.append(Integer.toString(this.turns)).append(",\"X\":")
+				.append(Integer.toString(this.xcoord)).append(",\"Y\":")
+				.append(Integer.toString(this.ycoord)).append("}");
 		return aStringBuilder.toString();
-    }
+	}
 }

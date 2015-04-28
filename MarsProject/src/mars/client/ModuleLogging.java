@@ -36,14 +36,14 @@ public class ModuleLogging {
 			 list.clear();
 		//NOTE: when we iterate through this, we can possibly add the modules to the "currentmodulelist" or whatever
 			 for (int i = 0; i < moduleStore.getLength(); i += 1) { 
-				 String key = moduleStore.key(i); 
-				 Window.alert(key);
-				 String value = moduleStore.getItem(key); 
-				 Window.alert(value);
-				 String[] values = value.split(" ");
-				 storedModule = new Module(Integer.parseInt(values[0]), Integer.parseInt(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3]), Integer.parseInt(values[4]));
-			 	 list.add(storedModule);
-			 	 Window.alert(list.get(list.size()).toString());
+				 String key = moduleStore.key(i);
+					if (!key.startsWith("c")) {
+						// Window.alert(key);
+						String value = moduleStore.getItem(key);
+						// Window.alert(value);
+						list.add(new Module(value));
+						Window.alert(list.get(list.size() - 1).toString());
+					}
 			 }
 		 } else{
 			 Window.alert("MODULE STORAGE IS NULL");

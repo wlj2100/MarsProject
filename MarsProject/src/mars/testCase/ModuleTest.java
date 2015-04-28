@@ -16,6 +16,7 @@ public class ModuleTest {
                 assertEquals(1,module1.getX());
                 assertEquals(1,module1.getY());
         }
+
         @Test
         public void testStringCon() {
                 

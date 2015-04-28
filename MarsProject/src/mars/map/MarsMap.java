@@ -51,14 +51,13 @@ public class MarsMap {
 			// modules to the "currentmodulelist" or whatever
 			for (int i = 0; i < localStorage.getLength(); i += 1) {
 				String key = localStorage.key(i);
-				Window.alert(key);
-				String value = localStorage.getItem(key);
-				Window.alert(value);
-				String[] values = value.split(" ");
-				list.add(new Module(Integer.parseInt(values[0]), Integer
-						.parseInt(values[1]), Integer.parseInt(values[2]),
-						Integer.parseInt(values[3]), Integer
-								.parseInt(values[4])));
+				if (!key.startsWith("c")) {
+					// Window.alert(key);
+					String value = localStorage.getItem(key);
+					// Window.alert(value);
+					list.add(new Module(value));
+					Window.alert(list.get(list.size() - 1).toString());
+				}
 			}
 		} else {
 			Window.alert("MODULE STORAGE IS NULL");
@@ -253,7 +252,7 @@ public class MarsMap {
 			RootPanel.get().add(img2);
 			final Image img3 = new Image("images/GreyPlain.jpg");
 			img3.setVisible(true);
-			
+
 			final ImageElement greyPlain3 = ImageElement.as(img3.getElement());
 			img3.addLoadHandler(new LoadHandler() {
 				public void onLoad(LoadEvent event) { // fired by
@@ -267,7 +266,7 @@ public class MarsMap {
 
 			final Image img4 = new Image("images/Greycontrol.jpg");
 			img4.setVisible(true);
-			
+
 			final ImageElement control = ImageElement.as(img4.getElement());
 			img4.addLoadHandler(new LoadHandler() {
 				public void onLoad(LoadEvent event) { // fired by
@@ -279,7 +278,6 @@ public class MarsMap {
 			img4.setVisible(false); // two line hack to ensure image is loaded
 			RootPanel.get().add(img4);
 
-			
 			final Image img5 = new Image("images/GreyGym.jpg");
 			img5.setVisible(true);
 			final ImageElement sanitation = ImageElement.as(img5.getElement());
@@ -293,15 +291,11 @@ public class MarsMap {
 			img5.setVisible(false); // two line hack to ensure image is loaded
 			RootPanel.get().add(img5);
 
-			
-			
-			
-			
-			
-			//Airlock
+			// Airlock
 			final Image img6 = new Image("images/GreyAirLock.jpg");
 			img6.setVisible(true);
-			final ImageElement airlockImage = ImageElement.as(img6.getElement());
+			final ImageElement airlockImage = ImageElement
+					.as(img6.getElement());
 			img6.addLoadHandler(new LoadHandler() {
 				public void onLoad(LoadEvent event) { // fired by
 														// RootPanel.get().add
@@ -312,8 +306,7 @@ public class MarsMap {
 			img6.setVisible(false); // two line hack to ensure image is loaded
 			RootPanel.get().add(img6);
 
-			
-			//Dorm
+			// Dorm
 			final Image img7 = new Image("images/GreyDormitory.jpg");
 			img7.setVisible(true);
 			final ImageElement dormImage = ImageElement.as(img7.getElement());
@@ -327,7 +320,7 @@ public class MarsMap {
 			img7.setVisible(false); // two line hack to ensure image is loaded
 			RootPanel.get().add(img7);
 
-			//power
+			// power
 			final Image img8 = new Image("images/GreyPower.jpg");
 			img8.setVisible(true);
 			final ImageElement powerImage = ImageElement.as(img8.getElement());
@@ -341,7 +334,7 @@ public class MarsMap {
 			img8.setVisible(false); // two line hack to ensure image is loaded
 			RootPanel.get().add(img8);
 
-			//food
+			// food
 			final Image img9 = new Image("images/GreyCanteen.jpg");
 			img9.setVisible(true);
 			final ImageElement foodImage = ImageElement.as(img9.getElement());
@@ -355,10 +348,11 @@ public class MarsMap {
 			img9.setVisible(false); // two line hack to ensure image is loaded
 			RootPanel.get().add(img9);
 
-			//storage
+			// storage
 			final Image img10 = new Image("images/GreyFood.jpg");
 			img10.setVisible(true);
-			final ImageElement storageImage = ImageElement.as(img10.getElement());
+			final ImageElement storageImage = ImageElement.as(img10
+					.getElement());
 			img10.addLoadHandler(new LoadHandler() {
 				public void onLoad(LoadEvent event) { // fired by
 														// RootPanel.get().add
@@ -369,8 +363,6 @@ public class MarsMap {
 			img10.setVisible(false); // two line hack to ensure image is loaded
 			RootPanel.get().add(img10);
 
-			
-			
 		} else if (displayMinConfig2 == true) {
 			context.clearRect(0, 0, this.WIDTH, this.HEIGHT);
 		} else if (displayCurrentConfig == true) {
