@@ -1,3 +1,4 @@
+
 package mars.map;
 
 import java.util.ArrayList;
@@ -214,25 +215,11 @@ public class MarsMap {
 
 	void updateMap() {
 		if (displayFullConfig1 == true) {
-
+			loadBackground();
 		} else if (displayFullConfig2 == true) {
-
+			loadBackground();
 		} else if (displayMinConfig1 == true) {
-			context.clearRect(0, 0, this.WIDTH, this.HEIGHT);
-
-			final Image img = new Image("images/crater.jpg");
-			img.setVisible(true);
-			final ImageElement crater = ImageElement.as(img.getElement());
-			img.addLoadHandler(new LoadHandler() {
-				public void onLoad(LoadEvent event) { // fired by
-														// RootPanel.get().add
-					context.drawImage(crater, 0, 0);
-				}
-			});
-			canvas.setVisible(true);
-			img.setVisible(false); // two line hack to ensure image is loaded
-			RootPanel.get().add(img); // image must be on page to fire load
-										// event
+			loadBackground();
 			final Image img1 = new Image("images/GreyPlain.jpg");
 			img1.setVisible(true);
 			final ImageElement greyPlain1 = ImageElement.as(img1.getElement());
@@ -371,23 +358,9 @@ public class MarsMap {
 			RootPanel.get().add(img10);
 
 		} else if (displayMinConfig2 == true) {
-			context.clearRect(0, 0, this.WIDTH, this.HEIGHT);
+			loadBackground();
 		} else if (displayCurrentConfig == true) {
-			context.clearRect(0, 0, this.WIDTH, this.HEIGHT);
-
-			final Image img = new Image("images/crater.jpg");
-			img.setVisible(true);
-			final ImageElement crater = ImageElement.as(img.getElement());
-			img.addLoadHandler(new LoadHandler() {
-				public void onLoad(LoadEvent event) { // fired by
-														// RootPanel.get().add
-					context.drawImage(crater, 0, 0);
-				}
-			});
-			canvas.setVisible(true);
-			img.setVisible(false); // two line hack to ensure image is loaded
-			RootPanel.get().add(img); // image must be on page to fire load
-										// event
+			loadBackground();
             loadModuleImages();
 		}
 		
@@ -395,29 +368,38 @@ public class MarsMap {
 	}
 
 	public void loadModuleImages() {
-		Window.alert(list.size()+" ");
-		
-		  	
-			
-		    addModuleImage = new Image("images/Plain.jpg");
-			addModuleImage.setVisible(true);
-			
+		    addModuleImage = new Image(list.get(2).getImageName());
+		   Window.alert(list.get(2).getImageName());
+			addModuleImage.setVisible(true);	
 		    addModuleElement = ImageElement.as(addModuleImage.getElement());
 			addModuleImage.addLoadHandler( new LoadHandler(){
 				public void onLoad(LoadEvent event){
-					for(int i = 0; i<list.size()-1;i++){
-					context.drawImage(addModuleElement, list.get(i).getX(),list.get(i).getY());
-					Window.alert("asd");
-					//canvas.setVisible(true);
-					//addModuleImage.setVisible(false);
-					//RootPanel.get().add(addModuleImage);
+					for(int i = 1; i<=list.size()+1;i++){
+					context.drawImage(addModuleElement, list.get(i-1).getX(),list.get(i-1).getY());	
 					}
 				}
 			});
-			//context.save();
-			
-			
-		
+			canvas.setVisible(true);
+			addModuleImage.setVisible(false);
+			RootPanel.get().add(addModuleImage);	
 	}
+	public void loadBackground(){
+		context.clearRect(0, 0, this.WIDTH, this.HEIGHT);
 
+		final Image img = new Image("images/crater.jpg");
+		img.setVisible(true);
+		final ImageElement crater = ImageElement.as(img.getElement());
+		img.addLoadHandler(new LoadHandler() {
+			public void onLoad(LoadEvent event) { // fired by
+													// RootPanel.get().add
+				context.drawImage(crater, 0, 0);
+			}
+		});
+		canvas.setVisible(true);
+		img.setVisible(false); // two line hack to ensure image is loaded
+		RootPanel.get().add(img); // image must be on page to fire load
+									// event
+	}
+	
+	
 }
