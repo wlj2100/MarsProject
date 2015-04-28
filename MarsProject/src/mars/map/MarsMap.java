@@ -397,7 +397,7 @@ public class MarsMap {
 	public void loadModuleImages() {
 		Window.alert(list.size()+" ");
 		
-			
+		  	
 			
 		    addModuleImage = new Image("images/Plain.jpg");
 			addModuleImage.setVisible(true);
