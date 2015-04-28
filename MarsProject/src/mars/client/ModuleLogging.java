@@ -118,12 +118,19 @@ public class ModuleLogging {
 		remove.addClickHandler(new ClickHandler() {
 			public void onClick(final ClickEvent event) {
 				if (moduleStore != null) {
+					String removeString = removeThisCode.getText();
+					
 					Module removedModule = new Module(moduleStore
-							.getItem(removeThisCode.getText()));
+							.getItem(removeString));
 					Window.alert("module removed: "
-							+ moduleStore.getItem(removeThisCode.getText()));
-					list.remove(removedModule);
-					moduleStore.removeItem(removeThisCode.getText());
+							+ removedModule.toString());
+					for (int i = 0; i < list.size(); i++) {
+						if ((list.get(i)).getCode() == removedModule.getCode()) {
+							list.remove(i);
+							break;
+						}
+					}
+					moduleStore.removeItem(removeString);
 					removeThisCode.setText("");
 					moduleListtable();
 				}
