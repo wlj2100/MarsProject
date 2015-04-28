@@ -3,6 +3,7 @@ package mars.map;
 import java.util.ArrayList;
 
 import mars.client.Module;
+import mars.client.ModuleLogging;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
@@ -25,6 +26,7 @@ public class MarsMap {
 	static final int WIDTH = 800;
 	Canvas canvas;
 	private Storage localStorage;
+	private ModuleLogging log;
 	private ArrayList<Module> list;
 	private boolean displayFullConfig1 = false;
 	private boolean displayFullConfig2 = false;
@@ -33,18 +35,23 @@ public class MarsMap {
 	private boolean displayCurrentConfig = true;
 	VerticalPanel panel = new VerticalPanel();
 	Context2d context;
-
-	public MarsMap(Storage localStorage) {
+	private int x;
+	private Image addModuleImage;
+	private ImageElement addModuleElement;
+	public MarsMap(Storage localStorage, ModuleLogging log) {
 		this.localStorage = localStorage;
+		this.log = log;
+		list = log.getSavedModules();
 		canvas = Canvas.createIfSupported();
 		if (canvas == null) {
 			// RootPanel.get(divTagId).add(new Label(unsupportedBrowser));
 			return;
 		}
+		//getSavedModules();
 		createCanvas();
 	}
 
-	public ArrayList<Module> getSavedModules() {
+/*	public void getSavedModules() {
 		if (localStorage != null) {
 			list.clear();
 			// NOTE: when we iterate through this, we can possibly add the
@@ -62,8 +69,8 @@ public class MarsMap {
 		} else {
 			Window.alert("MODULE STORAGE IS NULL");
 		}
-		return list;
-	}
+
+	}*/
 
 	private void createCanvas() {
 
@@ -381,14 +388,36 @@ public class MarsMap {
 			img.setVisible(false); // two line hack to ensure image is loaded
 			RootPanel.get().add(img); // image must be on page to fire load
 										// event
-
+            loadModuleImages();
 		}
-		loadModuleImages();
+		
 
 	}
 
 	public void loadModuleImages() {
-
+		Window.alert(list.size()+" ");
+		
+			
+			
+		    addModuleImage = new Image("images/Plain.jpg");
+			addModuleImage.setVisible(true);
+			
+		    addModuleElement = ImageElement.as(addModuleImage.getElement());
+			addModuleImage.addLoadHandler( new LoadHandler(){
+				public void onLoad(LoadEvent event){
+					for(int i = 0; i<list.size()-1;i++){
+					context.drawImage(addModuleElement, list.get(i).getX(),list.get(i).getY());
+					Window.alert("asd");
+					//canvas.setVisible(true);
+					//addModuleImage.setVisible(false);
+					//RootPanel.get().add(addModuleImage);
+					}
+				}
+			});
+			//context.save();
+			
+			
+		
 	}
 
 }

@@ -28,7 +28,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class MarsProject implements EntryPoint {
 
 	private final ModuleLogging moduleLogging = new ModuleLogging();
-	private final MarsMap map = new MarsMap(moduleLogging.getModuleLocal());
+	private final MarsMap map = new MarsMap(moduleLogging.getModuleLocal(), moduleLogging);
 	private final TenDayAlert tenday = new TenDayAlert();
 	private final Configuration config = new Configuration();
 	/**

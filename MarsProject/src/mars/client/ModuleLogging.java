@@ -73,7 +73,7 @@ public class ModuleLogging {
 		final TextBox xcord = new TextBox();
 
 		final TextBox ycord = new TextBox();
-
+        
 		final Button save = new Button("Save");
 		final FlexTable t = new FlexTable();
 		t.setText(0, 0, "Module Code");
@@ -117,6 +117,7 @@ public class ModuleLogging {
 					list.remove(removedModule);
 					moduleStore.removeItem(removeThisCode.getText());
 					removeThisCode.setText("");
+					
 				}
 			}
 		});
@@ -137,8 +138,8 @@ public class ModuleLogging {
 
 				if (icode < 0 || icode > 200)
 					Window.alert("Invalid Code!");
-				else if (ixcord < 0 || ixcord > 100 || iycord < 0
-						|| iycord > 50)
+				else if (ixcord < 0 || ixcord > 600 || iycord < 0
+						|| iycord > 800)
 					Window.alert("Invalid coordinates!");
 				else {
 					// start of the bounds checking method
