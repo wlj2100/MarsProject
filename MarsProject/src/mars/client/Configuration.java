@@ -135,9 +135,19 @@ public class Configuration {
 					// start of the bounds checking method
 					// Window.alert(Integer.toString(status.getSelectedIndex()));
 					if (localConfig != null) {
+						boolean flag = false;
 						Module currentModule = new Module(icode, status.getSelectedIndex(),
 								orientation.getSelectedIndex(), ixcord, iycord);
-						if(!list.contains(currentModule)) {					
+						// avoid duplicate module
+						if (!list.isEmpty()) {
+							for (int i = 0; i < list.size(); i ++) {
+								if ((list.get(i)).getCode() == currentModule.getCode()) {
+									flag = true;
+									break;
+								}
+							}
+						}
+						if(!flag) {					
 							list.add(currentModule);
 							Window.alert("Module added!");
 						} else {
@@ -158,7 +168,7 @@ public class Configuration {
 		});
 		finish.addClickHandler(new ClickHandler() {
 			public void onClick(final ClickEvent event) {
-				//TODO
+				Window.alert(listToConfig(list));
 				localConfig.setItem("c" + Integer.toString(addCounter),
 						listToConfig(list));
 				addCounter++;
@@ -201,9 +211,8 @@ public class Configuration {
 			aStringBuilder.append((list.get(i)).toString()).append(",");
 		}
 		// delete extra ","
-		aStringBuilder.deleteCharAt(aStringBuilder.length());
+		aStringBuilder.deleteCharAt(aStringBuilder.length() - 1);
 		aStringBuilder.append("]");
-		Window.alert(aStringBuilder.toString());
 		return aStringBuilder.toString();
 	}
 }
