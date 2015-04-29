@@ -103,6 +103,10 @@ public class Configuration {
 			public void onClick(final ClickEvent event) {
 				if (localConfig != null) {
 					String removeString = removeThisCode.getText();
+					ArrayList<Module> alist = ConfigToList(localConfig.getItem(removeString));
+					for(int i = 0; i < alist.size(); i++) {
+						Window.alert(alist.get(i).toString());
+					}
 					Window.alert("config removed: " + localConfig.getItem(removeString));
 					localConfig.removeItem(removeString);
 					removeThisCode.setText("");
@@ -182,8 +186,14 @@ public class Configuration {
 	
 	public ArrayList<Module> ConfigToList(String key) {
 		ArrayList<Module> list = new ArrayList<Module>();
-		Object obj = JSONParser.parseLenient(localConfig.getItem(key));
-		JSONArray jA = (JSONArray) obj;
+		JSONArray jA = (JSONArray)JSONParser.parseLenient("[{\"code\":1,\"status\":\"Undefined\",\"turns\":0,\"X\":1,\"Y\":1},{\"code\":2,\"status\":\"Undefined\",\"turns\":0,\"X\":2,\"Y\":2}]");
+		try {
+		jA = (JSONArray)JSONParser.parseLenient(localConfig.getItem(key));
+		} catch(NullPointerException e1) {
+			Window.alert(e1.getMessage());
+		} catch(IllegalArgumentException e2) {
+			Window.alert(e2.getMessage());
+		}
 		for (int i = 0; i < jA.size(); i++) {
 			JSONObject jO = (JSONObject) jA.get(i);
 			JSONNumber jN;
