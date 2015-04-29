@@ -31,6 +31,8 @@ public class ModuleLogging {
 	private final FlexTable t = new FlexTable();
 	private final VerticalPanel vp = new VerticalPanel();
 	private final SoundController soundController = new SoundController();
+	private final Sound sound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
+			"voice/test.mp3");
 
 	public ModuleLogging() {
 		moduleStore = Storage.getLocalStorageIfSupported();
@@ -132,8 +134,6 @@ public class ModuleLogging {
 							break;
 						}
 					}
-					Sound sound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-							"voice/1.mp3");
 					if (sound.play()) {
 						Window.alert("sound played");
 					} else {
@@ -153,9 +153,11 @@ public class ModuleLogging {
 						moduleStore.removeItem(Integer.toString(removedModule.getCode()));
 					}
 					list.clear();
-					Sound sound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG,
-							"voice/1.mp3");
-					sound.play();
+					if (sound.play()) {
+						Window.alert("sound played");
+					} else {
+						Window.alert("sound does not played");
+					}
 					moduleListtable();
 				}
 			}
@@ -183,9 +185,11 @@ public class ModuleLogging {
 									Integer.toString(currentModule.getCode()),
 									currentModule.toString());
 							list.add(currentModule);
-							Sound sound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG,
-									"voice/1.mp3");
-							sound.play();
+							if (sound.play()) {
+								Window.alert("sound played");
+							} else {
+								Window.alert("sound does not played");
+							}
 							moduleListtable();
 							Window.alert("Module Logged!");
 						} else {
