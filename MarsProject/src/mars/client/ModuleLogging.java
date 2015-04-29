@@ -2,6 +2,8 @@ package mars.client;
 
 import java.util.ArrayList;
 
+import com.allen_sauer.gwt.voices.client.Sound;
+import com.allen_sauer.gwt.voices.client.SoundController;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.storage.client.Storage;
@@ -28,6 +30,7 @@ public class ModuleLogging {
 	private final CellTable<Module> table = new CellTable<Module>();
 	private final FlexTable t = new FlexTable();
 	private final VerticalPanel vp = new VerticalPanel();
+	private final SoundController soundController = new SoundController();
 
 	public ModuleLogging() {
 		moduleStore = Storage.getLocalStorageIfSupported();
@@ -129,6 +132,13 @@ public class ModuleLogging {
 							break;
 						}
 					}
+					Sound sound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
+							"voice/1.mp3");
+					if (sound.play()) {
+						Window.alert("sound played");
+					} else {
+						Window.alert("sound does not played");
+					}
 					moduleStore.removeItem(removeString);
 					removeThisCode.setText("");
 					moduleListtable();
@@ -143,6 +153,9 @@ public class ModuleLogging {
 						moduleStore.removeItem(Integer.toString(removedModule.getCode()));
 					}
 					list.clear();
+					Sound sound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG,
+							"voice/1.mp3");
+					sound.play();
 					moduleListtable();
 				}
 			}
@@ -170,6 +183,9 @@ public class ModuleLogging {
 									Integer.toString(currentModule.getCode()),
 									currentModule.toString());
 							list.add(currentModule);
+							Sound sound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG,
+									"voice/1.mp3");
+							sound.play();
 							moduleListtable();
 							Window.alert("Module Logged!");
 						} else {
