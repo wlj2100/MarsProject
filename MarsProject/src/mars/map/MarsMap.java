@@ -213,8 +213,10 @@ public class MarsMap {
 	void updateMap() {
 		if (displayFullConfig1 == true) {
 			loadBackground();
+			loadModuleImages();
 		} else if (displayFullConfig2 == true) {
 			loadBackground();
+			loadModuleImages();
 		} else if (displayMinConfig1 == true) {
 			loadBackground();
 			final Image img1 = new Image("images/GreyPlain.jpg");
@@ -353,9 +355,151 @@ public class MarsMap {
 			canvas.setVisible(true);
 			img10.setVisible(false); // two line hack to ensure image is loaded
 			RootPanel.get().add(img10);
-
+            loadModuleImages();
 		} else if (displayMinConfig2 == true) {
 			loadBackground();
+			final Image img1 = new Image("images/GreyPlain.jpg");
+			img1.setVisible(true);
+			final ImageElement greyPlain1 = ImageElement.as(img1.getElement());
+			img1.addLoadHandler(new LoadHandler() {
+				public void onLoad(LoadEvent event) { // fired by
+														// RootPanel.get().add
+					context.drawImage(greyPlain1, 300, 300);
+				}
+			});
+			canvas.setVisible(true);
+			img1.setVisible(false); // two line hack to ensure image is loaded
+			RootPanel.get().add(img1);
+			final Image img2 = new Image("images/GreyPlain.jpg");
+			img2.setVisible(true);
+			final ImageElement greyPlain2 = ImageElement.as(img2.getElement());
+			img2.addLoadHandler(new LoadHandler() {
+				public void onLoad(LoadEvent event) { // fired by
+														// RootPanel.get().add
+					context.drawImage(greyPlain2, 300, 350);
+				}
+			});
+			canvas.setVisible(true);
+			img2.setVisible(false); // two line hack to ensure image is loaded
+			RootPanel.get().add(img2);
+			final Image img3 = new Image("images/GreyPlain.jpg");
+			img3.setVisible(true);
+
+			final ImageElement greyPlain3 = ImageElement.as(img3.getElement());
+			img3.addLoadHandler(new LoadHandler() {
+				public void onLoad(LoadEvent event) { // fired by
+														// RootPanel.get().add
+					context.drawImage(greyPlain3, 300, 400);
+				}
+			});
+			canvas.setVisible(true);
+			img3.setVisible(false); // two line hack to ensure image is loaded
+			RootPanel.get().add(img3);
+
+			final Image img4 = new Image("images/Greycontrol.jpg");
+			img4.setVisible(true);
+
+			final ImageElement control = ImageElement.as(img4.getElement());
+			img4.addLoadHandler(new LoadHandler() {
+				public void onLoad(LoadEvent event) { // fired by
+														// RootPanel.get().add
+					context.drawImage(control, 250, 350);
+				}
+			});
+			canvas.setVisible(true);
+			img4.setVisible(false); // two line hack to ensure image is loaded
+			RootPanel.get().add(img4);
+
+			final Image img5 = new Image("images/GreySanitation.jpg");
+			img5.setVisible(true);
+			final ImageElement sanitation = ImageElement.as(img5.getElement());
+			img5.addLoadHandler(new LoadHandler() {
+				public void onLoad(LoadEvent event) { // fired by
+														// RootPanel.get().add
+					context.drawImage(sanitation, 350, 400);
+				}
+			});
+			canvas.setVisible(true);
+			img5.setVisible(false); // two line hack to ensure image is loaded
+			RootPanel.get().add(img5);
+
+			// Airlock
+			final Image img6 = new Image("images/GreyAirLock.jpg");
+			img6.setVisible(true);
+			final ImageElement airlockImage = ImageElement
+					.as(img6.getElement());
+			img6.addLoadHandler(new LoadHandler() {
+				public void onLoad(LoadEvent event) { // fired by
+														// RootPanel.get().add
+					context.drawImage(airlockImage, 300, 450);
+				}
+			});
+			canvas.setVisible(true);
+			img6.setVisible(false); // two line hack to ensure image is loaded
+			RootPanel.get().add(img6);
+
+			// Dorm
+			final Image img7 = new Image("images/GreyDormitory.jpg");
+			img7.setVisible(true);
+			final ImageElement dormImage = ImageElement.as(img7.getElement());
+			img7.addLoadHandler(new LoadHandler() {
+				public void onLoad(LoadEvent event) { // fired by
+														// RootPanel.get().add
+					context.drawImage(dormImage, 250, 300);
+				}
+			});
+			
+			
+			
+			
+			canvas.setVisible(true);
+			img7.setVisible(false); // two line hack to ensure image is loaded
+			RootPanel.get().add(img7);
+
+			// power
+			final Image img8 = new Image("images/GreyPower.jpg");
+			img8.setVisible(true);
+			final ImageElement powerImage = ImageElement.as(img8.getElement());
+			img8.addLoadHandler(new LoadHandler() {
+				public void onLoad(LoadEvent event) { // fired by
+														// RootPanel.get().add
+					context.drawImage(powerImage, 350, 350);
+				}
+			});
+			canvas.setVisible(true);
+			img8.setVisible(false); // two line hack to ensure image is loaded
+			RootPanel.get().add(img8);
+
+			// food
+			final Image img9 = new Image("images/GreyCanteen.jpg");
+			img9.setVisible(true);
+			final ImageElement canteenImage = ImageElement.as(img9.getElement());
+			img9.addLoadHandler(new LoadHandler() {
+				public void onLoad(LoadEvent event) { // fired by
+														// RootPanel.get().add
+					context.drawImage(canteenImage, 350, 300);
+				}
+			});
+			canvas.setVisible(true);
+			img9.setVisible(false); // two line hack to ensure image is loaded
+			RootPanel.get().add(img9);
+
+			// storage
+			final Image img10 = new Image("images/GreyFood.jpg");
+			img10.setVisible(true);
+			final ImageElement storageImage = ImageElement.as(img10
+					.getElement());
+			img10.addLoadHandler(new LoadHandler() {
+				public void onLoad(LoadEvent event) { // fired by
+														// RootPanel.get().add
+					context.drawImage(storageImage, 300, 250);
+				}
+			});
+			canvas.setVisible(true);
+			img10.setVisible(false); // two line hack to ensure image is loaded
+			RootPanel.get().add(img10);
+			
+			loadModuleImages();
 		} else if (displayCurrentConfig == true) {
 			loadBackground();
             loadModuleImages();

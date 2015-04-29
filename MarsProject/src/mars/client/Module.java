@@ -149,9 +149,26 @@ public class Module {
     public String getImageName(){
     	if(this.code<=40 && this.code >=1){
     		return "images/Plain.jpg";
+    	} else if(this.code<=80 && this.code>=61){
+    		return "images/Dormitory.jpg";
+    	} else if(this.code<=100 && this.code>=91){
+    		return "images/Sanitation.jpg";
+    	} else if(this.code<=120 && this.code>=111){
+    		return "images/Food.jpg";
+    	} else if(this.code<=134 && this.code>=131){
+    		return "images/Gym.jpg";
+    	} else if(this.code<=144 && this.code>=141){
+    		return "images/Canteen.jpg";
+    	} else if(this.code<=154 && this.code>=151){
+    		return "images/Power.jpg";
+    	} else if(this.code<=164 && this.code>=161){
+    		return "images/Control.jpg";
+    	} else if(this.code<= 174 && this.code >= 171){
+    		return "images/AirLock.jpg";
     	} else{
-    		return "";
+    		return "images/Medical.jpg";
     	}
+    		
     }
     public Image getImage(){
     	final Image img = new Image(getImageName());
