@@ -164,11 +164,8 @@ public class ModuleLogging {
 					// Window.alert(Integer.toString(status.getSelectedIndex()));
 					if (moduleStore != null) {
 						if (moduleStore.getItem(code.getText()) == null) {
-							currentModule = new Module(Integer.parseInt(code
-									.getText()), status.getSelectedIndex(),
-									orientation.getSelectedIndex(), Integer
-											.parseInt(xcord.getText()), Integer
-											.parseInt(ycord.getText()));
+							currentModule = new Module(icode, status.getSelectedIndex(),
+									orientation.getSelectedIndex(), ixcord, iycord);
 							moduleStore.setItem(
 									Integer.toString(currentModule.getCode()),
 									currentModule.toString());

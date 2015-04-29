@@ -113,15 +113,18 @@ public class MarsProject implements EntryPoint {
 	// here is the main app
 	private void showApp() {
 
-		DockPanel splitPanel = new DockPanel();
-		splitPanel.add(moduleLogging.getModuleLoginPanel(), DockPanel.NORTH);
-		splitPanel.add(tenday.getAlert(), DockPanel.NORTH);
-		splitPanel.add(weatherpanel.getWeather(), DockPanel.EAST);
+		DockPanel dp = new DockPanel();
+		dp.add(moduleLogging.getModuleLoginPanel(), DockPanel.NORTH);
+		dp.add(tenday.getAlert(), DockPanel.NORTH);
+		dp.add(weatherpanel.getWeather(), DockPanel.EAST);
+		VerticalPanel vp1 = new VerticalPanel();
+		vp1.add(config.getConfigPanel());
 		VerticalPanel vp2 = new VerticalPanel();
 		vp2.add(map.getMarsPanel());
-
+		
 		final TabLayoutPanel p = new TabLayoutPanel(1.5, Unit.EM);
-		p.add(splitPanel, "loginmodule");
+		p.add(dp, "loginmodule");
+		p.add(vp1, "Config");
 		p.add(vp2, "Display");
 
 		RootLayoutPanel.get().add(p);

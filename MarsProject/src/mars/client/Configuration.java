@@ -26,6 +26,7 @@ public class Configuration {
 	private final ArrayList<Module> minConfig2 = new ArrayList<Module>();
 	private final ArrayList<Module> maxConfig1 = new ArrayList<Module>();
 	private final ArrayList<Module> maxConfig2 = new ArrayList<Module>();
+	private final ArrayList<Module> list = new ArrayList<Module>();
 	private int addCounter;
 	private Storage localConfig = Storage.getLocalStorageIfSupported();
 	private VerticalPanel vp = new VerticalPanel();
@@ -98,17 +99,77 @@ public class Configuration {
 		t.setWidget(3, 1, remove);
 		t.setWidget(3, 2, removeAll);
 
-		//TODO
+		remove.addClickHandler(new ClickHandler() {
+			public void onClick(final ClickEvent event) {
+				if (localConfig != null) {
+					String removeString = removeThisCode.getText();
+					Window.alert("config removed: " + localConfig.getItem(removeString));
+					localConfig.removeItem(removeString);
+					removeThisCode.setText("");
+				}
+			}
+		});
+		removeAll.addClickHandler(new ClickHandler() {
+			public void onClick(final ClickEvent event) {
+				if (localConfig != null) {
+					for(int i = 0; i < localConfig.getLength(); i++) {
+						if ((localConfig.key(i)).startsWith("c")) {
+							localConfig.removeItem(localConfig.key(i));
+						}
+					}
+				}
+			}
+		});
+		save.addClickHandler(new ClickHandler() {
+			public void onClick(final ClickEvent event) {
+				int icode = Integer.parseInt(code.getText());
+				int ixcord = Integer.parseInt(xcord.getText());
+				int iycord = Integer.parseInt(ycord.getText());
+
+				if (icode < 0 || icode > 200)
+					Window.alert("Invalid Code!");
+				else if (ixcord < 0 || ixcord > 600 || iycord < 0
+						|| iycord > 800)
+					Window.alert("Invalid coordinates!");
+				else {
+					// start of the bounds checking method
+					// Window.alert(Integer.toString(status.getSelectedIndex()));
+					if (localConfig != null) {
+						Module currentModule = new Module(icode, status.getSelectedIndex(),
+								orientation.getSelectedIndex(), ixcord, iycord);
+						if(!list.contains(currentModule)) {					
+							list.add(currentModule);
+							Window.alert("Module added!");
+						} else {
+							Window.alert("duplicated module, cannot add");
+						}			
+					} else {
+						Window.alert("local storage does not exist!");
+					}
+					// end the get module from local storage method/section of
+					// code
+					code.setText("");
+					status.setSelectedIndex(3);
+					orientation.setSelectedIndex(0);
+					xcord.setText("");
+					ycord.setText("");
+				}
+			}
+		});
+		finish.addClickHandler(new ClickHandler() {
+			public void onClick(final ClickEvent event) {
+				//TODO
+				localConfig.setItem("c" + Integer.toString(addCounter),
+						listToConfig(list));
+				addCounter++;
+				list.clear();
+			}
+		});
 		vp.add(t);
 		vp.add(table);
 		return vp;
 	}
-	private void addConfig(ArrayList<Module> list) {
-		localConfig.setItem("c" + Integer.toString(addCounter),
-				listToConfig(list));
-		addCounter++;
-	}
-
+	
 	public ArrayList<Module> ConfigToList(String key) {
 		ArrayList<Module> list = new ArrayList<Module>();
 		Object obj = JSONParser.parseLenient(localConfig.getItem(key));
@@ -142,6 +203,7 @@ public class Configuration {
 		// delete extra ","
 		aStringBuilder.deleteCharAt(aStringBuilder.length());
 		aStringBuilder.append("]");
+		Window.alert(aStringBuilder.toString());
 		return aStringBuilder.toString();
 	}
 }
