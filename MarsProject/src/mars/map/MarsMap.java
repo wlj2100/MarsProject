@@ -2,9 +2,11 @@
 package mars.map;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import mars.client.Module;
 import mars.client.ModuleLogging;
+
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.dom.client.ImageElement;
@@ -22,10 +24,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class MarsMap {
 	static final String unsupportedBrowser = "Your browser does not support the HTML5 Canvas";
-	static final int HEIGHT = 600;
-	static final int WIDTH = 800;
+	static final int HEIGHT = 650;
+	static final int WIDTH = 1800;
 	Canvas canvas;
-	private Storage localStorage;
 	private ModuleLogging log;
 	private ArrayList<Module> list;
 	private boolean displayFullConfig1 = false;
@@ -35,12 +36,9 @@ public class MarsMap {
 	private boolean displayCurrentConfig = true;
 	VerticalPanel panel = new VerticalPanel();
 	Context2d context;
-	private int x;
-	private Image addModuleImage;
-	private ImageElement addModuleElement;
-	public MarsMap(Storage localStorage, ModuleLogging log) {
-		this.localStorage = localStorage;
-		this.log = log;
+
+	public MarsMap(ModuleLogging logger) {
+		this.log = logger;
 		list = log.getSavedModules();
 		canvas = Canvas.createIfSupported();
 		if (canvas == null) {
@@ -367,30 +365,30 @@ public class MarsMap {
 	}
 
 	public void loadModuleImages() {
-		    addModuleImage = new Image(list.get(2).getImageName());
-		   Window.alert(list.get(2).getImageName());
-			addModuleImage.setVisible(true);	
-		    addModuleElement = ImageElement.as(addModuleImage.getElement());
-			addModuleImage.addLoadHandler( new LoadHandler(){
-				public void onLoad(LoadEvent event){
-					for(int i = 1; i<=list.size()+1;i++){
-					context.drawImage(addModuleElement, list.get(i-1).getX(),list.get(i-1).getY());	
+		final ArrayList<Image> images = new ArrayList<Image>();
+		for(int i = 1; i<=list.size()+1;i++){
+		    images.add(new Image(list.get(i-1).getImageName()));
+			images.get(i-1).addLoadHandler( new LoadHandler(){
+				public void onLoad(final LoadEvent event){
+					for(int b = 1; b<=list.size()+1;b++){
+					context.drawImage(ImageElement.as(list.get(b-1).getImage().getElement()), list.get(b-1).getX(), list.get(b-1).getY());	
 					}
 				}
 			});
+		
 			canvas.setVisible(true);
-			addModuleImage.setVisible(false);
-			RootPanel.get().add(addModuleImage);	
+			images.get(i-1).setVisible(false);
+			RootPanel.get().add(images.get(i-1));
+		}
+	
 	}
 	public void loadBackground(){
 		context.clearRect(0, 0, this.WIDTH, this.HEIGHT);
-
 		final Image img = new Image("images/crater.jpg");
 		img.setVisible(true);
 		final ImageElement crater = ImageElement.as(img.getElement());
 		img.addLoadHandler(new LoadHandler() {
-			public void onLoad(LoadEvent event) { // fired by
-													// RootPanel.get().add
+			public void onLoad(LoadEvent event) { 
 				context.drawImage(crater, 0, 0);
 			}
 		});

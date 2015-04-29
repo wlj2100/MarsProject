@@ -6,6 +6,7 @@ import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONString;
+import com.google.gwt.user.client.ui.Image;
 
 /**
  * @author Liangji
@@ -152,7 +153,10 @@ public class Module {
     		return "";
     	}
     }
-    	
+    public Image getImage(){
+    	final Image img = new Image(getImageName());
+    	return  img;
+    }
 
 	// toString method
 	@Override

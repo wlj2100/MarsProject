@@ -26,10 +26,10 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class MarsProject implements EntryPoint {
 
 	private final ModuleLogging moduleLogging = new ModuleLogging();
-	private final MarsMap map = new MarsMap(moduleLogging.getModuleLocal(),
-			moduleLogging);
+	private final MarsMap map = new MarsMap(moduleLogging);
 	private final TenDayAlert tenday = new TenDayAlert();
 	private final Weather weatherpanel = new Weather();
+	private final Weather weatherpanel2 = new Weather();
 	private final Configuration config = new Configuration();
 
 	/**
@@ -119,7 +119,7 @@ public class MarsProject implements EntryPoint {
 		splitPanel.add(weatherpanel.getWeather(), DockPanel.EAST);
 		VerticalPanel vp2 = new VerticalPanel();
 		vp2.add(map.getMarsPanel());
-
+		vp2.add(weatherpanel2.getWeather());
 		final TabLayoutPanel p = new TabLayoutPanel(1.5, Unit.EM);
 		p.add(splitPanel, "loginmodule");
 		p.add(config.getConfigPanel(), "configuration");
