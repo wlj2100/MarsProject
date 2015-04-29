@@ -122,6 +122,7 @@ public class MarsProject implements EntryPoint {
 
 		final TabLayoutPanel p = new TabLayoutPanel(1.5, Unit.EM);
 		p.add(splitPanel, "loginmodule");
+		p.add(config.getConfigPanel(), "configuration");
 		p.add(vp2, "Display");
 
 		RootLayoutPanel.get().add(p);
