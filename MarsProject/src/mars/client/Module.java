@@ -145,6 +145,14 @@ public class Module {
 		this.theString = string;
 		this.convertStringStatus();
 	}
+    public String getImageName(){
+    	if(this.code<=40 && this.code >=1){
+    		return "images/Plain.jpg";
+    	} else{
+    		return "";
+    	}
+    }
+    	
 
 	// toString method
 	@Override
