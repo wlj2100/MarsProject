@@ -82,7 +82,7 @@ public class Module {
 		this.status = status;
 		this.turns = turns;
 		this.xcoord = xcoord;
-		this.ycoord = xcoord;
+		this.ycoord = ycoord;
 		this.convertIntStatus();
 	}
 

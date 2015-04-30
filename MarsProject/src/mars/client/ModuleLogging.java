@@ -55,7 +55,7 @@ public class ModuleLogging {
 				if (!key.startsWith("c") && !key.startsWith("m")) {
 					String value = moduleStore.getItem(key);
 					list.add(new Module(value));
-					// Window.alert(list.get(list.size() - 1).toString());
+					 Window.alert(list.get(list.size() - 1).toString());
 				}
 			}
 		} else {
@@ -172,7 +172,7 @@ public class ModuleLogging {
 				int icode = Integer.parseInt(code.getText());
 				int ixcord = Integer.parseInt(xcord.getText());
 				int iycord = Integer.parseInt(ycord.getText());
-
+				 Window.alert(ycord.getText());
 				if (icode < 0 || icode > 200)
 					Window.alert("Invalid Code!");
 				else if (ixcord < 0 || ixcord > 600 || iycord < 0
