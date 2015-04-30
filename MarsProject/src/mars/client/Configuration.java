@@ -2,6 +2,8 @@ package mars.client;
 
 import java.util.ArrayList;
 
+import com.allen_sauer.gwt.voices.client.Sound;
+import com.allen_sauer.gwt.voices.client.SoundController;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.json.client.JSONArray;
@@ -37,6 +39,15 @@ public class Configuration {
 	private VerticalPanel vp = new VerticalPanel();
 	private final FlexTable t = new FlexTable();
 	private final CellTable<String> table = new CellTable<String>();
+	private final SoundController soundController = new SoundController();
+	private final Sound removeSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
+			"voice/test.mp3");
+	private final Sound removeAllSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
+			"voice/test.mp3");
+	private final Sound addSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
+			"voice/test.mp3");
+	private final Sound finishSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
+			"voice/test.mp3");
 
 	public Configuration() {
 		localConfig.setItem("minConfig1", listToConfig(minConfig1));
@@ -70,7 +81,7 @@ public class Configuration {
 
 		final TextBox ycord = new TextBox();
 
-		final Button save = new Button("add");
+		final Button add = new Button("add");
 		final Button finish = new Button("finish");
 
 		t.setText(0, 0, "Module Code");
@@ -89,7 +100,7 @@ public class Configuration {
 		t.setWidget(1, 2, orientation);
 		t.setWidget(1, 3, xcord);
 		t.setWidget(1, 4, ycord);
-		t.setWidget(1, 5, save);
+		t.setWidget(1, 5, add);
 		t.setWidget(1, 6, finish);
 
 		// making the remove module by code and remove all modules buttons
@@ -115,6 +126,11 @@ public class Configuration {
 					localConfig.removeItem(removeString);
 					removeThisCode.setText("");
 					configListtable();
+					if (removeSound.play()) {
+						Window.alert("sound played");
+					} else {
+						Window.alert("sound does not played");
+					}
 				}
 			}
 		});
@@ -127,10 +143,15 @@ public class Configuration {
 						}
 					}
 				}
+				if (removeAllSound.play()) {
+					Window.alert("sound played");
+				} else {
+					Window.alert("sound does not played");
+				}
 				configListtable();
 			}
 		});
-		save.addClickHandler(new ClickHandler() {
+		add.addClickHandler(new ClickHandler() {
 			public void onClick(final ClickEvent event) {
 				int icode = Integer.parseInt(code.getText());
 				int ixcord = Integer.parseInt(xcord.getText());
@@ -162,6 +183,11 @@ public class Configuration {
 						if (!flag) {
 							list.add(currentModule);
 							Window.alert("Module added!");
+							if (addSound.play()) {
+								Window.alert("sound played");
+							} else {
+								Window.alert("sound does not played");
+							}
 						} else {
 							Window.alert("duplicated module, cannot add");
 						}
@@ -186,6 +212,11 @@ public class Configuration {
 				addCounter++;
 				list.clear();
 				configListtable();
+				if (finishSound.play()) {
+					Window.alert("sound played");
+				} else {
+					Window.alert("sound does not played");
+				}
 			}
 		});
 		vp.add(t);
