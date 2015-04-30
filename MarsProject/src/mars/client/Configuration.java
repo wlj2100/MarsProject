@@ -11,12 +11,16 @@ import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
 
 /**
  * @author Liangji
@@ -27,11 +31,12 @@ public class Configuration {
 	private final ArrayList<Module> maxConfig1 = new ArrayList<Module>();
 	private final ArrayList<Module> maxConfig2 = new ArrayList<Module>();
 	private final ArrayList<Module> list = new ArrayList<Module>();
+	private final ArrayList<String> keyList = new ArrayList<String>();
 	private int addCounter;
 	private Storage localConfig = Storage.getLocalStorageIfSupported();
 	private VerticalPanel vp = new VerticalPanel();
 	private final FlexTable t = new FlexTable();
-	private final CellTable<Module> table = new CellTable<Module>();
+	private final CellTable<String> table = new CellTable<String>();
 
 	public Configuration() {
 		localConfig.setItem("minConfig1", listToConfig(minConfig1));
@@ -39,10 +44,12 @@ public class Configuration {
 		localConfig.setItem("maxConfig1", listToConfig(maxConfig1));
 		localConfig.setItem("maxConfig2", listToConfig(maxConfig2));
 		addCounter = 0;
+		
 		// TODO
 	}
-	
+
 	public VerticalPanel getConfigPanel() {
+		configListtable();
 		final TextBox code = new TextBox();
 
 		final ListBox status = new ListBox();
@@ -103,25 +110,24 @@ public class Configuration {
 			public void onClick(final ClickEvent event) {
 				if (localConfig != null) {
 					String removeString = removeThisCode.getText();
-					ArrayList<Module> alist = ConfigToList(removeString);
-					for(int i = 0; i < alist.size(); i++) {
-						Window.alert(alist.get(i).toString());
-					}
-					Window.alert("config removed: " + localConfig.getItem(removeString));
+					Window.alert("config removed: "
+							+ localConfig.getItem(removeString));
 					localConfig.removeItem(removeString);
 					removeThisCode.setText("");
+					configListtable();
 				}
 			}
 		});
 		removeAll.addClickHandler(new ClickHandler() {
 			public void onClick(final ClickEvent event) {
 				if (localConfig != null) {
-					for(int i = 0; i < localConfig.getLength(); i++) {
+					for (int i = 0; i < localConfig.getLength(); i++) {
 						if ((localConfig.key(i)).startsWith("c")) {
 							localConfig.removeItem(localConfig.key(i));
 						}
 					}
 				}
+				configListtable();
 			}
 		});
 		save.addClickHandler(new ClickHandler() {
@@ -140,23 +146,25 @@ public class Configuration {
 					// Window.alert(Integer.toString(status.getSelectedIndex()));
 					if (localConfig != null) {
 						boolean flag = false;
-						Module currentModule = new Module(icode, status.getSelectedIndex(),
-								orientation.getSelectedIndex(), ixcord, iycord);
+						Module currentModule = new Module(icode, status
+								.getSelectedIndex(), orientation
+								.getSelectedIndex(), ixcord, iycord);
 						// avoid duplicate module
 						if (!list.isEmpty()) {
-							for (int i = 0; i < list.size(); i ++) {
-								if ((list.get(i)).getCode() == currentModule.getCode()) {
+							for (int i = 0; i < list.size(); i++) {
+								if ((list.get(i)).getCode() == currentModule
+										.getCode()) {
 									flag = true;
 									break;
 								}
 							}
 						}
-						if(!flag) {					
+						if (!flag) {
 							list.add(currentModule);
 							Window.alert("Module added!");
 						} else {
 							Window.alert("duplicated module, cannot add");
-						}			
+						}
 					} else {
 						Window.alert("local storage does not exist!");
 					}
@@ -177,23 +185,32 @@ public class Configuration {
 						listToConfig(list));
 				addCounter++;
 				list.clear();
+				configListtable();
 			}
 		});
 		vp.add(t);
 		vp.add(table);
 		return vp;
 	}
-	
+
+	private void configKey() {
+		keyList.clear();
+		for (int i = 0; i < localConfig.getLength(); i++) {
+			if (localConfig.key(i).startsWith("c")) {
+				keyList.add(localConfig.key(i));
+			}
+		}
+	}
+
 	public ArrayList<Module> ConfigToList(String key) {
 		ArrayList<Module> list = new ArrayList<Module>();
 		String configString = localConfig.getItem(key);
-		Window.alert(configString);
 		JSONArray jA = null;
 		try {
-		jA = (JSONArray)JSONParser.parseLenient(configString);
-		} catch(NullPointerException e1) {
+			jA = (JSONArray) JSONParser.parseLenient(configString);
+		} catch (NullPointerException e1) {
 			Window.alert("null" + e1.getMessage());
-		} catch(IllegalArgumentException e2) {
+		} catch (IllegalArgumentException e2) {
 			Window.alert("illegal" + e2.getMessage());
 		}
 		for (int i = 0; i < jA.size(); i++) {
@@ -226,5 +243,60 @@ public class Configuration {
 		aStringBuilder.deleteCharAt(aStringBuilder.length() - 1);
 		aStringBuilder.append("]");
 		return aStringBuilder.toString();
+	}
+
+	// this method shows all the logged configuration
+	public void configListtable() {
+		configKey();
+		// clean the table
+		while (table.getColumnCount() > 0) {
+			table.removeColumn(0);
+		}
+
+		table.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
+
+		// Add a text column to show the code.
+		TextColumn<String> keyColumn = new TextColumn<String>() {
+			@Override
+			public String getValue(String object) {
+				return object;
+			}
+		};
+		table.addColumn(keyColumn, "config name");
+
+		// Add a text column to show the code.
+		TextColumn<String> moduleColumn = new TextColumn<String>() {
+			@Override
+			public String getValue(String object) {
+				return localConfig.getItem(object);
+			}
+		};
+		table.addColumn(moduleColumn, "modules in config");
+
+		// Add a selection model to handle user selection.
+		final SingleSelectionModel<String> selectionModel = new SingleSelectionModel<String>();
+		table.setSelectionModel(selectionModel);
+		selectionModel
+				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+					public void onSelectionChange(SelectionChangeEvent event) {
+						String selected = selectionModel.getSelectedObject();
+						if (selected != null) {
+							Window.alert("You selected: " + selected);
+						}
+					}
+				});
+
+		// Set the total row count. This isn't strictly necessary, but it
+		// affects
+		// paging calculations, so its good habit to keep the row count up to
+		// date.
+		table.setRowCount(keyList.size(), true);
+
+		// Push the data into the widget.
+		table.setRowData(0, keyList);
+	}
+	
+	public ArrayList<String> getConfigList() {
+		return keyList;
 	}
 }
