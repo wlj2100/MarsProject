@@ -7,6 +7,8 @@ import java.util.List;
 import mars.client.Module;
 import mars.client.ModuleLogging;
 
+import com.allen_sauer.gwt.voices.client.Sound;
+import com.allen_sauer.gwt.voices.client.SoundController;
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.dom.client.ImageElement;
@@ -36,6 +38,17 @@ public class MarsMap {
 	private boolean displayCurrentConfig = true;
 	VerticalPanel panel = new VerticalPanel();
 	Context2d context;
+	private final SoundController soundController = new SoundController();
+	private final Sound minSound1 = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
+			"voice/test.mp3");
+	private final Sound minSound2 = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
+			"voice/test.mp3");
+	private final Sound maxSound1 = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
+			"voice/test.mp3");
+	private final Sound maxSound2 = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
+			"voice/test.mp3");
+	private final Sound currentSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
+			"voice/test.mp3");
 
 	public MarsMap(ModuleLogging logger) {
 		this.log = logger;
@@ -152,6 +165,7 @@ public class MarsMap {
 				displayMinConfig2 = false;
 				displayCurrentConfig = false;
 				updateMap();
+				minSound1.play();
 			}
 		});
 		final Button displayConfig2 = new Button("Display Full Configuration 2");
@@ -163,6 +177,7 @@ public class MarsMap {
 				displayMinConfig2 = false;
 				displayCurrentConfig = false;
 				updateMap();
+				minSound2.play();
 			}
 		});
 		final Button displayConfig3 = new Button(
@@ -175,6 +190,7 @@ public class MarsMap {
 				displayMinConfig2 = false;
 				displayCurrentConfig = false;
 				updateMap();
+				maxSound1.play();
 			}
 		});
 		final Button displayConfig4 = new Button(
@@ -187,6 +203,7 @@ public class MarsMap {
 				displayMinConfig2 = true;
 				displayCurrentConfig = false;
 				updateMap();
+				maxSound2.play();
 			}
 		});
 		final Button displayCurrent = new Button(
@@ -199,6 +216,7 @@ public class MarsMap {
 				displayMinConfig2 = false;
 				displayCurrentConfig = true;
 				updateMap();
+				currentSound.play();
 			}
 		});
 		marsPanel.add(displayConfig4, DockPanel.WEST);
