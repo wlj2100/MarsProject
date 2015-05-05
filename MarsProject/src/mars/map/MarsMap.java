@@ -165,6 +165,10 @@ public class MarsMap {
 		return marsPanel;
 	}
 
+	public int getHeight() {
+		return this.HEIGHT;
+	}
+
 	public void loadModuleImages() {
 		final ArrayList<Image> images = new ArrayList<Image>();
 		for (int i = 1; i <= moduleList.size() + 1; i++) {
@@ -172,10 +176,11 @@ public class MarsMap {
 			images.get(i - 1).addLoadHandler(new LoadHandler() {
 				public void onLoad(final LoadEvent event) {
 					for (int b = 1; b <= moduleList.size() + 1; b++) {
-						context.drawImage(ImageElement.as(moduleList.get(b - 1)
-								.getImage().getElement()), moduleList
-								.get(b - 1).getX(), moduleList.get(b - 1)
-								.getY());
+						context.drawImage(
+								ImageElement.as(moduleList.get(b - 1)
+										.getImage().getElement()),
+								(moduleList.get(b - 1).getX()) * 50,
+								700 - moduleList.get(b - 1).getY() * 50);
 					}
 				}
 			});

@@ -55,7 +55,7 @@ public class ModuleLogging {
 				if (!key.startsWith("c") && !key.startsWith("m")) {
 					String value = moduleStore.getItem(key);
 					list.add(new Module(value));
-					 Window.alert(list.get(list.size() - 1).toString());
+					 //Window.alert(list.get(list.size() - 1).toString());
 				}
 			}
 		} else {
