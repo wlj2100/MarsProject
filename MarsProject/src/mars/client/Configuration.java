@@ -39,46 +39,44 @@ public class Configuration {
 	private final FlexTable t = new FlexTable();
 	private final CellTable<String> table = new CellTable<String>();
 	private final SoundController soundController = new SoundController();
-	private final Sound removeSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-			"voice/test.mp3");
-	private final Sound removeAllSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-			"voice/test.mp3");
-	private final Sound addSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-			"voice/test.mp3");
-	private final Sound finishSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-			"voice/test.mp3");
+	private final Sound removeSound = soundController.createSound(
+			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
+	private final Sound removeAllSound = soundController.createSound(
+			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
+	private final Sound addSound = soundController.createSound(
+			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
+	private final Sound finishSound = soundController.createSound(
+			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
 
 	public Configuration() {
-		minConfig1.add(new Module(1,0,0,4,4));
-		minConfig1.add(new Module(1,0,0,4,5));
-		minConfig1.add(new Module(1,0,0,4,6));
-		minConfig1.add(new Module(80,0,0,5,4));
-		minConfig1.add(new Module(154,0,0,5,5));
-		minConfig1.add(new Module(174,0,0,4,7));
-		minConfig1.add(new Module(100,0,0,3,6));
-		minConfig1.add(new Module(144,0,0,3,3));
-        minConfig1.add(new Module(120,0,0,3,4));
-        minConfig1.add(new Module(164,0,0,3,5));
-		
-        
-    	minConfig2.add(new Module(1,0,0,4,4));
-		minConfig2.add(new Module(1,0,0,4,5));
-		minConfig2.add(new Module(1,0,0,4,6));
-		minConfig2.add(new Module(80,0,0,3,4));
-		minConfig2.add(new Module(154,0,0,5,5));
-		minConfig2.add(new Module(174,0,0,4,7));
-		minConfig2.add(new Module(100,0,0,3,6));
-		minConfig2.add(new Module(144,0,0,5,4));
-        minConfig2.add(new Module(120,0,0,3,4));
-        minConfig2.add(new Module(164,0,0,3,5));
-		
+		minConfig1.add(new Module(1, 0, 0, 4, 4));
+		minConfig1.add(new Module(1, 0, 0, 4, 5));
+		minConfig1.add(new Module(1, 0, 0, 4, 6));
+		minConfig1.add(new Module(80, 0, 0, 5, 4));
+		minConfig1.add(new Module(154, 0, 0, 5, 5));
+		minConfig1.add(new Module(174, 0, 0, 4, 7));
+		minConfig1.add(new Module(100, 0, 0, 3, 6));
+		minConfig1.add(new Module(144, 0, 0, 3, 3));
+		minConfig1.add(new Module(120, 0, 0, 3, 4));
+		minConfig1.add(new Module(164, 0, 0, 3, 5));
+
+		minConfig2.add(new Module(1, 0, 0, 4, 4));
+		minConfig2.add(new Module(1, 0, 0, 4, 5));
+		minConfig2.add(new Module(1, 0, 0, 4, 6));
+		minConfig2.add(new Module(80, 0, 0, 3, 4));
+		minConfig2.add(new Module(154, 0, 0, 5, 5));
+		minConfig2.add(new Module(174, 0, 0, 4, 7));
+		minConfig2.add(new Module(100, 0, 0, 3, 6));
+		minConfig2.add(new Module(144, 0, 0, 5, 4));
+		minConfig2.add(new Module(120, 0, 0, 3, 4));
+		minConfig2.add(new Module(164, 0, 0, 3, 5));
+
 		localConfig.setItem("minConfig1", listToConfig(minConfig1));
 		localConfig.setItem("minConfig2", listToConfig(minConfig2));
 		addCounter = 0;
-		
+
 		// TODO
 	}
-	
 
 	public VerticalPanel getConfigPanel() {
 		configListtable();
@@ -347,8 +345,47 @@ public class Configuration {
 		// Push the data into the widget.
 		table.setRowData(0, keyList);
 	}
-	
+
 	public ArrayList<String> getConfigList() {
 		return keyList;
+	}
+
+	/*
+	 * @parameter moduleList -- a list contain modules
+	 */
+	// "Plain";"Dormitory";"Sanitation";"Food";"Gym";"Canteen";"Power";"Control";"AirLock";"Medical";
+	public ArrayList<Integer> getTypeNum(ArrayList<Module> moduleList) {
+		ArrayList<Integer> typeList = new ArrayList<Integer>();
+		// initial the num of type
+		for (int i = 0; i < 10; i++) {
+			typeList.add(0);
+		}
+		// get the type of each entry of moduleList and add to the typeList
+		for (int i = 0; i < moduleList.size(); i++) {
+			if (moduleList.get(i).getType().equals("Plain")) {
+				typeList.set(0, typeList.get(0) + 1);
+			} else if (moduleList.get(i).getType().equals("Dormitory")) {
+				typeList.set(1, typeList.get(1) + 1);
+			} else if (moduleList.get(i).getType().equals("Sanitation")) {
+				typeList.set(2, typeList.get(2) + 1);
+			}else if (moduleList.get(i).getType().equals("Food")) {
+				typeList.set(3, typeList.get(3)+1);
+			}else if (moduleList.get(i).getType().equals("Gym")) {
+				typeList.set(4, typeList.get(4)+1);
+			}else if (moduleList.get(i).getType().equals("Canteen")) {
+				typeList.set(5, typeList.get(5)+1);
+			}else if (moduleList.get(i).getType().equals("Power")) {
+				typeList.set(6, typeList.get(6)+1);
+			}else if (moduleList.get(i).getType().equals("Control")) {
+				typeList.set(7, typeList.get(7)+1);
+			}else if (moduleList.get(i).getType().equals("AirLock")) {
+				typeList.set(8, typeList.get(8)+1);
+			}else if (moduleList.get(i).getType().equals("Medical")) {
+				typeList.set(9, typeList.get(9)+1);
+			} else {
+				Window.alert("module with notype occures, plz check the local storage!");
+			}
+		}
+		return typeList;
 	}
 }
