@@ -127,6 +127,7 @@ public class MarsProject implements EntryPoint {
 		p.add(vp2, "Display");
 
 		RootLayoutPanel.get().add(p);
+		
 	}
 
 }

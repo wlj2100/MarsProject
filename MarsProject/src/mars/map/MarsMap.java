@@ -58,7 +58,7 @@ public class MarsMap {
 		// getSavedModules();
 		createCanvas();
 	}
-    
+
 	private void createCanvas() {
 
 		canvas.setWidth(WIDTH + "px");
@@ -96,19 +96,21 @@ public class MarsMap {
 		marsPanel.add(getCanvas(), DockPanel.NORTH);
 		final TextBox xcord = new TextBox();
 		final TextBox ycord = new TextBox();
-	    final FlexTable table = new FlexTable();
+		final FlexTable table = new FlexTable();
 		final Button setGravButton = new Button("Move Center Of Gravity");
-		setGravButton.addClickHandler(new ClickHandler(){
-			public void onClick(ClickEvent event){
-				 setxGravity( Integer.parseInt(xcord.getText()));
-				 setyGravity(Integer.parseInt(ycord.getText()));
-				 
+		setGravButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				setxGravity(Integer.parseInt(xcord.getText()));
+				setyGravity(Integer.parseInt(ycord.getText()));
+				loadBackground();
+				loadConfigImages();
+
 			}
 		});
 		table.setText(0, 0, "Set X center of Gravity");
 		table.setText(0, 1, "Set Y center of Gravity");
-		table.setWidget(1,0,xcord);
-		table.setWidget(1,1,ycord);
+		table.setWidget(1, 0, xcord);
+		table.setWidget(1, 1, ycord);
 		table.setWidget(1, 2, setGravButton);
 		final Button displayMinConfig1 = new Button(
 				"Display Minimun Configuration 1");
@@ -147,7 +149,7 @@ public class MarsMap {
 		});
 		final TextBox configKey = new TextBox();
 		final Button showConfig = new Button("show Config");
-		showConfig.addClickHandler(new ClickHandler(){
+		showConfig.addClickHandler(new ClickHandler() {
 			public void onClick(final ClickEvent event) {
 				moduleList.clear();
 				moduleList.addAll(config.ConfigToList(configKey.getText()));
@@ -181,8 +183,9 @@ public class MarsMap {
 						context.drawImage(
 								ImageElement.as(moduleList.get(b - 1)
 										.getImage().getElement()),
-								getxGravity()+(moduleList.get(b - 1).getX()) * 50,
-								getyGravity()+getYHelper() - moduleList.get(b - 1).getY() * 50);
+								(moduleList.get(b - 1).getX()) * 50,
+								getYHelper() - moduleList.get(b - 1).getY()
+										* 50);
 					}
 				}
 			});
@@ -193,7 +196,7 @@ public class MarsMap {
 		}
 
 	}
-	
+
 	public void loadConfigImages() {
 		final ArrayList<Image> images = new ArrayList<Image>();
 		for (int i = 1; i <= moduleList.size() + 1; i++) {
@@ -204,8 +207,10 @@ public class MarsMap {
 						context.drawImage(
 								ImageElement.as(moduleList.get(b - 1)
 										.getGreyImage().getElement()),
-								getxGravity()+(moduleList.get(b - 1).getX()) * 50,
-								getyGravity()+getYHelper() - moduleList.get(b - 1).getY() * 50);
+								(getxGravity() + moduleList.get(b - 1).getX()) * 50,
+								getYHelper()
+										- (getyGravity() + moduleList
+												.get(b - 1).getY()) * 50);
 					}
 				}
 			});
@@ -232,16 +237,13 @@ public class MarsMap {
 		RootPanel.get().add(img); // image must be on page to fire load
 									// event
 	}
-	public void setGravity(int xGrav, int yGrav){
-	        setxGravity(xGrav);
-	        setyGravity(yGrav);
-	}
+
 	public int getxGravity() {
 		return xGravity;
 	}
 
 	public void setxGravity(int xGravity) {
-		this.xGravity = this.WIDTH-xGravity;
+		this.xGravity = xGravity;
 	}
 
 	public int getyGravity() {
@@ -249,5 +251,17 @@ public class MarsMap {
 	}
 
 	public void setyGravity(int yGravity) {
-		this.yGravity = this.HEIGHT-yGravity;
-	}}
+		this.yGravity = yGravity;
+	}
+	
+	private boolean meetConfigRequire(ArrayList<Integer> moduleTypeList, ArrayList<Integer> configTypeList) {
+		boolean flag = true;
+		for (int i = 0; i < 10; i++) {
+			if (moduleTypeList.get(i) < configTypeList.get(i)) {
+				flag = false;
+				break;
+			}
+		}
+		return flag;
+	}
+}
