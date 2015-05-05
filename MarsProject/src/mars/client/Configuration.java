@@ -30,8 +30,7 @@ import com.google.gwt.view.client.SingleSelectionModel;
 public class Configuration {
 	private final ArrayList<Module> minConfig1 = new ArrayList<Module>();
 	private final ArrayList<Module> minConfig2 = new ArrayList<Module>();
-	private final ArrayList<Module> maxConfig1 = new ArrayList<Module>();
-	private final ArrayList<Module> maxConfig2 = new ArrayList<Module>();
+
 	private final ArrayList<Module> list = new ArrayList<Module>();
 	private final ArrayList<String> keyList = new ArrayList<String>();
 	private int addCounter;
@@ -75,8 +74,6 @@ public class Configuration {
 		
 		localConfig.setItem("minConfig1", listToConfig(minConfig1));
 		localConfig.setItem("minConfig2", listToConfig(minConfig2));
-		localConfig.setItem("maxConfig1", listToConfig(maxConfig1));
-		localConfig.setItem("maxConfig2", listToConfig(maxConfig2));
 		addCounter = 0;
 		
 		// TODO

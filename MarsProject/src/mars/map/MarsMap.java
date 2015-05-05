@@ -40,10 +40,6 @@ public class MarsMap {
 			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
 	private final Sound minSound2 = soundController.createSound(
 			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
-	private final Sound maxSound1 = soundController.createSound(
-			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
-	private final Sound maxSound2 = soundController.createSound(
-			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
 	private final Sound currentSound = soundController.createSound(
 			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
 
@@ -94,30 +90,7 @@ public class MarsMap {
 	public DockPanel getMarsPanel() {
 		DockPanel marsPanel = new DockPanel();
 		marsPanel.add(getCanvas(), DockPanel.NORTH);
-		final Button displayFullConfig1 = new Button(
-				"Display Full Configuration 1");
-		displayFullConfig1.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				moduleList.clear();
-				moduleList.addAll(config.ConfigToList("maxConfig1"));
-				loadBackground();
-				loadModuleImages();
-				minSound1.play();
-			}
-		});
-		final Button displayFullConfig2 = new Button(
-				"Display Full Configuration 2");
-		displayFullConfig2.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				moduleList.clear();
-				moduleList.addAll(config.ConfigToList("maxConfig2"));
-				// list = config.ConfigToList("maxConfig1");
-				loadBackground();
-				loadModuleImages();
-				minSound1.play();
-				minSound2.play();
-			}
-		});
+
 		final Button displayMinConfig1 = new Button(
 				"Display Minimun Configuration 1");
 		displayMinConfig1.addClickHandler(new ClickHandler() {
@@ -128,7 +101,6 @@ public class MarsMap {
 				loadBackground();
 				loadModuleImages();
 				minSound1.play();
-				maxSound1.play();
 			}
 		});
 		final Button displayMinConfig2 = new Button(
@@ -140,8 +112,7 @@ public class MarsMap {
 				// list = config.ConfigToList("minConfig2");
 				loadBackground();
 				loadModuleImages();
-				minSound1.play();
-				maxSound2.play();
+				minSound2.play();
 			}
 		});
 		final Button displayCurrent = new Button("Display Current Modules");
@@ -152,15 +123,11 @@ public class MarsMap {
 				moduleList.addAll(log.getSavedModules());
 				loadBackground();
 				loadModuleImages();
-				minSound1.play();
-				maxSound2.play();
 				currentSound.play();
 			}
 		});
 		marsPanel.add(displayMinConfig2, DockPanel.WEST);
 		marsPanel.add(displayMinConfig1, DockPanel.WEST);
-		marsPanel.add(displayFullConfig1, DockPanel.EAST);
-		marsPanel.add(displayFullConfig2, DockPanel.EAST);
 		marsPanel.add(displayCurrent, DockPanel.SOUTH);
 
 		return marsPanel;
@@ -194,7 +161,7 @@ public class MarsMap {
 	}
 
 	public void loadBackground() {
-		context.clearRect(0, 0, this.WIDTH, this.HEIGHT);
+		context.clearRect(0, 0, MarsMap.WIDTH, MarsMap.HEIGHT);
 		final Image img = new Image("images/crater.jpg");
 		img.setVisible(true);
 		final ImageElement crater = ImageElement.as(img.getElement());
