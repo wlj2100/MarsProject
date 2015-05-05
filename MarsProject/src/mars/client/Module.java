@@ -146,6 +146,30 @@ public class Module {
 		this.theString = string;
 		this.convertStringStatus();
 	}
+	
+	public String getType() {
+		if(this.code<=40 && this.code >=1){
+    		return "Plain";
+    	} else if(this.code<=80 && this.code>=61){
+    		return "Dormitory";
+    	} else if(this.code<=100 && this.code>=91){
+    		return "Sanitation";
+    	} else if(this.code<=120 && this.code>=111){
+    		return "Food";
+    	} else if(this.code<=134 && this.code>=131){
+    		return "Gym";
+    	} else if(this.code<=144 && this.code>=141){
+    		return "Canteen";
+    	} else if(this.code<=154 && this.code>=151){
+    		return "Power";
+    	} else if(this.code<=164 && this.code>=161){
+    		return "Control";
+    	} else if(this.code<= 174 && this.code >= 171){
+    		return "AirLock";
+    	} else{
+    		return "Medical";
+    	}
+	}
     public String getImageName(){
     	if(this.code<=40 && this.code >=1){
     		return "images/Plain.jpg";
