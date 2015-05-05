@@ -122,8 +122,8 @@ public class Weather{
         this.weatherTable.add(new Label(this.tempString + "  " + this.stringTemp + " Degrees C"));
         this.weatherTable.add(new Label(this.visString + this.stringVis + " Km"));
         if(stringHour.equals("undefined")) {
-            stringHour = "12";
-            stringMinute = "08";
+            stringHour = "20";
+            stringMinute = "23";
         }
         this.weatherTable.add(new Label("Sunset time: " + this.stringHour + ":" + this.stringMinute));
         this.weatherTable.add(this.wunderLogo);
