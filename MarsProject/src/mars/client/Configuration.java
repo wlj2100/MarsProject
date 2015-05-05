@@ -50,9 +50,29 @@ public class Configuration {
 			"voice/test.mp3");
 
 	public Configuration() {
-		minConfig1.add(new Module(1,1,1,1,1));
-		minConfig1.add(new Module(51,1,1,100,200));
-		minConfig2.add(new Module(71,1,1,0,0));
+		minConfig1.add(new Module(1,0,0,4,4));
+		minConfig1.add(new Module(1,0,0,4,5));
+		minConfig1.add(new Module(1,0,0,4,6));
+		minConfig1.add(new Module(80,0,0,5,4));
+		minConfig1.add(new Module(154,0,0,5,5));
+		minConfig1.add(new Module(174,0,0,4,7));
+		minConfig1.add(new Module(100,0,0,3,6));
+		minConfig1.add(new Module(144,0,0,3,3));
+        minConfig1.add(new Module(120,0,0,3,4));
+        minConfig1.add(new Module(164,0,0,3,5));
+		
+        
+    	minConfig2.add(new Module(1,0,0,4,4));
+		minConfig2.add(new Module(1,0,0,4,5));
+		minConfig2.add(new Module(1,0,0,4,6));
+		minConfig2.add(new Module(80,0,0,3,4));
+		minConfig2.add(new Module(154,0,0,5,5));
+		minConfig2.add(new Module(174,0,0,4,7));
+		minConfig2.add(new Module(100,0,0,3,6));
+		minConfig2.add(new Module(144,0,0,5,4));
+        minConfig2.add(new Module(120,0,0,3,4));
+        minConfig2.add(new Module(164,0,0,3,5));
+		
 		localConfig.setItem("minConfig1", listToConfig(minConfig1));
 		localConfig.setItem("minConfig2", listToConfig(minConfig2));
 		localConfig.setItem("maxConfig1", listToConfig(maxConfig1));
