@@ -101,7 +101,7 @@ public class MarsMap {
 				moduleList.addAll(config.ConfigToList("minConfig1"));
 				// list = config.ConfigToList("minConfig1");
 				loadBackground();
-				loadModuleImages();
+				loadConfigImages();
 				minSound1.play();
 			}
 		});
@@ -113,7 +113,7 @@ public class MarsMap {
 				moduleList.addAll(config.ConfigToList("minConfig2"));
 				// list = config.ConfigToList("minConfig2");
 				loadBackground();
-				loadModuleImages();
+				loadConfigImages();
 				minSound2.play();
 			}
 		});
@@ -135,7 +135,7 @@ public class MarsMap {
 				moduleList.clear();
 				moduleList.addAll(config.ConfigToList(configKey.getText()));
 				loadBackground();
-				loadModuleImages();
+				loadConfigImages();
 				minSound2.play();
 			}
 		});
@@ -158,6 +158,29 @@ public class MarsMap {
 		final ArrayList<Image> images = new ArrayList<Image>();
 		for (int i = 1; i <= moduleList.size() + 1; i++) {
 			images.add(new Image(moduleList.get(i - 1).getImageName()));
+			images.get(i - 1).addLoadHandler(new LoadHandler() {
+				public void onLoad(final LoadEvent event) {
+					for (int b = 1; b <= moduleList.size() + 1; b++) {
+						context.drawImage(
+								ImageElement.as(moduleList.get(b - 1)
+										.getImage().getElement()),
+								(moduleList.get(b - 1).getX()) * 50,
+								getYHelper() - moduleList.get(b - 1).getY() * 50);
+					}
+				}
+			});
+
+			canvas.setVisible(true);
+			images.get(i - 1).setVisible(false);
+			RootPanel.get().add(images.get(i - 1));
+		}
+
+	}
+	
+	public void loadConfigImages() {
+		final ArrayList<Image> images = new ArrayList<Image>();
+		for (int i = 1; i <= moduleList.size() + 1; i++) {
+			images.add(new Image(moduleList.get(i - 1).getGreyImageName()));
 			images.get(i - 1).addLoadHandler(new LoadHandler() {
 				public void onLoad(final LoadEvent event) {
 					for (int b = 1; b <= moduleList.size() + 1; b++) {

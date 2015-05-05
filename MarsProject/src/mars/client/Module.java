@@ -194,6 +194,30 @@ public class Module {
     	}
     		
     }
+    public String getGreyImageName(){
+    	if(this.code<=40 && this.code >=1){
+    		return "images/GreyPlain.jpg";
+    	} else if(this.code<=80 && this.code>=61){
+    		return "images/GreyDormitory.jpg";
+    	} else if(this.code<=100 && this.code>=91){
+    		return "images/GreySanitation.jpg";
+    	} else if(this.code<=120 && this.code>=111){
+    		return "images/GreyFood.jpg";
+    	} else if(this.code<=134 && this.code>=131){
+    		return "images/GreyGym.jpg";
+    	} else if(this.code<=144 && this.code>=141){
+    		return "images/GreyCanteen.jpg";
+    	} else if(this.code<=154 && this.code>=151){
+    		return "images/GreyPower.jpg";
+    	} else if(this.code<=164 && this.code>=161){
+    		return "images/GreyControl.jpg";
+    	} else if(this.code<= 174 && this.code >= 171){
+    		return "images/GreyAirLock.jpg";
+    	} else{
+    		return "images/GreyMedical.jpg";
+    	}
+    		
+    }
     public Image getImage(){
     	final Image img = new Image(getImageName());
     	return  img;
