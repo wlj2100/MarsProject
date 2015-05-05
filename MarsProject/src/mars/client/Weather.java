@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 
+
 /**
  * Displays the current weather status from Wunderground
  *
@@ -31,6 +32,9 @@ public class Weather{
     private Label weatherHeader;
     private String stringTemp;
     private String stringVis;
+    private final JsonpRequestBuilder jsonp1;
+    private String stringHour;
+    private String stringMinute;
 
   
     /**
@@ -41,7 +45,7 @@ public class Weather{
     public Weather(){
         
         String url= URL.encode("http://api.wunderground.com/api/a22fd2e281653ddf/conditions/q/55805.json?");
-        
+        String url2 = URL.encode("http://api.wunderground.com/api/a22fd2e281653ddf/astronomy/q/55805.json?");
         
         //Next section is performing JSON request to wunderground servers and calling update methods.
         this.jsonp = new JsonpRequestBuilder();
@@ -55,6 +59,20 @@ public class Weather{
             public void onSuccess(final JavaScriptObject s) {
                 JSONObject obj = new JSONObject(s);
                 update( obj.toString() );              
+            }     
+        });
+        
+        this.jsonp1 = new JsonpRequestBuilder();
+        this.jsonp1.setCallbackParam("Callback");        
+        this.jsonp1.requestObject(url2,  new AsyncCallback<JavaScriptObject>() {
+            public void onFailure(final Throwable caught){
+                Window.alert("Json onFailure");
+            }
+          
+            @Override          
+            public void onSuccess(final JavaScriptObject s) {
+                JSONObject obj = new JSONObject(s);
+                update2( obj.toString() );              
             }     
         });
     
@@ -81,6 +99,7 @@ public class Weather{
     public FlowPanel getWeather() {
         return this.weatherTable;
     }
+
     
     /**
      * Parses a JSONObject for relevant values then 
@@ -96,16 +115,37 @@ public class Weather{
         this.stringTemp = conditions.get("temp_c").toString();
         this.stringVis = conditions.get("visibility_km").toString();
         
-        
-        
-
         this.weatherTable.add(this.weatherHeader);
         this.weatherTable.add(new Label(this.tempString + "  " + this.stringTemp + " Degrees C"));
         this.weatherTable.add(new Label(this.visString + this.stringVis + " Km"));
+        if(stringHour.equals("undefined")) {
+            stringHour = "13";
+            stringMinute = "12";
+        }
+        this.weatherTable.add(new Label("Sunset time: " + this.stringHour + ":" + this.stringMinute));
         
         this.weatherTable.add(this.wunderLogo);
         
   
+    }
+    
+    /**
+     * Parses a JSONObject the values for the sunset and 
+     * adds these values to the weatherTable.
+     * @param conditions_ - The current weather conditions
+     */
+    
+    public void update2(final String astronomy_) {
+        JSONObject astronomy = (JSONObject) JSONParser.parseLenient(astronomy_);
+        String current = astronomy.get("sun_phase").toString();
+        astronomy = (JSONObject) JSONParser.parseLenient(current);
+        
+        current = astronomy.get("sunset").toString();
+        astronomy = (JSONObject) JSONParser.parseLenient(current);
+        
+        this.stringHour = astronomy.get("hour").toString();
+        this.stringMinute = astronomy.get("minute").toString();
+
     }
     
     
