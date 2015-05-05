@@ -8,7 +8,7 @@ import com.google.gwt.user.client.ui.Button;
 
 public class TenDayAlert {
 	private final int TIMER = 846000000;
-
+	private long initialTime;
 	private Timer t;
 
 	public TenDayAlert() {
@@ -21,6 +21,7 @@ public class TenDayAlert {
 			}
 		};
 		t.schedule(this.TIMER);
+		initialTime = System.currentTimeMillis();
 	}
 
 	public Button getAlert() {
@@ -30,10 +31,15 @@ public class TenDayAlert {
 				if (!t.isRunning()) {
 					t.schedule(TIMER);
 				} else {
-					Window.alert("10 Day Alert is runing right now!");
+					Window.alert("10 Day Alert is runing right now!\n" + "time remains: " + getTimeRemain() + " seconds");
+					
 				}
 			}
 		});
 		return resetAlert;
+	}
+	
+	private String getTimeRemain() {
+		return Long.toString((this.TIMER - System.currentTimeMillis() + initialTime)/1000);
 	}
 }
