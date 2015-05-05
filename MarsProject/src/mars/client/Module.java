@@ -188,7 +188,7 @@ public class Module {
     	} else if(this.code<=164 && this.code>=161){
     		return "images/Control.jpg";
     	} else if(this.code<= 174 && this.code >= 171){
-    		return "images/AirLock.jpg";
+    		return "images/Airlock.jpg";
     	} else{
     		return "images/Medical.jpg";
     	}
@@ -210,7 +210,7 @@ public class Module {
     	} else if(this.code<=154 && this.code>=151){
     		return "images/GreyPower.jpg";
     	} else if(this.code<=164 && this.code>=161){
-    		return "images/GreyControl.jpg";
+    		return "images/Greycontrol.jpg";
     	} else if(this.code<= 174 && this.code >= 171){
     		return "images/GreyAirLock.jpg";
     	} else{
