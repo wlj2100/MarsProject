@@ -27,6 +27,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class MarsMap {
 	static final String unsupportedBrowser = "Your browser does not support the HTML5 Canvas";
 	static final int HEIGHT = 750;
+	static final int yHelper = HEIGHT - 50;
 	static final int WIDTH = 1800;
 	Canvas canvas;
 	private ModuleLogging log;
@@ -165,8 +166,8 @@ public class MarsMap {
 		return marsPanel;
 	}
 
-	public int getHeight() {
-		return this.HEIGHT;
+	public int getYHelper() {
+		return this.yHelper;
 	}
 
 	public void loadModuleImages() {
@@ -180,7 +181,7 @@ public class MarsMap {
 								ImageElement.as(moduleList.get(b - 1)
 										.getImage().getElement()),
 								(moduleList.get(b - 1).getX()) * 50,
-								700 - moduleList.get(b - 1).getY() * 50);
+								getYHelper() - moduleList.get(b - 1).getY() * 50);
 					}
 				}
 			});
