@@ -37,9 +37,8 @@ public class ModuleLogging {
 			"voice/test.mp3");
 	private final Sound saveSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
 			"voice/test.mp3");
-	private Configuration config;
-	public ModuleLogging(Configuration config) {
-		this.config = config;
+
+	public ModuleLogging() {
 		moduleStore = Storage.getLocalStorageIfSupported();
 		this.SavedModulesList();
 	}
