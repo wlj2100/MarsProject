@@ -167,7 +167,7 @@ public class MarsMap {
 	}
 
 	public int getYHelper() {
-		return this.yHelper;
+		return MarsMap.yHelper;
 	}
 
 	public void loadModuleImages() {
