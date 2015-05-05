@@ -20,8 +20,10 @@ import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class MarsMap {
@@ -126,10 +128,25 @@ public class MarsMap {
 				currentSound.play();
 			}
 		});
-		marsPanel.add(displayMinConfig2, DockPanel.WEST);
-		marsPanel.add(displayMinConfig1, DockPanel.WEST);
-		marsPanel.add(displayCurrent, DockPanel.SOUTH);
-
+		final TextBox configKey = new TextBox();
+		final Button showConfig = new Button("show Config");
+		showConfig.addClickHandler(new ClickHandler(){
+			public void onClick(final ClickEvent event) {
+				moduleList.clear();
+				moduleList.addAll(config.ConfigToList(configKey.getText()));
+				loadBackground();
+				loadModuleImages();
+				minSound2.play();
+			}
+		});
+		final FlexTable t = new FlexTable();
+		t.setWidget(0, 0, displayCurrent);
+		t.setWidget(0, 1, displayMinConfig1);
+		t.setWidget(0, 2, displayMinConfig2);
+		t.setWidget(1, 0, configKey);
+		t.setWidget(1, 1, showConfig);
+		marsPanel.add(t, DockPanel.WEST);
+		
 		return marsPanel;
 	}
 
