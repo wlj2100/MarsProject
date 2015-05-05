@@ -1,9 +1,9 @@
-
 package mars.map;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import mars.client.Configuration;
 import mars.client.Module;
 import mars.client.ModuleLogging;
 
@@ -30,58 +30,33 @@ public class MarsMap {
 	static final int WIDTH = 1800;
 	Canvas canvas;
 	private ModuleLogging log;
-	private ArrayList<Module> list;
-	private boolean displayFullConfig1 = false;
-	private boolean displayFullConfig2 = false;
-	private boolean displayMinConfig1 = false;
-	private boolean displayMinConfig2 = false;
-	private boolean displayCurrentConfig = true;
+	private Configuration config;
+	private final ArrayList<Module> moduleList = new ArrayList<Module>();
 	VerticalPanel panel = new VerticalPanel();
 	Context2d context;
 	private final SoundController soundController = new SoundController();
-	private final Sound minSound1 = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-			"voice/test.mp3");
-	private final Sound minSound2 = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-			"voice/test.mp3");
-	private final Sound maxSound1 = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-			"voice/test.mp3");
-	private final Sound maxSound2 = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-			"voice/test.mp3");
-	private final Sound currentSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-			"voice/test.mp3");
+	private final Sound minSound1 = soundController.createSound(
+			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
+	private final Sound minSound2 = soundController.createSound(
+			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
+	private final Sound maxSound1 = soundController.createSound(
+			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
+	private final Sound maxSound2 = soundController.createSound(
+			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
+	private final Sound currentSound = soundController.createSound(
+			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
 
-	public MarsMap(ModuleLogging logger) {
+	public MarsMap(ModuleLogging logger, Configuration config) {
 		this.log = logger;
-		list = log.getSavedModules();
+		this.config = config;
 		canvas = Canvas.createIfSupported();
 		if (canvas == null) {
 			// RootPanel.get(divTagId).add(new Label(unsupportedBrowser));
 			return;
 		}
-		//getSavedModules();
+		// getSavedModules();
 		createCanvas();
 	}
-
-/*	public void getSavedModules() {
-		if (localStorage != null) {
-			list.clear();
-			// NOTE: when we iterate through this, we can possibly add the
-			// modules to the "currentmodulelist" or whatever
-			for (int i = 0; i < localStorage.getLength(); i += 1) {
-				String key = localStorage.key(i);
-				if (!key.startsWith("c")) {
-					// Window.alert(key);
-					String value = localStorage.getItem(key);
-					// Window.alert(value);
-					list.add(new Module(value));
-					Window.alert(list.get(list.size() - 1).toString());
-				}
-			}
-		} else {
-			Window.alert("MODULE STORAGE IS NULL");
-		}
-
-	}*/
 
 	private void createCanvas() {
 
@@ -115,155 +90,110 @@ public class MarsMap {
 		return canvas;
 	}
 
-	public void addModuleToMap(Module moduleType) {
-		Module adModule = moduleType;
-		final Image moduleImage;
-		if (moduleType.getCode() < 20) {
-			moduleImage = new Image("images/Canteen.jpg");
-		} else if (moduleType.getCode() > 20) {
-			moduleImage = new Image("images/Sanitation.jpg");
-		} else if (moduleType.getCode() < 20) {
-			moduleImage = new Image("images/Airlock.jpg");
-		} else if (moduleType.getCode() < 20) {
-			moduleImage = new Image("images/Control.jpg");
-		} else if (moduleType.getCode() < 20) {
-			moduleImage = new Image("images/Food.jpg");
-		} else if (moduleType.getCode() < 20) {
-			moduleImage = new Image("images/Gym.jpg");
-		} else if (moduleType.getCode() < 20) {
-			moduleImage = new Image("images/Plain.jpg");
-		} else if (moduleType.getCode() < 20) {
-			moduleImage = new Image("images/Power.jpg");
-
-		} else {
-			moduleImage = new Image("images/Power.jpg");
-		}
-		moduleImage.setVisible(true);
-		final ImageElement module = ImageElement.as(moduleImage.getElement());
-		final int x = adModule.getX();
-		moduleImage.addLoadHandler(new LoadHandler() {
-			public void onLoad(LoadEvent event) {
-				// final int x= xPos;
-				// final int y = yPos; // fired by RootPanel.get().add
-				context.drawImage(module, x, x);
-			}
-		});
-		moduleImage.setVisible(false); // two line hack to ensure image is
-										// loaded
-		RootPanel.get().add(moduleImage);
-	}
-
 	public DockPanel getMarsPanel() {
 		DockPanel marsPanel = new DockPanel();
 		marsPanel.add(getCanvas(), DockPanel.NORTH);
-		final Button displayConfig1 = new Button("Display Full Configuration 1");
-		displayConfig1.addClickHandler(new ClickHandler() {
+		final Button displayFullConfig1 = new Button(
+				"Display Full Configuration 1");
+		displayFullConfig1.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				displayFullConfig1 = true;
-				displayFullConfig2 = false;
-				displayMinConfig1 = false;
-				displayMinConfig2 = false;
-				displayCurrentConfig = false;
-				updateMap();
+				moduleList.clear();
+				moduleList.addAll(config.ConfigToList("maxConfig1"));
+				loadBackground();
+				loadModuleImages();
 				minSound1.play();
 			}
 		});
-		final Button displayConfig2 = new Button("Display Full Configuration 2");
-		displayConfig2.addClickHandler(new ClickHandler() {
+		final Button displayFullConfig2 = new Button(
+				"Display Full Configuration 2");
+		displayFullConfig2.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				displayFullConfig1 = false;
-				displayFullConfig2 = true;
-				displayMinConfig1 = false;
-				displayMinConfig2 = false;
-				displayCurrentConfig = false;
-				updateMap();
+				moduleList.clear();
+				moduleList.addAll(config.ConfigToList("maxConfig2"));
+				// list = config.ConfigToList("maxConfig1");
+				loadBackground();
+				loadModuleImages();
+				minSound1.play();
 				minSound2.play();
 			}
 		});
-		final Button displayConfig3 = new Button(
+		final Button displayMinConfig1 = new Button(
 				"Display Minimun Configuration 1");
-		displayConfig3.addClickHandler(new ClickHandler() {
+		displayMinConfig1.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				displayFullConfig1 = false;
-				displayFullConfig2 = false;
-				displayMinConfig1 = true;
-				displayMinConfig2 = false;
-				displayCurrentConfig = false;
-				updateMap();
+				moduleList.clear();
+				moduleList.addAll(config.ConfigToList("minConfig1"));
+				// list = config.ConfigToList("minConfig1");
+				loadBackground();
+				loadModuleImages();
+				minSound1.play();
 				maxSound1.play();
 			}
 		});
-		final Button displayConfig4 = new Button(
+		final Button displayMinConfig2 = new Button(
 				"Display Minimun Configuration 2");
-		displayConfig4.addClickHandler(new ClickHandler() {
+		displayMinConfig2.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				displayFullConfig1 = false;
-				displayFullConfig2 = false;
-				displayMinConfig1 = false;
-				displayMinConfig2 = true;
-				displayCurrentConfig = false;
-				updateMap();
+				moduleList.clear();
+				moduleList.addAll(config.ConfigToList("minConfig2"));
+				// list = config.ConfigToList("minConfig2");
+				loadBackground();
+				loadModuleImages();
+				minSound1.play();
 				maxSound2.play();
 			}
 		});
-		final Button displayCurrent = new Button(
-				"Display Current Configuration");
+		final Button displayCurrent = new Button("Display Current Modules");
 		displayCurrent.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				displayFullConfig1 = false;
-				displayFullConfig2 = false;
-				displayMinConfig1 = false;
-				displayMinConfig2 = false;
-				displayCurrentConfig = true;
-				updateMap();
+				// list = log.getSavedModules();
+				moduleList.clear();
+				moduleList.addAll(log.getSavedModules());
+				loadBackground();
+				loadModuleImages();
+				minSound1.play();
+				maxSound2.play();
 				currentSound.play();
 			}
 		});
-		marsPanel.add(displayConfig4, DockPanel.WEST);
-		marsPanel.add(displayConfig3, DockPanel.WEST);
-		marsPanel.add(displayConfig1, DockPanel.EAST);
-		marsPanel.add(displayConfig2, DockPanel.EAST);
+		marsPanel.add(displayMinConfig2, DockPanel.WEST);
+		marsPanel.add(displayMinConfig1, DockPanel.WEST);
+		marsPanel.add(displayFullConfig1, DockPanel.EAST);
+		marsPanel.add(displayFullConfig2, DockPanel.EAST);
 		marsPanel.add(displayCurrent, DockPanel.SOUTH);
 
 		return marsPanel;
 	}
 
-	void updateMap() {
-		if (displayFullConfig1 == true) {
-			
-		} else if (displayFullConfig2 == true) {
-            
-		} else if (displayMinConfig1 == true) {
-			
-		}
-
-	}
-
 	public void loadModuleImages() {
 		final ArrayList<Image> images = new ArrayList<Image>();
-		for(int i = 1; i<=list.size()+1;i++){
-		    images.add(new Image(list.get(i-1).getImageName()));
-			images.get(i-1).addLoadHandler( new LoadHandler(){
-				public void onLoad(final LoadEvent event){
-					for(int b = 1; b<=list.size()+1;b++){
-					context.drawImage(ImageElement.as(list.get(b-1).getImage().getElement()), list.get(b-1).getX(), list.get(b-1).getY());	
+		for (int i = 1; i <= moduleList.size() + 1; i++) {
+			images.add(new Image(moduleList.get(i - 1).getImageName()));
+			images.get(i - 1).addLoadHandler(new LoadHandler() {
+				public void onLoad(final LoadEvent event) {
+					for (int b = 1; b <= moduleList.size() + 1; b++) {
+						context.drawImage(ImageElement.as(moduleList.get(b - 1)
+								.getImage().getElement()), moduleList
+								.get(b - 1).getX(), moduleList.get(b - 1)
+								.getY());
 					}
 				}
 			});
-		
+
 			canvas.setVisible(true);
-			images.get(i-1).setVisible(false);
-			RootPanel.get().add(images.get(i-1));
+			images.get(i - 1).setVisible(false);
+			RootPanel.get().add(images.get(i - 1));
 		}
-	
+
 	}
-	public void loadBackground(){
+
+	public void loadBackground() {
 		context.clearRect(0, 0, this.WIDTH, this.HEIGHT);
 		final Image img = new Image("images/crater.jpg");
 		img.setVisible(true);
 		final ImageElement crater = ImageElement.as(img.getElement());
 		img.addLoadHandler(new LoadHandler() {
-			public void onLoad(LoadEvent event) { 
+			public void onLoad(LoadEvent event) {
 				context.drawImage(crater, 0, 0);
 			}
 		});
@@ -272,6 +202,5 @@ public class MarsMap {
 		RootPanel.get().add(img); // image must be on page to fire load
 									// event
 	}
-	
-	
+
 }

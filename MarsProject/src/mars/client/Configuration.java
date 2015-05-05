@@ -50,6 +50,9 @@ public class Configuration {
 			"voice/test.mp3");
 
 	public Configuration() {
+		minConfig1.add(new Module(1,1,1,1,1));
+		minConfig1.add(new Module(51,1,1,100,200));
+		minConfig2.add(new Module(71,1,1,0,0));
 		localConfig.setItem("minConfig1", listToConfig(minConfig1));
 		localConfig.setItem("minConfig2", listToConfig(minConfig2));
 		localConfig.setItem("maxConfig1", listToConfig(maxConfig1));
@@ -58,6 +61,7 @@ public class Configuration {
 		
 		// TODO
 	}
+	
 
 	public VerticalPanel getConfigPanel() {
 		configListtable();
