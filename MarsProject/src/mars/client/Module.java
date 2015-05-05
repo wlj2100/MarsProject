@@ -222,7 +222,10 @@ public class Module {
     	final Image img = new Image(getImageName());
     	return  img;
     }
-
+    public Image getGreyImage(){
+    	final Image img = new Image(getGreyImageName());
+    	return img;
+    }
 	// toString method
 	@Override
 	public String toString() {

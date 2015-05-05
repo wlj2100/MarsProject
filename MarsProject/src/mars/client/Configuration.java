@@ -56,7 +56,7 @@ public class Configuration {
 		minConfig1.add(new Module(154, 0, 0, 5, 5));
 		minConfig1.add(new Module(174, 0, 0, 4, 7));
 		minConfig1.add(new Module(100, 0, 0, 3, 6));
-		minConfig1.add(new Module(144, 0, 0, 3, 3));
+		minConfig1.add(new Module(144, 0, 0, 4, 3));
 		minConfig1.add(new Module(120, 0, 0, 3, 4));
 		minConfig1.add(new Module(164, 0, 0, 3, 5));
 
@@ -68,7 +68,7 @@ public class Configuration {
 		minConfig2.add(new Module(174, 0, 0, 4, 7));
 		minConfig2.add(new Module(100, 0, 0, 3, 6));
 		minConfig2.add(new Module(144, 0, 0, 5, 4));
-		minConfig2.add(new Module(120, 0, 0, 3, 4));
+		minConfig2.add(new Module(120, 0, 0, 4, 3));
 		minConfig2.add(new Module(164, 0, 0, 3, 5));
 
 		localConfig.setItem("minConfig1", listToConfig(minConfig1));

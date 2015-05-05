@@ -186,7 +186,7 @@ public class MarsMap {
 					for (int b = 1; b <= moduleList.size() + 1; b++) {
 						context.drawImage(
 								ImageElement.as(moduleList.get(b - 1)
-										.getImage().getElement()),
+										.getGreyImage().getElement()),
 								(moduleList.get(b - 1).getX()) * 50,
 								getYHelper() - moduleList.get(b - 1).getY() * 50);
 					}
