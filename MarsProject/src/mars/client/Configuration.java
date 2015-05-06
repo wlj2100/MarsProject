@@ -13,6 +13,7 @@ import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.client.Window;
@@ -21,6 +22,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
@@ -47,6 +49,7 @@ public class Configuration {
 			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
 	private final Sound finishSound = soundController.createSound(
 			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
+	private SimplePager pager;
 
 	public Configuration() {
 		minConfig1.add(new Module(1, 0, 0, 4, 4));
@@ -239,6 +242,7 @@ public class Configuration {
 			}
 		});
 		vp.add(t);
+		vp.add(pager);
 		vp.add(table);
 		return vp;
 	}
@@ -340,10 +344,16 @@ public class Configuration {
 		// affects
 		// paging calculations, so its good habit to keep the row count up to
 		// date.
-		table.setRowCount(keyList.size(), true);
+		//table.setRowCount(keyList.size(), true);
 
 		// Push the data into the widget.
-		table.setRowData(0, keyList);
+		//table.setRowData(0, keyList);
+		ListDataProvider<String> dataProvider = new ListDataProvider<String>();
+		dataProvider.addDataDisplay(table);
+		dataProvider.setList(keyList);
+		pager = new SimplePager();
+		pager.setDisplay(table);
+		pager.setPageSize(10);
 	}
 
 	public ArrayList<String> getConfigList() {
