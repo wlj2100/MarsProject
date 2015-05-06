@@ -157,11 +157,7 @@ public class Configuration {
 					localConfig.removeItem(removeString);
 					removeThisCode.setText("");
 					configListtable();
-					if (removeSound.play()) {
-						Window.alert("sound played");
-					} else {
-						Window.alert("sound does not played");
-					}
+					
 				}
 			}
 		});
@@ -173,11 +169,6 @@ public class Configuration {
 							localConfig.removeItem(localConfig.key(i));
 						}
 					}
-				}
-				if (removeAllSound.play()) {
-					Window.alert("sound played");
-				} else {
-					Window.alert("sound does not played");
 				}
 				configListtable();
 			}
@@ -214,11 +205,6 @@ public class Configuration {
 						if (!flag) {
 							list.add(currentModule);
 							Window.alert("Module added!");
-							if (addSound.play()) {
-								Window.alert("sound played");
-							} else {
-								Window.alert("sound does not played");
-							}
 						} else {
 							Window.alert("duplicated module, cannot add");
 						}
@@ -238,16 +224,16 @@ public class Configuration {
 		finish.addClickHandler(new ClickHandler() {
 			public void onClick(final ClickEvent event) {
 				Window.alert(listToConfig(list));
+				for (int i = 0; i < localConfig.getLength(); i++) {
+					if (("c" + Integer.toString(addCounter)).equals(localConfig.key(i))) {
+						addCounter++;
+					}
+				}
 				localConfig.setItem("c" + Integer.toString(addCounter),
 						listToConfig(list));
 				addCounter++;
 				list.clear();
 				configListtable();
-				if (finishSound.play()) {
-					Window.alert("sound played");
-				} else {
-					Window.alert("sound does not played");
-				}
 			}
 		});
 		checkQuality.addClickHandler(new ClickHandler() {
@@ -398,7 +384,7 @@ public class Configuration {
 		aStringBuilder.append(isDiagonalNext(modulelist, "Medical", "AirLock"));
 		/*
 		 * 10. Food & Water storage modules should be located near Canteen
-		 * modules. a. near means ¡°no more than 3 Plain modules away¡± 11.
+		 * modules. a. near means ï¿½ï¿½no more than 3 Plain modules awayï¿½ï¿½ 11.
 		 * Dormitory wings should have Sanitation modules in the ratio of 1
 		 * Sanitation module for every 2 Dormitory modules.
 		 */
