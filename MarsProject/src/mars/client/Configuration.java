@@ -50,6 +50,7 @@ public class Configuration {
 	private final Sound finishSound = soundController.createSound(
 			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
 	private SimplePager pager;
+	private int quality;
 
 	public Configuration() {
 		minConfig1.add(new Module(1, 0, 0, 4, 4));
@@ -78,7 +79,6 @@ public class Configuration {
 		localConfig.setItem("minConfig2", listToConfig(minConfig2));
 		addCounter = 0;
 
-		// TODO
 	}
 
 	public VerticalPanel getConfigPanel() {
@@ -358,5 +358,94 @@ public class Configuration {
 
 	public ArrayList<String> getConfigList() {
 		return keyList;
+	}
+
+	private String getConfigQuality(String key) {
+		setQuality(100);
+		StringBuilder aStringBuilder = new StringBuilder();
+		ArrayList<Module> modulelist = this.ConfigToList(key);
+		// rule1 Sanitation not next to Canteen
+		if (isNextTo(modulelist, "Sanitation", "Canteen")) {
+			aStringBuilder.append("Sanitation cannot next to Canteen!\n");
+		}
+		// rule2 Sanitation not next to Food & water storage
+		if (isNextTo(modulelist, "Sanitation", "food")) {
+			aStringBuilder.append("Sanitation cannot next to food!\n");
+		}
+		// rule3 Airlock not next to Dormitory
+		if (isNextTo(modulelist, "AirLock", "Dormitory")) {
+			aStringBuilder.append("AirLock cannot next to Dormitory!\n");
+		}
+		// rule8 A Gym & Relaxation module should be next to a Sanitation module
+		// (horizontally)
+		
+		// rule9 One Medical module should be next to one Airlock module
+		// (diagonal)
+		/*
+		 * 10. Food & Water storage modules should be located near Canteen
+		 * modules. a. near means ¡°no more than 3 Plain modules away¡± 11.
+		 * Dormitory wings should have Sanitation modules in the ratio of 1
+		 * Sanitation module for every 2 Dormitory modules.
+		 */
+		// get score
+		aStringBuilder.append("quality score is: ").append(
+				Integer.toString(getQuality()));
+		return aStringBuilder.toString();
+	}
+
+	private boolean isNextTo(ArrayList<Module> aList, String type1, String type2) {
+		boolean flag = false;
+		for (int i = 0; i < aList.size(); i++) {
+			// check sanitation
+			if (aList.get(i).getType().equals(type1)) {
+				for (int j = 0; j < aList.size(); j++) {
+					if (aList.get(j).getType().equals(type2)) {
+						if (isNextToHelper(aList.get(i), aList.get(j))) {
+							setQuality(getQuality() - 2);
+							flag = true;
+						}
+					}
+				}
+			}
+		}
+		return flag;
+
+	}
+
+	private boolean isNextToHelper(Module module1, Module module2) {
+		if ((getDiffX(module1, module2) + getDiffY(module1, module2)) >= 2) {
+			if ((getDiffX(module1, module2) == 0 && getDiffY(module1, module2) == 2)
+					|| (getDiffX(module1, module2) == 2 && getDiffY(module1,
+							module2) == 0)) {
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			return true;
+		}
+	}
+
+	private int getDiffX(Module module1, Module module2) {
+		return Math.abs(module1.getX() - module2.getX());
+	}
+
+	private int getDiffY(Module module1, Module module2) {
+		return Math.abs(module1.getY() - module2.getY());
+	}
+
+	/**
+	 * @return the quality
+	 */
+	private int getQuality() {
+		return quality;
+	}
+
+	/**
+	 * @param quality
+	 *            the quality to set
+	 */
+	private void setQuality(int quality) {
+		this.quality = quality;
 	}
 }
