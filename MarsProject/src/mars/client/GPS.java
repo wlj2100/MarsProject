@@ -1,4 +1,4 @@
-/*package mars.client;
+package mars.client;
 
 import mars.client.Configuration;
 import mars.client.Module;
