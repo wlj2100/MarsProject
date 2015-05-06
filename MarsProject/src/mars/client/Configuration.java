@@ -19,6 +19,7 @@ import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSe
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -49,7 +50,7 @@ public class Configuration {
 			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
 	private final Sound finishSound = soundController.createSound(
 			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
-	private SimplePager pager;
+	//private SimplePager pager;
 	private int quality;
 
 	public Configuration() {
@@ -138,6 +139,14 @@ public class Configuration {
 		t.setWidget(3, 0, removeThisCode);
 		t.setWidget(3, 1, remove);
 		t.setWidget(3, 2, removeAll);
+		
+		final Label qualityLabel = new Label("please input key");
+		final TextBox qualityText = new TextBox();
+		final Button checkQuality = new Button("config check");
+		
+		t.setWidget(4, 0, qualityLabel);
+		t.setWidget(4, 1, qualityText);
+		t.setWidget(4, 2, checkQuality);
 
 		remove.addClickHandler(new ClickHandler() {
 			public void onClick(final ClickEvent event) {
@@ -241,8 +250,13 @@ public class Configuration {
 				}
 			}
 		});
+		checkQuality.addClickHandler(new ClickHandler() {
+			public void onClick(final ClickEvent event) {
+				Window.alert(getConfigQuality(qualityText.getText()));
+			}
+		});
 		vp.add(t);
-		vp.add(pager);
+		//vp.add(pager);
 		vp.add(table);
 		return vp;
 	}
@@ -306,7 +320,7 @@ public class Configuration {
 		while (table.getColumnCount() > 0) {
 			table.removeColumn(0);
 		}
-
+		table.setPageSize(100);
 		table.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 
 		// Add a text column to show the code.
@@ -344,23 +358,25 @@ public class Configuration {
 		// affects
 		// paging calculations, so its good habit to keep the row count up to
 		// date.
-		// table.setRowCount(keyList.size(), true);
+		 table.setRowCount(keyList.size(), true);
 
 		// Push the data into the widget.
-		// table.setRowData(0, keyList);
+		 table.setRowData(0, keyList);
+		/*
 		ListDataProvider<String> dataProvider = new ListDataProvider<String>();
 		dataProvider.addDataDisplay(table);
 		dataProvider.setList(keyList);
 		pager = new SimplePager();
 		pager.setDisplay(table);
 		pager.setPageSize(10);
+		*/
 	}
 
 	public ArrayList<String> getConfigList() {
 		return keyList;
 	}
 
-	private String getConfigQuality(String key) {
+	public String getConfigQuality(String key) {
 		setQuality(100);
 		StringBuilder aStringBuilder = new StringBuilder();
 		ArrayList<Module> modulelist = this.ConfigToList(key);
@@ -378,9 +394,10 @@ public class Configuration {
 		}
 		// rule8 A Gym & Relaxation module should be next to a Sanitation module
 		// (horizontally)
-		
+		aStringBuilder.append(isHorizonNext(modulelist, "Gym", "Sanitation"));
 		// rule9 One Medical module should be next to one Airlock module
 		// (diagonal)
+		aStringBuilder.append(isDiagonalNext(modulelist, "Medical", "AirLock"));
 		/*
 		 * 10. Food & Water storage modules should be located near Canteen
 		 * modules. a. near means ¡°no more than 3 Plain modules away¡± 11.
@@ -392,16 +409,57 @@ public class Configuration {
 				Integer.toString(getQuality()));
 		return aStringBuilder.toString();
 	}
+	
+	private String isDiagonalNext(ArrayList<Module> aList, String type1, String type2) {
+		boolean flag = true;
+		for (int i = 0; i < aList.size(); i++) {
+			if (aList.get(i).getType().equals(type1)) {
+				for (int j = 0; j < aList.size(); j++) {
+					if (aList.get(j).getType().equals(type2)) {
+						if (!(getDiffX(aList.get(i), aList.get(j)) == 1 && getDiffY(aList.get(i), aList.get(j)) == 1)) {
+							flag = false;
+							setQuality(getQuality() - 2);
+						} 
+					}
+				}
+			}
+		}
+		if (flag) {
+			return "";
+		} else {
+			return "One Medical module should be next to one Airlock module!\n";
+		}
+	}
+	private String isHorizonNext(ArrayList<Module> aList, String type1, String type2) {
+		boolean flag = true;
+		for (int i = 0; i < aList.size(); i++) {
+			if (aList.get(i).getType().equals(type1)) {
+				for (int j = 0; j < aList.size(); j++) {
+					if (aList.get(j).getType().equals(type2)) {
+						//Window.alert(Integer.toString(getDiffX(aList.get(i), aList.get(j))));
+						if (!(getDiffX(aList.get(i), aList.get(j)) == 1 && getDiffY(aList.get(i), aList.get(j)) == 0)) {
+							flag = false;
+							setQuality(getQuality() - 2);
+						} 
+					}
+				}
+			}
+		}
+		if (flag) {
+			return "";
+		} else {
+			return "Gym & Relaxation module should be horizontally next to a Sanitation module!\n";
+		}
+	}
 
 	private boolean isNextTo(ArrayList<Module> aList, String type1, String type2) {
 		boolean flag = false;
 		for (int i = 0; i < aList.size(); i++) {
-			// check sanitation
 			if (aList.get(i).getType().equals(type1)) {
 				for (int j = 0; j < aList.size(); j++) {
 					if (aList.get(j).getType().equals(type2)) {
 						if (isNextToHelper(aList.get(i), aList.get(j))) {
-							setQuality(getQuality() - 2);
+							setQuality(getQuality() - 5);
 							flag = true;
 						}
 					}
@@ -413,7 +471,10 @@ public class Configuration {
 	}
 
 	private boolean isNextToHelper(Module module1, Module module2) {
-		if ((getDiffX(module1, module2) + getDiffY(module1, module2)) >= 2) {
+		
+		if ((getDiffX(module1, module2) + getDiffY(module1, module2)) > 2) {
+			return false;
+		} else if ((getDiffX(module1, module2) + getDiffY(module1, module2)) == 2){
 			if ((getDiffX(module1, module2) == 0 && getDiffY(module1, module2) == 2)
 					|| (getDiffX(module1, module2) == 2 && getDiffY(module1,
 							module2) == 0)) {
@@ -427,10 +488,12 @@ public class Configuration {
 	}
 
 	private int getDiffX(Module module1, Module module2) {
+		//Window.alert(Integer.toString(Math.abs(module1.getX() - module2.getX())));
 		return Math.abs(module1.getX() - module2.getX());
 	}
 
 	private int getDiffY(Module module1, Module module2) {
+		//Window.alert(Integer.toString(Math.abs(module1.getY() - module2.getY())));
 		return Math.abs(module1.getY() - module2.getY());
 	}
 
