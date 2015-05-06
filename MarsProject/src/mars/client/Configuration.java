@@ -50,7 +50,7 @@ public class Configuration {
 			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
 	private final Sound finishSound = soundController.createSound(
 			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
-	//private SimplePager pager;
+	private SimplePager pager;
 	private int quality;
 
 	public Configuration() {
@@ -256,7 +256,7 @@ public class Configuration {
 			}
 		});
 		vp.add(t);
-		//vp.add(pager);
+		vp.add(pager);
 		vp.add(table);
 		return vp;
 	}
@@ -320,7 +320,7 @@ public class Configuration {
 		while (table.getColumnCount() > 0) {
 			table.removeColumn(0);
 		}
-		table.setPageSize(100);
+
 		table.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 
 		// Add a text column to show the code.
@@ -358,18 +358,16 @@ public class Configuration {
 		// affects
 		// paging calculations, so its good habit to keep the row count up to
 		// date.
-		 table.setRowCount(keyList.size(), true);
+		// table.setRowCount(keyList.size(), true);
 
 		// Push the data into the widget.
-		 table.setRowData(0, keyList);
-		/*
+		// table.setRowData(0, keyList);
 		ListDataProvider<String> dataProvider = new ListDataProvider<String>();
 		dataProvider.addDataDisplay(table);
 		dataProvider.setList(keyList);
 		pager = new SimplePager();
 		pager.setDisplay(table);
 		pager.setPageSize(10);
-		*/
 	}
 
 	public ArrayList<String> getConfigList() {
