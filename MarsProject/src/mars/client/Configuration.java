@@ -350,42 +350,4 @@ public class Configuration {
 		return keyList;
 	}
 
-	/*
-	 * @parameter moduleList -- a list contain modules
-	 */
-	// "Plain";"Dormitory";"Sanitation";"Food";"Gym";"Canteen";"Power";"Control";"AirLock";"Medical";
-	public ArrayList<Integer> getTypeNum(ArrayList<Module> moduleList) {
-		ArrayList<Integer> typeList = new ArrayList<Integer>();
-		// initial the num of type
-		for (int i = 0; i < 10; i++) {
-			typeList.add(0);
-		}
-		// get the type of each entry of moduleList and add to the typeList
-		for (int i = 0; i < moduleList.size(); i++) {
-			if (moduleList.get(i).getType().equals("Plain")) {
-				typeList.set(0, typeList.get(0) + 1);
-			} else if (moduleList.get(i).getType().equals("Dormitory")) {
-				typeList.set(1, typeList.get(1) + 1);
-			} else if (moduleList.get(i).getType().equals("Sanitation")) {
-				typeList.set(2, typeList.get(2) + 1);
-			}else if (moduleList.get(i).getType().equals("Food")) {
-				typeList.set(3, typeList.get(3)+1);
-			}else if (moduleList.get(i).getType().equals("Gym")) {
-				typeList.set(4, typeList.get(4)+1);
-			}else if (moduleList.get(i).getType().equals("Canteen")) {
-				typeList.set(5, typeList.get(5)+1);
-			}else if (moduleList.get(i).getType().equals("Power")) {
-				typeList.set(6, typeList.get(6)+1);
-			}else if (moduleList.get(i).getType().equals("Control")) {
-				typeList.set(7, typeList.get(7)+1);
-			}else if (moduleList.get(i).getType().equals("AirLock")) {
-				typeList.set(8, typeList.get(8)+1);
-			}else if (moduleList.get(i).getType().equals("Medical")) {
-				typeList.set(9, typeList.get(9)+1);
-			} else {
-				Window.alert("module with notype occures, plz check the local storage!");
-			}
-		}
-		return typeList;
-	}
 }

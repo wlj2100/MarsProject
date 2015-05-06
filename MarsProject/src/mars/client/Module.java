@@ -148,73 +148,79 @@ public class Module {
 	}
 	
 	public String getType() {
-		if(this.code<=40 && this.code >=1){
+		if(this.code<=60 && this.code >=1){
     		return "Plain";
-    	} else if(this.code<=80 && this.code>=61){
+		} else if(this.code<=90 && this.code>=61){
     		return "Dormitory";
-    	} else if(this.code<=100 && this.code>=91){
+		} else if(this.code<=110 && this.code>=91){
     		return "Sanitation";
-    	} else if(this.code<=120 && this.code>=111){
+		} else if(this.code<=130 && this.code>=111){
     		return "Food";
-    	} else if(this.code<=134 && this.code>=131){
+    	} else if(this.code<=140 && this.code>=131){
     		return "Gym";
-    	} else if(this.code<=144 && this.code>=141){
+    	} else if(this.code<=150 && this.code>=141){
     		return "Canteen";
-    	} else if(this.code<=154 && this.code>=151){
+    	} else if(this.code<=160 && this.code>=151){
     		return "Power";
-    	} else if(this.code<=164 && this.code>=161){
+    	} else if(this.code<=170 && this.code>=161){
     		return "Control";
-    	} else if(this.code<= 174 && this.code >= 171){
+    	} else if(this.code<= 180 && this.code >= 171){
     		return "AirLock";
-    	} else{
+    	} else if (this.code <=190 && this.code >= 181){
     		return "Medical";
+    	} else {
+    		return "undefined";
     	}
 	}
     public String getImageName(){
-    	if(this.code<=40 && this.code >=1){
+    	if(this.code<=60 && this.code >=1){
     		return "images/Plain.jpg";
-    	} else if(this.code<=80 && this.code>=61){
+    	} else if(this.code<=90 && this.code>=61){
     		return "images/Dormitory.jpg";
-    	} else if(this.code<=100 && this.code>=91){
+    	} else if(this.code<=110 && this.code>=91){
     		return "images/Sanitation.jpg";
-    	} else if(this.code<=120 && this.code>=111){
+    	} else if(this.code<=130 && this.code>=111){
     		return "images/Food.jpg";
-    	} else if(this.code<=134 && this.code>=131){
+    	} else if(this.code<=140 && this.code>=131){
     		return "images/Gym.jpg";
-    	} else if(this.code<=144 && this.code>=141){
+    	} else if(this.code<=150 && this.code>=141){
     		return "images/Canteen.jpg";
-    	} else if(this.code<=154 && this.code>=151){
+    	} else if(this.code<=160 && this.code>=151){
     		return "images/Power.jpg";
-    	} else if(this.code<=164 && this.code>=161){
+      	} else if(this.code<=170 && this.code>=161){
     		return "images/Control.jpg";
-    	} else if(this.code<= 174 && this.code >= 171){
+    	} else if(this.code<= 180 && this.code >= 171){
     		return "images/Airlock.jpg";
-    	} else{
+    	} else if (this.code <=190 && this.code >= 181){
     		return "images/Medical.jpg";
+    	} else {
+    		return null;
     	}
     		
     }
     public String getGreyImageName(){
-    	if(this.code<=40 && this.code >=1){
+    	if(this.code<=60 && this.code >=1){
     		return "images/GreyPlain.jpg";
-    	} else if(this.code<=80 && this.code>=61){
+    	} else if(this.code<=90 && this.code>=61){
     		return "images/GreyDormitory.jpg";
-    	} else if(this.code<=100 && this.code>=91){
+    	} else if(this.code<=110 && this.code>=91){
     		return "images/GreySanitation.jpg";
-    	} else if(this.code<=120 && this.code>=111){
+    	} else if(this.code<=130 && this.code>=111){
     		return "images/GreyFood.jpg";
-    	} else if(this.code<=134 && this.code>=131){
+    	} else if(this.code<=140 && this.code>=131){
     		return "images/GreyGym.jpg";
-    	} else if(this.code<=144 && this.code>=141){
+    	} else if(this.code<=150 && this.code>=141){
     		return "images/GreyCanteen.jpg";
-    	} else if(this.code<=154 && this.code>=151){
+    	} else if(this.code<=160 && this.code>=151){
     		return "images/GreyPower.jpg";
-    	} else if(this.code<=164 && this.code>=161){
+    	} else if(this.code<=170 && this.code>=161){
     		return "images/Greycontrol.jpg";
-    	} else if(this.code<= 174 && this.code >= 171){
+    	} else if(this.code<= 180 && this.code >= 171){
     		return "images/GreyAirLock.jpg";
-    	} else{
+    	} else if (this.code <=190 && this.code >= 181){
     		return "images/GreyMedical.jpg";
+    	} else {
+    		return null;
     	}
     		
     }

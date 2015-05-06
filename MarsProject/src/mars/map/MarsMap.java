@@ -142,6 +142,14 @@ public class MarsMap {
 				// list = log.getSavedModules();
 				moduleList.clear();
 				moduleList.addAll(log.getSavedModules());
+				if (meetConfigRequire(getTypeNum(moduleList), getTypeNum(config.ConfigToList("minConfig2")))) {
+					Window.alert("Minimum configuration can be built!");
+					displayMinConfig1.setVisible(true);
+					displayMinConfig2.setVisible(true);
+				} else {
+					displayMinConfig1.setVisible(false);
+					displayMinConfig2.setVisible(false);
+				}
 				loadBackground();
 				loadModuleImages();
 				currentSound.play();
@@ -164,6 +172,8 @@ public class MarsMap {
 		t.setWidget(0, 2, displayMinConfig2);
 		t.setWidget(1, 0, configKey);
 		t.setWidget(1, 1, showConfig);
+		displayMinConfig1.setVisible(false);
+		displayMinConfig2.setVisible(false);
 		marsPanel.add(t, DockPanel.WEST);
 		marsPanel.add(table, DockPanel.SOUTH);
 		return marsPanel;
@@ -263,5 +273,44 @@ public class MarsMap {
 			}
 		}
 		return flag;
+	}
+	
+	/*
+	 * @parameter moduleList -- a list contain modules
+	 */
+	// "Plain";"Dormitory";"Sanitation";"Food";"Gym";"Canteen";"Power";"Control";"AirLock";"Medical";
+	public ArrayList<Integer> getTypeNum(ArrayList<Module> aModuleList) {
+		ArrayList<Integer> typeList = new ArrayList<Integer>();
+		// initial the num of type
+		for (int i = 0; i < 10; i++) {
+			typeList.add(0);
+		}
+		// get the type of each entry of moduleList and add to the typeList
+		for (int i = 0; i < aModuleList.size(); i++) {
+			if (aModuleList.get(i).getType().equals("Plain")) {
+				typeList.set(0, typeList.get(0) + 1);
+			} else if (aModuleList.get(i).getType().equals("Dormitory")) {
+				typeList.set(1, typeList.get(1) + 1);
+			} else if (aModuleList.get(i).getType().equals("Sanitation")) {
+				typeList.set(2, typeList.get(2) + 1);
+			}else if (aModuleList.get(i).getType().equals("Food")) {
+				typeList.set(3, typeList.get(3)+1);
+			}else if (aModuleList.get(i).getType().equals("Gym")) {
+				typeList.set(4, typeList.get(4)+1);
+			}else if (aModuleList.get(i).getType().equals("Canteen")) {
+				typeList.set(5, typeList.get(5)+1);
+			}else if (aModuleList.get(i).getType().equals("Power")) {
+				typeList.set(6, typeList.get(6)+1);
+			}else if (aModuleList.get(i).getType().equals("Control")) {
+				typeList.set(7, typeList.get(7)+1);
+			}else if (aModuleList.get(i).getType().equals("AirLock")) {
+				typeList.set(8, typeList.get(8)+1);
+			}else if (aModuleList.get(i).getType().equals("Medical")) {
+				typeList.set(9, typeList.get(9)+1);
+			} else {
+				Window.alert("module with notype occures, plz check the local storage!");
+			}
+		}
+		return typeList;
 	}
 }
