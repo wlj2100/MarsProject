@@ -344,10 +344,10 @@ public class Configuration {
 		// affects
 		// paging calculations, so its good habit to keep the row count up to
 		// date.
-		//table.setRowCount(keyList.size(), true);
+		// table.setRowCount(keyList.size(), true);
 
 		// Push the data into the widget.
-		//table.setRowData(0, keyList);
+		// table.setRowData(0, keyList);
 		ListDataProvider<String> dataProvider = new ListDataProvider<String>();
 		dataProvider.addDataDisplay(table);
 		dataProvider.setList(keyList);
@@ -359,5 +359,4 @@ public class Configuration {
 	public ArrayList<String> getConfigList() {
 		return keyList;
 	}
-
 }
