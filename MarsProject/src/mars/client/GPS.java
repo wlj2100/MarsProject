@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-/*import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -60,9 +60,7 @@ public class GPS {
 	} // TestCaseChoice
 		
 	public static void update(final String rt) {		 
-		Model.removeAll();
-		Variables.mListBox().clear();
-		Variables.cListBox().clear();
+		
 		JSONArray jArray = (JSONArray)JSONParser.parseLenient(rt); 
 		JSONNumber jNumber; 
 		JSONString jString; 
@@ -75,7 +73,6 @@ public class GPS {
 		double x; 
 		double y;
 		String status;
-		ModuleType type;
 		Module coordinate;
 		Module modStatus;	
 		
@@ -100,114 +97,11 @@ public class GPS {
 			jNumber = (JSONNumber) jO.get("Y"); 
 			y = jNumber.doubleValue(); 	
 			yC = (int) y;
-			coordinate = new Point (xC, yC);
-			
-			
-			//Convert Status
-			if (status == "undamaged"){
-				modStatus = ModuleStatus.USABLE;
-			}
-			else if (status == "damaged"){
-				modStatus = ModuleStatus.BEYONDREPAIR;
-			}
-			else{
-				modStatus = ModuleStatus.USABLEAFTERREPAIR;
-			}
-			
 
 			
-			//Convert Type
-			if (0 < code && code < 41) {
-				type = ModuleType.PLAIN;
-			} // if
-			else if (60 < code && code < 81) {
-				type = ModuleType.DORMITORY;
-			} // if
-			else if (90 < code && code < 101) {
-				type = ModuleType.SANITATION;
-			} // if
-			else if (110 < code && code < 121) {
-				type = ModuleType.FOODWATERSTORAGE;
-			} // if
-			else if (130 < code && code < 135) {
-				type = ModuleType.GYMRELAXATION;
-			} // if
-			else if (140 < code && code < 145) {
-				type = ModuleType.CANTEEN;
-			} // if
-			else if (150 < code && code < 155) {
-				type = ModuleType.POWER;
-			} // if
-			else if (160 < code && code < 165) {
-				type = Module.CONTROL;
-			} // if
-			else if (170 < code && code < 175) {
-				type = ModuleType.AIRLOCK;
-			} // if
-			else if (180 < code && code < 185) {
-				type = ModuleType.MEDICAL;
-			} // if
-			else {
-				type = null;
-			} //else
-			
-			Variables.mListBox().addItem("Module #" + id);		
-			Module tempModule = new Module(type, id, coordinate, modStatus, numTurns, false);			
-			Model.addModule(tempModule);
-
-		} //for
-
-		if (ConfigurationBuilder.minConfigPossible()){
-			final DialogBox minConfigAlert = new DialogBox();
-            minConfigAlert.setText("Minimum Configuration Available");
-
-            // Create a table to layout the content
-            VerticalPanel dialogContents = new VerticalPanel();
-            dialogContents.setSpacing(4);
-            minConfigAlert.setWidget(dialogContents);
-
-            // Add some text to the top of the dialog
-            HTML details = new HTML("Go to Configurations tab to view the minimum configuration available.");
-            dialogContents.add(details);
-            dialogContents.setCellHorizontalAlignment(
-                details, HasHorizontalAlignment.ALIGN_CENTER);
-
-            // Add an image to the dialog
-            Image image = new Image("images/yay");
-            image.setHeight(Variables.px130);
-            image.setWidth(Variables.px200);
-            dialogContents.add(image);
-            dialogContents.setCellHorizontalAlignment(
-                image, HasHorizontalAlignment.ALIGN_CENTER);
-
-            // Add a close button at the bottom of the dialog
-            Button closeButton = new Button(
-                "Close", new ClickHandler() {
-                  public void onClick(ClickEvent event) {
-                	  minConfigAlert.hide();
-                  }
-                });
-            dialogContents.add(closeButton);
-            if (LocaleInfo.getCurrentLocale().isRTL()) {
-              dialogContents.setCellHorizontalAlignment(
-                  closeButton, HasHorizontalAlignment.ALIGN_LEFT);
-
-            } // if 
-            else {
-              dialogContents.setCellHorizontalAlignment(
-                  closeButton, HasHorizontalAlignment.ALIGN_RIGHT);
-            } // else
-            
-            minConfigAlert.center();
-            minConfigAlert.show();
-            Variables.minConfigSound().play();
-			Variables.setMinConfigReached(true);
-		}
-		else{
-			Variables.setMinConfigReached(false);
-		}
-		
 	
-	} //update
 
-}//TestCases Class*/
+		} 
+
+	}
+}
