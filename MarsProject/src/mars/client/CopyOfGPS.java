@@ -40,8 +40,7 @@ public class CopyOfGPS {
 	 * Default CTOR
 	 */
 	public CopyOfGPS(){
-				this.url = 
-				this.proxy+"http://www.d.umn.edu/~abrooks/SomeTests.php?q=" + this.test;
+				this.url = this.proxy+"http://www.d.umn.edu/~abrooks/SomeTests.php?q=" + this.test;
 				this.url = URL.encode(this.url); 
 				
 	}
@@ -62,6 +61,7 @@ public class CopyOfGPS {
 
 	
 	public void update(String rt) {
+		 Window.alert(rt); 
 		 VerticalPanel vp = new VerticalPanel();
 		 vp.add(new Label(rt)); //TO VIEW
 		 //RootLayoutPanel.get().add(vp);
