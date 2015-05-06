@@ -250,7 +250,7 @@ public class Configuration {
 	private void configKey() {
 		keyList.clear();
 		for (int i = 0; i < localConfig.getLength(); i++) {
-			if (localConfig.key(i).startsWith("c")) {
+			if (localConfig.key(i).startsWith("c") || localConfig.key(i).startsWith("m")) {
 				keyList.add(localConfig.key(i));
 			}
 		}
