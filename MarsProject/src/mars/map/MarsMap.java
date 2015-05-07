@@ -210,11 +210,14 @@ public class MarsMap {
 						}
 					}
 				}
-				moduleList.clear();
-				moduleList.addAll(log.getSavedModules());
-				loadBackground();
-				loadModuleImages();
 				Window.alert("move size is: " + Integer.toString(moveSize));
+				//Window.alert("clear list");
+				moduleList.clear();
+				//Window.alert("copy list");
+				moduleList.addAll(log.getSavedModules());
+				//Window.alert("background");
+				loadBackground();
+				loadModuleImages();				
 				currentSound.play();
 			}
 		});

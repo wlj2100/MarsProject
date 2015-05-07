@@ -52,6 +52,7 @@ public class ModuleLogging {
 	private void SavedModulesList() {
 		if (moduleStore != null) {
 			list.clear();
+			Window.alert(Integer.toString(moduleStore.getLength()));
 			for (int i = 0; i < moduleStore.getLength(); i += 1) {
 				String key = moduleStore.key(i);
 				if (!key.startsWith("c") && !key.startsWith("m")) {
