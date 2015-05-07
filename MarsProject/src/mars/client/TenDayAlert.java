@@ -7,22 +7,22 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 
 public class TenDayAlert {
-	private final int TIMER = 846000000;
-	private long initialTime;
-	private Timer t;
+    private final int TIMER = 846000000;
+    private long initialTime;
+private Timer t;
 
 	public TenDayAlert() {
 		t = new Timer() {
 			@Override
-			public void run() {
+    public void run() {
 				Window.alert("WARNING! \n"
 						+ " 10 days have passed since the milometer \n"
-						+ "device on the lift rover has been calibrated.");
+ 						+ "device on the lift rover has been calibrated.");
 			}
 		};
 		t.schedule(this.TIMER);
 		initialTime = System.currentTimeMillis();
-	}
+  }
 
 	public Button getAlert() {
 		final Button resetAlert = new Button("resetAlert");
@@ -41,5 +41,5 @@ public class TenDayAlert {
 	
 	private String getTimeRemain() {
 		return Long.toString((this.TIMER - System.currentTimeMillis() + initialTime)/1000);
-	}
+  }
 }

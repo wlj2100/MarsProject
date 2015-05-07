@@ -1,6 +1,8 @@
 package mars.client;
 
 
+import java.util.ArrayList;
+
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestCallback;
@@ -12,6 +14,7 @@ import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONString;
+import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
@@ -28,7 +31,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class CopyOfGPS {
 
-	
+	private Storage localConfig = Storage.getLocalStorageIfSupported();
 	private int test = 1;
 	private String url;
 	private VerticalPanel vp;
@@ -45,8 +48,8 @@ public class CopyOfGPS {
 				
 	}
 	
-	public void setTestNumber(final int test1){
-		this.test = test1;
+	public void setTestNumber(final int test){
+		this.test = test;
 		this.url = this.proxy+"http://www.d.umn.edu/~abrooks/SomeTests.php?q=" + this.test;
 		this.url = URL.encode(this.url);
 	}
@@ -61,46 +64,42 @@ public class CopyOfGPS {
 
 	
 	public void update(String rt) {
-		 Window.alert(rt); 
-		 VerticalPanel vp = new VerticalPanel();
-		 vp.add(new Label(rt)); //TO VIEW
-		 //RootLayoutPanel.get().add(vp);
-
-		 String sAll = rt;
-		 JSONArray jA =
-		 (JSONArray)JSONParser.parseLenient(sAll);
-		 JSONNumber jN;
-		 JSONString jS;
-		 double d;
-		 String s;
-		 
-		 for (int i = 0; i < jA.size(); i++) {
-			 JSONObject jO = (JSONObject)jA.get(i);
-			 jN = (JSONNumber) jO.get("code");
-			 d = jN.doubleValue();
-			 
-			 vp.add(new Label(Double.toString(d))); //TO VIEW
-			 jS = (JSONString) jO.get("status");
-			 
-			 s = jS.stringValue();
-			 vp.add(new Label(s)); //TO VIEW
-			 
-			 jN = (JSONNumber) jO.get("turns");
-			 d = jN.doubleValue();
-			 
-			 vp.add(new Label(Double.toString(d))); //TO VIEW
-			 jN = (JSONNumber) jO.get("X");
-			 d = jN.doubleValue();
-			 
-			 vp.add(new Label(Double.toString(d))); //TO VIEW
-			 jN = (JSONNumber) jO.get("Y");
-			 d = jN.doubleValue();
-			 
-			 vp.add(new Label(Double.toString(d))); //TO VIEW
-			 vp.add(new HTML("<hr />"));
-		 }
-			 RootLayoutPanel.get().add(vp);
-			 }
+		//clear local storage for test case
+		for (int i = 0; i < localConfig.getLength(); i++) {
+			if (!localConfig.key(i).startsWith("m")) {
+				localConfig.removeItem(localConfig.key(i));
+			}
+		}
+		String configString = rt;
+		JSONArray jA = null;
+		try {
+			jA = (JSONArray) JSONParser.parseLenient(configString);
+		} catch (NullPointerException e1) {
+			Window.alert("null" + e1.getMessage());
+		} catch (IllegalArgumentException e2) {
+			Window.alert("illegal" + e2.getMessage());
+		}
+		for (int i = 0; i < jA.size(); i++) {
+			JSONObject jO = (JSONObject) jA.get(i);
+			JSONNumber jN;
+			JSONString jS;
+			Module module = new Module();
+			jN = (JSONNumber) jO.get("code");
+			module.setCode((int) jN.doubleValue());
+			jS = (JSONString) jO.get("status");
+			module.setTheString(jS.stringValue());
+			jN = (JSONNumber) jO.get("turns");
+			module.setTurns((int) jN.doubleValue());
+			jN = (JSONNumber) jO.get("X");
+			module.setXcoord((int) jN.doubleValue());
+			jN = (JSONNumber) jO.get("Y");
+			module.setYcoord((int) jN.doubleValue());
+			localConfig.setItem(
+					Integer.toString(module.getCode()),
+					module.toString());
+		}
+		
+	}
 	
 	
 	/**
@@ -134,7 +133,4 @@ public class CopyOfGPS {
 
 	}
 	
-	public VerticalPanel getTestData(){
-		return this.vp;
-	}
 }
