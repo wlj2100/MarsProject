@@ -46,7 +46,7 @@ public class MarsMap {
 			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
 	private final Sound currentSound = soundController.createSound(
 			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
-
+	private Storage localStore = Storage.getLocalStorageIfSupported();
 	public MarsMap(ModuleLogging logger, Configuration config) {
 		this.log = logger;
 		this.config = config;
@@ -112,6 +112,7 @@ public class MarsMap {
 		table.setWidget(1, 0, xcord);
 		table.setWidget(1, 1, ycord);
 		table.setWidget(1, 2, setGravButton);
+		final Button buildButton = new Button("Build Config");
 		final Button displayMinConfig1 = new Button(
 				"Display Minimun Configuration 1");
 		displayMinConfig1.addClickHandler(new ClickHandler() {
@@ -142,13 +143,16 @@ public class MarsMap {
 				// list = log.getSavedModules();
 				moduleList.clear();
 				moduleList.addAll(log.getSavedModules());
-				if (meetConfigRequire(getTypeNum(moduleList), getTypeNum(config.ConfigToList("minConfig2")))) {
+				if (meetConfigRequire(getTypeNum(moduleList),
+						getTypeNum(config.ConfigToList("minConfig2")))) {
 					Window.alert("Minimum configuration can be built!");
 					displayMinConfig1.setVisible(true);
 					displayMinConfig2.setVisible(true);
+					buildButton.setVisible(true);
 				} else {
 					displayMinConfig1.setVisible(false);
 					displayMinConfig2.setVisible(false);
+					buildButton.setVisible(false);
 				}
 				loadBackground();
 				loadModuleImages();
@@ -166,14 +170,49 @@ public class MarsMap {
 				minSound2.play();
 			}
 		});
+		
+		buildButton.addClickHandler(new ClickHandler() {
+			public void onClick(final ClickEvent event) {
+				int moveSize = 0;
+				ArrayList<Module> localList = log.getSavedModules();
+				// list of config: moduleList
+				for (int i = 0; i < moduleList.size(); i++) {
+					for (int j = 0; j < localList.size(); j++) {
+						Module configModule = moduleList.get(i);
+						Module localModule = localList.get(j);
+						if (configModule.getType() == localModule.getType()
+								&& (localModule.getStringStatus().equals(
+										"Undamaged") || localModule
+										.getStringStatus().equals("Repairable"))) {
+							localList.remove(j);
+							j--;
+							localStore.removeItem(Integer.toString(localModule.getCode()));
+							moveSize = moveSize + Math.abs(localModule.getX()-configModule.getX()) +Math.abs(localModule.getY()-configModule.getY());
+							localModule.setXcoord(configModule.getX());
+							localModule.setYcoord(configModule.getY());
+							localStore.setItem(Integer.toString(localModule.getCode()), localModule.toString());
+							break;
+						}
+					}
+				}
+				moduleList.clear();
+				moduleList.addAll(log.getSavedModules());
+				loadBackground();
+				loadModuleImages();
+				Window.alert("move size is: " + Integer.toString(moveSize));
+				currentSound.play();
+			}
+		});
 		final FlexTable t = new FlexTable();
 		t.setWidget(0, 0, displayCurrent);
 		t.setWidget(0, 1, displayMinConfig1);
 		t.setWidget(0, 2, displayMinConfig2);
+		t.setWidget(0, 3, buildButton);
 		t.setWidget(1, 0, configKey);
 		t.setWidget(1, 1, showConfig);
 		displayMinConfig1.setVisible(false);
 		displayMinConfig2.setVisible(false);
+		buildButton.setVisible(false);
 		marsPanel.add(t, DockPanel.WEST);
 		marsPanel.add(table, DockPanel.SOUTH);
 		return marsPanel;
@@ -263,8 +302,9 @@ public class MarsMap {
 	public void setyGravity(int yGravity) {
 		this.yGravity = yGravity;
 	}
-	
-	private boolean meetConfigRequire(ArrayList<Integer> moduleTypeList, ArrayList<Integer> configTypeList) {
+
+	private boolean meetConfigRequire(ArrayList<Integer> moduleTypeList,
+			ArrayList<Integer> configTypeList) {
 		boolean flag = true;
 		for (int i = 0; i < 10; i++) {
 			if (moduleTypeList.get(i) < configTypeList.get(i)) {
@@ -274,7 +314,7 @@ public class MarsMap {
 		}
 		return flag;
 	}
-	
+
 	/*
 	 * @parameter moduleList -- a list contain modules
 	 */
@@ -293,20 +333,20 @@ public class MarsMap {
 				typeList.set(1, typeList.get(1) + 1);
 			} else if (aModuleList.get(i).getType().equals("Sanitation")) {
 				typeList.set(2, typeList.get(2) + 1);
-			}else if (aModuleList.get(i).getType().equals("Food")) {
-				typeList.set(3, typeList.get(3)+1);
-			}else if (aModuleList.get(i).getType().equals("Gym")) {
-				typeList.set(4, typeList.get(4)+1);
-			}else if (aModuleList.get(i).getType().equals("Canteen")) {
-				typeList.set(5, typeList.get(5)+1);
-			}else if (aModuleList.get(i).getType().equals("Power")) {
-				typeList.set(6, typeList.get(6)+1);
-			}else if (aModuleList.get(i).getType().equals("Control")) {
-				typeList.set(7, typeList.get(7)+1);
-			}else if (aModuleList.get(i).getType().equals("AirLock")) {
-				typeList.set(8, typeList.get(8)+1);
-			}else if (aModuleList.get(i).getType().equals("Medical")) {
-				typeList.set(9, typeList.get(9)+1);
+			} else if (aModuleList.get(i).getType().equals("Food")) {
+				typeList.set(3, typeList.get(3) + 1);
+			} else if (aModuleList.get(i).getType().equals("Gym")) {
+				typeList.set(4, typeList.get(4) + 1);
+			} else if (aModuleList.get(i).getType().equals("Canteen")) {
+				typeList.set(5, typeList.get(5) + 1);
+			} else if (aModuleList.get(i).getType().equals("Power")) {
+				typeList.set(6, typeList.get(6) + 1);
+			} else if (aModuleList.get(i).getType().equals("Control")) {
+				typeList.set(7, typeList.get(7) + 1);
+			} else if (aModuleList.get(i).getType().equals("AirLock")) {
+				typeList.set(8, typeList.get(8) + 1);
+			} else if (aModuleList.get(i).getType().equals("Medical")) {
+				typeList.set(9, typeList.get(9) + 1);
 			} else {
 				Window.alert("module with notype occures, plz check the local storage!");
 			}

@@ -81,7 +81,7 @@ public class ModuleLogging {
 		status.addItem("Unrepairable");
 		status.addItem("Undefined");
 		status.setVisibleItemCount(1);
-		status.setSelectedIndex(3);
+		status.setSelectedIndex(0);
 
 		final ListBox orientation = new ListBox();
 		orientation.addItem("0");
@@ -209,7 +209,7 @@ public class ModuleLogging {
 					// end the get module from local storage method/section of
 					// code
 					code.setText("");
-					status.setSelectedIndex(3);
+					status.setSelectedIndex(0);
 					orientation.setSelectedIndex(0);
 					xcord.setText("");
 					ycord.setText("");
