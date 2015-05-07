@@ -41,11 +41,13 @@ public class MarsMap {
 	Context2d context;
 	private final SoundController soundController = new SoundController();
 	private final Sound minSound1 = soundController.createSound(
-			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
+			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/minConfig1.mp3");
 	private final Sound minSound2 = soundController.createSound(
-			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
+			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/minConfig2.mp3");
 	private final Sound currentSound = soundController.createSound(
-			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
+			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/displayModule.mp3");
+	private final Sound configSound = soundController.createSound(
+			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/displayConfig.mp3");
 	private Storage localStore = Storage.getLocalStorageIfSupported();
 	public MarsMap(ModuleLogging logger, Configuration config) {
 		this.log = logger;
@@ -167,7 +169,7 @@ public class MarsMap {
 				moduleList.addAll(config.ConfigToList(configKey.getText()));
 				loadBackground();
 				loadConfigImages();
-				minSound2.play();
+				configSound.play();
 			}
 		});
 		

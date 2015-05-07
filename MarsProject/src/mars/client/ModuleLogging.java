@@ -34,11 +34,11 @@ public class ModuleLogging {
 	private final VerticalPanel vp = new VerticalPanel();
 	private final SoundController soundController = new SoundController();
 	private final Sound removeSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-			"voice/test.mp3");
+			"voice/deleteModule.mp3");
 	private final Sound removeAllSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-			"voice/test.mp3");
+			"voice/deleteAllModule.mp3");
 	private final Sound saveSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
-			"voice/test.mp3");
+			"voice/addModule.mp3");
 	private SimplePager pager;
 	public ModuleLogging() {
 		moduleStore = Storage.getLocalStorageIfSupported();
@@ -140,11 +140,7 @@ public class ModuleLogging {
 							break;
 						}
 					}
-					if (removeSound.play()) {
-						Window.alert("sound played");
-					} else {
-						Window.alert("sound does not played");
-					}
+					removeSound.play();
 					moduleStore.removeItem(removeString);
 					removeThisCode.setText("");
 					moduleListtable();
@@ -159,11 +155,7 @@ public class ModuleLogging {
 						moduleStore.removeItem(Integer.toString(removedModule.getCode()));
 					}
 					list.clear();
-					if (removeAllSound.play()) {
-						Window.alert("sound played");
-					} else {
-						Window.alert("sound does not played");
-					}
+					removeAllSound.play();
 					moduleListtable();
 				}
 			}
@@ -174,7 +166,6 @@ public class ModuleLogging {
 				int icode = Integer.parseInt(code.getText());
 				int ixcord = Integer.parseInt(xcord.getText());
 				int iycord = Integer.parseInt(ycord.getText());
-				 Window.alert(ycord.getText());
 				if (icode < 0 || icode > 200)
 					Window.alert("Invalid Code!");
 				else if (ixcord < 0 || ixcord > 600 || iycord < 0
@@ -191,11 +182,7 @@ public class ModuleLogging {
 									Integer.toString(currentModule.getCode()),
 									currentModule.toString());
 							list.add(currentModule);
-							if (saveSound.play()) {
-								Window.alert("sound played");
-							} else {
-								Window.alert("sound does not played");
-							}
+							saveSound.play();
 							moduleListtable();
 							Window.alert("Module Logged!");
 						} else {

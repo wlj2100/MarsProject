@@ -43,13 +43,13 @@ public class Configuration {
 	private final CellTable<String> table = new CellTable<String>();
 	private final SoundController soundController = new SoundController();
 	private final Sound removeSound = soundController.createSound(
-			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
+			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/configRemove.mp3");
 	private final Sound removeAllSound = soundController.createSound(
-			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
+			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/removeAllConfig.mp3");
 	private final Sound addSound = soundController.createSound(
-			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
+			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/addModule.mp3");
 	private final Sound finishSound = soundController.createSound(
-			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/test.mp3");
+			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/configSave.mp3");
 	private SimplePager pager;
 	private int quality;
 
@@ -92,7 +92,7 @@ public class Configuration {
 		status.addItem("Unrepairable");
 		status.addItem("Undefined");
 		status.setVisibleItemCount(1);
-		status.setSelectedIndex(3);
+		status.setSelectedIndex(0);
 
 		final ListBox orientation = new ListBox();
 		orientation.addItem("0");
@@ -157,7 +157,7 @@ public class Configuration {
 					localConfig.removeItem(removeString);
 					removeThisCode.setText("");
 					configListtable();
-					
+					removeSound.play();
 				}
 			}
 		});
@@ -171,6 +171,7 @@ public class Configuration {
 					}
 				}
 				configListtable();
+				removeAllSound.play();
 			}
 		});
 		add.addClickHandler(new ClickHandler() {
@@ -205,6 +206,7 @@ public class Configuration {
 						if (!flag) {
 							list.add(currentModule);
 							Window.alert("Module added!");
+							addSound.play();
 						} else {
 							Window.alert("duplicated module, cannot add");
 						}
@@ -214,7 +216,7 @@ public class Configuration {
 					// end the get module from local storage method/section of
 					// code
 					code.setText("");
-					status.setSelectedIndex(3);
+					status.setSelectedIndex(0);
 					orientation.setSelectedIndex(0);
 					xcord.setText("");
 					ycord.setText("");
@@ -234,6 +236,7 @@ public class Configuration {
 				addCounter++;
 				list.clear();
 				configListtable();
+				finishSound.play();
 			}
 		});
 		checkQuality.addClickHandler(new ClickHandler() {

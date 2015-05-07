@@ -1,5 +1,7 @@
 package mars.client;
 
+import com.allen_sauer.gwt.voices.client.Sound;
+import com.allen_sauer.gwt.voices.client.SoundController;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Timer;
@@ -7,8 +9,11 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 
 public class TenDayAlert {
-    private final int TIMER = 846000000;
+    private final int TIMER = 60;
     private long initialTime;
+    private final SoundController soundController = new SoundController();
+	private final Sound reset = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
+			"voice/alertReset.mp3");
 private Timer t;
 
 	public TenDayAlert() {
@@ -30,6 +35,7 @@ private Timer t;
 			public void onClick(ClickEvent event) {
 				if (!t.isRunning()) {
 					t.schedule(TIMER);
+					reset.play();
 				} else {
 					Window.alert("10 Day Alert is runing right now!\n" + "time remains: " + getTimeRemain() + " seconds");
 					
