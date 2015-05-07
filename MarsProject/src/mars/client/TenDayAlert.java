@@ -9,7 +9,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 
 public class TenDayAlert {
-    private final int TIMER = 60;
+    private final int TIMER = 60000;
     private long initialTime;
     private final SoundController soundController = new SoundController();
 	private final Sound reset = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,

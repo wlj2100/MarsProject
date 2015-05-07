@@ -47,7 +47,7 @@ public class MarsProject implements EntryPoint {
 		// simple login
 		// username: MarsUser
 		// password: 123
-		loginSound.play();
+		
 		final Button submitButton = new Button("Submit");
 		final TextBox nameField = new TextBox();
 		final PasswordTextBox passwordField = new PasswordTextBox();
@@ -66,11 +66,11 @@ public class MarsProject implements EntryPoint {
 		vp.add(submitButton);
 		// Use RootPanel.get() to get the entire body element
 		RootPanel.get().add(vp);
-
+		loginSound.play();
 		// Focus the cursor on the name field when the app loads
 		nameField.setFocus(true);
 		nameField.selectAll();
-
+		
 		// Create a handler for the sendButton, nameField and passwordField
 		class MyHandler implements ClickHandler, KeyUpHandler {
 			/**

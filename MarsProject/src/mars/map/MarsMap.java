@@ -49,6 +49,7 @@ public class MarsMap {
 	private final Sound configSound = soundController.createSound(
 			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/displayConfig.mp3");
 	private Storage localStore = Storage.getLocalStorageIfSupported();
+
 	public MarsMap(ModuleLogging logger, Configuration config) {
 		this.log = logger;
 		this.config = config;
@@ -172,7 +173,7 @@ public class MarsMap {
 				configSound.play();
 			}
 		});
-		
+
 		buildButton.addClickHandler(new ClickHandler() {
 			public void onClick(final ClickEvent event) {
 				int moveSize = 0;
@@ -180,19 +181,31 @@ public class MarsMap {
 				// list of config: moduleList
 				for (int i = 0; i < moduleList.size(); i++) {
 					for (int j = 0; j < localList.size(); j++) {
-						Module configModule = moduleList.get(i);
-						Module localModule = localList.get(j);
-						if (configModule.getType() == localModule.getType()
-								&& (localModule.getStringStatus().equals(
-										"Undamaged") || localModule
-										.getStringStatus().equals("Repairable"))) {
+
+						if (moduleList.get(i).getType() == localList.get(j)
+								.getType()
+								&& (localList.get(j).getStringStatus()
+										.equals("Undamaged") || localList
+										.get(j).getStringStatus()
+										.equals("Repairable"))) {
+							Module configModule = moduleList.get(i);
+							Module localModule = new Module(localList.get(j).toString());
 							localList.remove(j);
 							j--;
-							localStore.removeItem(Integer.toString(localModule.getCode()));
-							moveSize = moveSize + Math.abs(localModule.getX()-configModule.getX()) +Math.abs(localModule.getY()-configModule.getY());
+							localStore.removeItem(Integer.toString(localModule
+									.getCode()));
+							moveSize = moveSize
+									+ Math.abs(localModule.getX()
+											- configModule.getX())
+									+ Math.abs(localModule.getY()
+											- configModule.getY());
+							//Window.alert(Integer.toString(moveSize));
 							localModule.setXcoord(configModule.getX());
 							localModule.setYcoord(configModule.getY());
-							localStore.setItem(Integer.toString(localModule.getCode()), localModule.toString());
+							//Window.alert(localModule.toString());
+							localStore.setItem(
+									Integer.toString(localModule.getCode()),
+									localModule.toString());
 							break;
 						}
 					}

@@ -180,7 +180,7 @@ public class Configuration {
 				int ixcord = Integer.parseInt(xcord.getText());
 				int iycord = Integer.parseInt(ycord.getText());
 
-				if (icode < 0 || icode > 200)
+				if (icode < 1 || icode > 190)
 					Window.alert("Invalid Code!");
 				else if (ixcord < 0 || ixcord > 600 || iycord < 0
 						|| iycord > 800)
