@@ -498,4 +498,11 @@ public class Configuration {
 	private void setQuality(int quality) {
 		this.quality = quality;
 	}
+	
+	public ArrayList<Module> getMin1() {
+		return minConfig1;
+	}
+	public ArrayList<Module> getMin2() {
+		return minConfig2;
+	}
 }
