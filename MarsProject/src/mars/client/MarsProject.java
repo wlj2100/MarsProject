@@ -2,6 +2,8 @@ package mars.client;
 
 import mars.map.MarsMap;
 
+import com.allen_sauer.gwt.voices.client.Sound;
+import com.allen_sauer.gwt.voices.client.SoundController;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -32,7 +34,11 @@ public class MarsProject implements EntryPoint {
 	private final Weather weatherpanel = new Weather();
 	private final Weather weatherpanel2 = new Weather();
 	private final GPS gps = new GPS();
-	
+	private final SoundController soundController = new SoundController();
+	private final Sound loginSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
+			"voice/loginPage.mp3");
+	private final Sound loginSuccessfulSound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG_MP3,
+			"voice/loginSuccess.mp3");
 
 	/**
 	 * This is the entry point method.
@@ -41,7 +47,7 @@ public class MarsProject implements EntryPoint {
 		// simple login
 		// username: MarsUser
 		// password: 123
-
+		loginSound.play();
 		final Button submitButton = new Button("Submit");
 		final TextBox nameField = new TextBox();
 		final PasswordTextBox passwordField = new PasswordTextBox();
@@ -96,7 +102,8 @@ public class MarsProject implements EntryPoint {
 				if (nameToServer.equals("MarsUser")
 						&& passwordToServer.equals("123")) {
 					RootPanel.get().clear();
-					Window.alert("login successfully");
+					//Window.alert("login successfully");
+					loginSuccessfulSound.play();
 					showApp();
 				} else {
 					submitButton.setEnabled(true);
