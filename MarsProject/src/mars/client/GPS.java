@@ -40,7 +40,7 @@ public class GPS {
 	private final FlexTable t = new FlexTable();
 
 	// php script
-	private String proxy = "http://www.d.umn.edu/~abrooks/proxy.php?q=";
+	private String proxy = "http://www.d.umn.edu/~abrooks/proxy.php?url=";
 
 	/**
 	 * Default CTOR
