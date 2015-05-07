@@ -173,6 +173,12 @@ public class Module {
     	}
 	}
     public String getImageName(){
+    	if(this.status == 2){
+    		return "images/damage.jpg";
+    	}
+    	if(this.status == 1){
+    		return "images/repair.jpg";
+    	}
     	if(this.code<=60 && this.code >=1){
     		return "images/Plain.jpg";
     	} else if(this.code<=90 && this.code>=61){
@@ -196,6 +202,7 @@ public class Module {
     	} else {
     		return null;
     	}
+    	
     		
     }
     public String getGreyImageName(){
