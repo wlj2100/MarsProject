@@ -212,6 +212,7 @@ public class ModuleLogging {
 
 	// this method shows all the logged modules
 	public void moduleListtable() {
+		SavedModulesList();
 		// clean the table
 		while (table.getColumnCount() > 0) {
 			table.removeColumn(0);
