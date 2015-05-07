@@ -1,8 +1,9 @@
 package mars.client;
 
-
 import java.util.ArrayList;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestCallback;
@@ -16,15 +17,16 @@ import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
- 
-
-
-/** Pulls "location" into a GPS 
+/**
+ * Pulls "location" into a GPS
  * 
  * @author Kyle Freese
  *
@@ -34,39 +36,33 @@ public class CopyOfGPS {
 	private Storage localConfig = Storage.getLocalStorageIfSupported();
 	private int test = 1;
 	private String url;
-	private VerticalPanel vp;
-	
+	private final VerticalPanel vp = new VerticalPanel();
+	private final FlexTable t = new FlexTable();
+
 	// php script
 	private String proxy = "http://www.d.umn.edu/~frees033/proxy.php?q=";
-	
+
 	/**
 	 * Default CTOR
 	 */
-	public CopyOfGPS(){
-				this.url = this.proxy+"http://www.d.umn.edu/~abrooks/SomeTests.php?q=" + this.test;
-				this.url = URL.encode(this.url); 
-				
-	}
-	
-	public void setTestNumber(final int test){
-		this.test = test;
-		this.url = this.proxy+"http://www.d.umn.edu/~abrooks/SomeTests.php?q=" + this.test;
+	public CopyOfGPS() {
+		this.url = this.proxy
+				+ "http://www.d.umn.edu/~abrooks/SomeTests.php?q=" + this.test;
 		this.url = URL.encode(this.url);
-	}
-	
-	public String getURL(){
-		return this.url;
-	}
-	
-	public int getCurrentTestNumber(){
-		return this.test;
+
 	}
 
-	
-	public void update(String rt) {
-		//clear local storage for test case
+	public void setTestNumber(final int test) {
+		this.test = test;
+		this.url = this.proxy
+				+ "http://www.d.umn.edu/~abrooks/SomeTests.php?q=" + this.test;
+		this.url = URL.encode(this.url);
+	}
+
+	private void update(String rt) {
+		// clear local storage for test case
 		for (int i = 0; i < localConfig.getLength(); i++) {
-			if (!localConfig.key(i).startsWith("m")) {
+			if (!localConfig.key(i).startsWith("m") || !localConfig.key(i).startsWith("c")) {
 				localConfig.removeItem(localConfig.key(i));
 			}
 		}
@@ -94,43 +90,59 @@ public class CopyOfGPS {
 			module.setXcoord((int) jN.doubleValue());
 			jN = (JSONNumber) jO.get("Y");
 			module.setYcoord((int) jN.doubleValue());
-			localConfig.setItem(
-					Integer.toString(module.getCode()),
+			Window.alert(module.toString());
+			localConfig.setItem(Integer.toString(module.getCode()),
 					module.toString());
 		}
-		
-	}
-	
-	
-	/**
-	 * Sends a request to Brooks test feed
-	 * @param url
-	 */
-	private void sendRequest(final String url){
-		// Send request to server and catch any errors. 
-		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url); 
-		 
-		try { 
-		 Request request = builder.sendRequest(null, new RequestCallback() { 
-		 
-		 public void onError(final Request request, final Throwable exception) { 
-		 Window.alert("onError: Couldn't retrieve JSON"); 
-		 } 
-		 
-		 public void onResponseReceived(final Request request, final Response response) { 
-		 if (200 == response.getStatusCode()) { 
-			 String rt = response.getText(); 
-		 	update(rt);
-		 } else { 
-		 Window.alert("Couldn't retrieve JSON (" + response.getStatusText() 
-		 + ")"); 
-		 } 
-		 } 
-		 }); 
-		} catch (RequestException e) { 
-		 Window.alert("RequestException: Couldn't retrieve JSON"); 
-		} 
 
 	}
-	
+
+	/**
+	 * Sends a request to Brooks test feed
+	 * 
+	 * @param url
+	 */
+	private void sendRequest() {
+		// Send request to server and catch any errors.
+		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url);
+
+		try {
+			Request request = builder.sendRequest(null, new RequestCallback() {
+
+				public void onError(final Request request,
+						final Throwable exception) {
+					Window.alert("onError: Couldn't retrieve JSON");
+				}
+
+				public void onResponseReceived(final Request request,
+						final Response response) {
+					if (200 == response.getStatusCode()) {
+						String rt = response.getText();
+						update(rt);
+					} else {
+						Window.alert("Couldn't retrieve JSON ("
+								+ response.getStatusText() + ")");
+					}
+				}
+			});
+		} catch (RequestException e) {
+			Window.alert("RequestException: Couldn't retrieve JSON");
+		}
+	}
+
+	public VerticalPanel getVP() {
+		final TextBox testNo = new TextBox();
+		final Button getTest = new Button("get test");
+		getTest.addClickHandler(new ClickHandler() {
+			public void onClick(final ClickEvent event) {
+				setTestNumber(Integer.parseInt(testNo.getText()));
+				sendRequest();
+			}
+		});
+		t.setText(0, 0, "please input the testcase Number");
+		t.setWidget(0, 1, testNo);
+		t.setWidget(0, 2, getTest);
+		vp.add(t);
+		return vp;
+	}
 }

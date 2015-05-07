@@ -31,6 +31,7 @@ public class MarsProject implements EntryPoint {
 	private final TenDayAlert tenday = new TenDayAlert();
 	private final Weather weatherpanel = new Weather();
 	private final Weather weatherpanel2 = new Weather();
+	private final CopyOfGPS gps = new CopyOfGPS();
 	
 
 	/**
@@ -118,6 +119,7 @@ public class MarsProject implements EntryPoint {
 		splitPanel.add(moduleLogging.getModuleLoginPanel(), DockPanel.NORTH);
 		splitPanel.add(tenday.getAlert(), DockPanel.NORTH);
 		splitPanel.add(weatherpanel.getWeather(), DockPanel.EAST);
+		splitPanel.add(gps.getVP(), DockPanel.WEST);
 		VerticalPanel vp2 = new VerticalPanel();
 		vp2.add(map.getMarsPanel());
 		vp2.add(weatherpanel2.getWeather());
