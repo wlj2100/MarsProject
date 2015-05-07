@@ -49,6 +49,7 @@ public class MarsMap {
 	private final Sound configSound = soundController.createSound(
 			Sound.MIME_TYPE_AUDIO_MPEG_MP3, "voice/displayConfig.mp3");
 	private Storage localStore = Storage.getLocalStorageIfSupported();
+	private final ArrayList<Module> before = new ArrayList<Module>();
 
 	public MarsMap(ModuleLogging logger, Configuration config) {
 		this.log = logger;
@@ -120,30 +121,33 @@ public class MarsMap {
 				"Display Minimun Configuration 1");
 		displayMinConfig1.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
+				minSound1.play();
 				moduleList.clear();
 				moduleList.addAll(config.ConfigToList("minConfig1"));
 				// list = config.ConfigToList("minConfig1");
 				loadBackground();
 				loadConfigImages();
-				minSound1.play();
+				
 			}
 		});
 		final Button displayMinConfig2 = new Button(
 				"Display Minimun Configuration 2");
 		displayMinConfig2.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
+				minSound2.play();
 				moduleList.clear();
 				moduleList.addAll(config.ConfigToList("minConfig2"));
 				// list = config.ConfigToList("minConfig2");
 				loadBackground();
 				loadConfigImages();
-				minSound2.play();
+				
 			}
 		});
 		final Button displayCurrent = new Button("Display Current Modules");
 		displayCurrent.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				// list = log.getSavedModules();
+				currentSound.play();
 				moduleList.clear();
 				moduleList.addAll(log.getSavedModules());
 				if (meetConfigRequire(getTypeNum(moduleList),
@@ -159,7 +163,7 @@ public class MarsMap {
 				}
 				loadBackground();
 				loadModuleImages();
-				currentSound.play();
+				
 			}
 		});
 		final TextBox configKey = new TextBox();
@@ -178,6 +182,8 @@ public class MarsMap {
 			public void onClick(final ClickEvent event) {
 				int moveSize = 0;
 				ArrayList<Module> localList = log.getSavedModules();
+				before.clear();
+				before.addAll(localList);
 				// list of config: moduleList
 				for (int i = 0; i < moduleList.size(); i++) {
 					for (int j = 0; j < localList.size(); j++) {
@@ -221,13 +227,23 @@ public class MarsMap {
 				currentSound.play();
 			}
 		});
+		final Button showBefore = new Button("show before");
+		showBefore.addClickHandler(new ClickHandler() {
+			public void onClick(final ClickEvent event) {
+				moduleList.clear();
+				moduleList.addAll(before);
+				loadBackground();
+				loadModuleImages();
+			}
+		});
 		final FlexTable t = new FlexTable();
 		t.setWidget(0, 0, displayCurrent);
 		t.setWidget(0, 1, displayMinConfig1);
 		t.setWidget(0, 2, displayMinConfig2);
-		t.setWidget(0, 3, buildButton);
-		t.setWidget(1, 0, configKey);
-		t.setWidget(1, 1, showConfig);
+		t.setWidget(1, 0, buildButton);
+		t.setWidget(1, 1, showBefore);
+		t.setWidget(2, 0, configKey);
+		t.setWidget(2, 1, showConfig);
 		displayMinConfig1.setVisible(false);
 		displayMinConfig2.setVisible(false);
 		buildButton.setVisible(false);

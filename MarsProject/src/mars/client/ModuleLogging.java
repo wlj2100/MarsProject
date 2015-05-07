@@ -52,7 +52,7 @@ public class ModuleLogging {
 	private void SavedModulesList() {
 		if (moduleStore != null) {
 			list.clear();
-			Window.alert(Integer.toString(moduleStore.getLength()));
+			// Window.alert(Integer.toString(moduleStore.getLength()));
 			for (int i = 0; i < moduleStore.getLength(); i += 1) {
 				String key = moduleStore.key(i);
 				if (!key.startsWith("c") && !key.startsWith("m")) {
@@ -67,6 +67,7 @@ public class ModuleLogging {
 	}
 
 	public ArrayList<Module> getSavedModules() {
+		SavedModulesList();
 		return list;
 	}
 
@@ -169,8 +170,8 @@ public class ModuleLogging {
 				int iycord = Integer.parseInt(ycord.getText());
 				if (icode < 1 || icode > 190)
 					Window.alert("Invalid Code!");
-				else if (ixcord < 0 || ixcord > 30|| iycord < 0
-						|| iycord > 15)
+				else if (ixcord < 0 || ixcord > 29|| iycord < 0
+						|| iycord > 14)
 					Window.alert("Invalid coordinates!");
 				else {
 					// start of the bounds checking method

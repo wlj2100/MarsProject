@@ -182,8 +182,8 @@ public class Configuration {
 
 				if (icode < 1 || icode > 190)
 					Window.alert("Invalid Code!");
-				else if (ixcord < 0 || ixcord > 600 || iycord < 0
-						|| iycord > 800)
+				else if (ixcord < 0 || ixcord > 29|| iycord < 0
+						|| iycord > 14)
 					Window.alert("Invalid coordinates!");
 				else {
 					// start of the bounds checking method
