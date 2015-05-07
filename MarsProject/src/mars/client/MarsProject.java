@@ -31,7 +31,7 @@ public class MarsProject implements EntryPoint {
 	private final TenDayAlert tenday = new TenDayAlert();
 	private final Weather weatherpanel = new Weather();
 	private final Weather weatherpanel2 = new Weather();
-	private final CopyOfGPS gps = new CopyOfGPS();
+	private final GPS gps = new GPS();
 	
 
 	/**
