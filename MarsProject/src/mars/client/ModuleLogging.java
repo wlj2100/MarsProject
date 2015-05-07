@@ -168,8 +168,8 @@ public class ModuleLogging {
 				int iycord = Integer.parseInt(ycord.getText());
 				if (icode < 1 || icode > 190)
 					Window.alert("Invalid Code!");
-				else if (ixcord < 0 || ixcord > 600 || iycord < 0
-						|| iycord > 800)
+				else if (ixcord < 0 || ixcord > 30|| iycord < 0
+						|| iycord > 15)
 					Window.alert("Invalid coordinates!");
 				else {
 					// start of the bounds checking method
