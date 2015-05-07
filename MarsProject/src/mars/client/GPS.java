@@ -62,11 +62,6 @@ public class GPS {
 	private void update(String rt) {
 		// clear local storage for test case
 		
-		for (int i = 0; i < localConfig.getLength(); i++) {
-			if (!localConfig.key(i).startsWith("m") || !localConfig.key(i).startsWith("c")) {
-				localConfig.removeItem(localConfig.key(i));
-			}
-		}
 		
 		ArrayList<Module> list = new ArrayList<Module>();
 		String configString = rt;
