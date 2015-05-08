@@ -372,7 +372,7 @@ public class Configuration {
 			aStringBuilder.append("Sanitation cannot next to Canteen!\n");
 		}
 		// rule2 Sanitation not next to Food & water storage
-		if (isNextTo(modulelist, "Sanitation", "food")) {
+		if (isNextTo(modulelist, "Sanitation", "Food")) {
 			aStringBuilder.append("Sanitation cannot next to food!\n");
 		}
 		// rule3 Airlock not next to Dormitory
