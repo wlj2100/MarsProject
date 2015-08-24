@@ -35,6 +35,7 @@ private Timer t;
 			public void onClick(ClickEvent event) {
 				if (!t.isRunning()) {
 					t.schedule(TIMER);
+					initialTime = System.currentTimeMillis();
 					reset.play();
 				} else {
 					Window.alert("10 Day Alert is runing right now!\n" + "time remains: " + getTimeRemain() + " seconds");
